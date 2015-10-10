@@ -1,0 +1,243 @@
+import numpy as np
+
+from sklearn import metrics
+from sklearn.metrics import confusion_matrix
+
+from pystruct.learners import NSlackSSVM, LatentSSVM
+import matplotlib.pyplot as plt
+
+# Internal Imports
+import Util.pyeeg as pyeeg  # Contains the sample entropy calculation
+from Util.data_parser import load_data
+from Models.GraphLDCRF import GraphLDCRF
+
+
+__author__ = 'Manoel Ribeiro'
+
+
+def write_confusion_matrix(y_t, y_p):
+    y_ts = []
+    for y_ti in y_t:
+        y_ts.append(y_ti.tolist())
+
+    y_ps = []
+    for y_pi in y_p:
+        y_ps.append(y_pi.tolist())
+
+    return confusion_matrix(sum(y_ts, []), sum(y_ps, [])), metrics.classification_report(y_ts, y_ps)
+
+
+def sample_entropy(X, Y):
+
+    a = {}
+
+    done = 0.0
+
+    for k in range(len(X)):
+        for i, j in zip(X[k][0],Y[k]):
+            if a.has_key(j) == False:
+                a[j] = []
+            a[j].append(i)
+
+    samp_entropy_sum = {}
+
+    for key in a.keys():
+        matrix = np.array(a[key]).transpose()
+        partial = 0
+
+        for i in matrix:
+            std = np.std(i)
+            partial += pyeeg.samp_entropy(i, 2, 0.2*std)
+
+        samp_entropy_sum[key] = partial
+
+        done += 1.0
+        print str(done/len(a.keys())*100) + "% DONE!"
+
+    return samp_entropy_sum.items()
+
+
+def divide_hidden_states_entropy(balls, buckets, measure):
+
+    # initialize each bucket with one ball
+    balls -= buckets
+    balls_dist = buckets
+
+    states = []
+    for i in range(buckets):
+        states.append(1)
+
+    # gets measure into array and normalize it
+    values = []
+    for i, j in measure:
+        values.append(j)
+
+    sum_values = np.array(values).sum()
+    values = map(lambda x: x/sum_values, values)
+
+    # get actual values in the distribution
+    actual_values = [float(x) / balls_dist for x in states]
+
+    # distribute the rest of the buckets
+    while balls != 0:
+        diff = [a-b for a, b in zip(values, actual_values)]
+
+        # gets the tuple with (x,y) where X,
+        # is position, and Y is the value of diff
+        tuple = max(enumerate(diff), key=(lambda k: k[1]))
+
+        # do some bookkeeping
+        balls -= 1
+        balls_dist +=1
+        states[tuple[0]] += 1
+        actual_values = [float(x) / balls_dist for x in states]
+
+    return states
+
+
+def divide_hidden_states_normal(balls, buckets):
+
+    states = []
+
+    # Initialize each state with 0 balls
+    for i in range(buckets):
+        states.append(0)
+
+    # Add balls to states in order
+    pointer = 0
+    for i in range(balls):
+        states[pointer % buckets] += 1
+        pointer += 1
+
+    return states
+
+
+# does the work for one of the hidden states distributions
+def test_case(number_states, s_ent, labels, x, y, x_t, y_t):
+
+    # Gets the different states
+    optimal_states = divide_hidden_states_entropy(number_states, labels, s_ent)
+    suboptimal_states = divide_hidden_states_normal(number_states, labels)
+
+    print "Optimal States: ", optimal_states
+    print "Suboptimal States: ", suboptimal_states
+
+    # TEST 1 #
+    # Suppose that we can use 30 hidden states, a naive approach
+    # would be to distribute them equally throughout the labels.
+    latent_pbl = GraphLDCRF(n_states_per_label=suboptimal_states, inference_method='dai')
+    base_ssvm = NSlackSSVM(latent_pbl, C=1, tol=.01, inactive_threshold=1e-3, batch_size=10, verbose=0, n_jobs=6)
+    latent_svm = LatentSSVM(base_ssvm=base_ssvm, latent_iter=10)
+    latent_svm.fit(x, y)
+
+    print "------- TEST 1 SUBOPTIMAL STATES -------"
+    print("Score with SSSVM:")
+    print("Train: {:2.6f}".format(latent_svm.score(x, y)))
+    print("Test: {:2.6f}".format(latent_svm.score(x_t, y_t)))
+
+    opt_test = latent_svm.score(x_t, y_t)
+    opt_train = latent_svm.score(x, y)
+
+    # TEST 2 #
+    # Now we go for the sample entropy approach.
+    latent_pbl = GraphLDCRF(n_states_per_label=optimal_states, inference_method='dai')
+    base_ssvm = NSlackSSVM(latent_pbl, C=1, tol=.01, inactive_threshold=1e-3, batch_size=10, verbose=0, n_jobs=8)
+    latent_svm = LatentSSVM(base_ssvm=base_ssvm, latent_iter=5)
+    latent_svm.fit(x, y)
+
+    print "------- TEST 2 OPTIMAL STATES -------"
+    print("Score with SSSVM:")
+    print("Train: {:2.6f}".format(latent_svm.score(x, y)))
+    print("Test: {:2.6f}".format(latent_svm.score(x_t, y_t)))
+
+    sopt_test = latent_svm.score(x_t, y_t)
+    sopt_train = latent_svm.score(x, y)
+
+    return opt_test, opt_train, sopt_test, sopt_train
+
+
+# does the work for one fold
+def fold_results(tests, labels, datatrain, seqtrain, datatest, seqtest):
+
+    print "Loading data..."
+    x, y, x_t, y_t = load_data(datatrain, seqtrain, datatest, seqtest)
+    print "Data loaded!"
+
+    print "Calculating Sample Entropy..."
+
+    s_ent = sample_entropy(x, y)
+
+    print "Sample Entropy Calculated!"
+
+    print "Sample Entropy: ", s_ent
+
+    # Arrays containing the results.
+
+    # ~Optimal~ stuff
+    opt_tests = []
+    opt_trains = []
+
+    # Suboptimal stuff
+    sopt_tests = []
+    sopt_trains = []
+
+    print "Starting test!"
+
+    for i in tests:
+        opt_test, opt_train, sopt_test, sopt_train = test_case(i, s_ent, labels, x, y, x_t, y_t)
+
+        opt_tests.append(opt_test)
+        opt_trains.append(opt_train)
+
+        sopt_tests.append(sopt_tests)
+        sopt_trains.append(sopt_trains)
+
+    return opt_tests, opt_trains, sopt_tests, sopt_trains
+
+
+# does all the folds in a data-set
+def eval_data_set(tests, n_labels, folds, path, data, label, train, test, name, fold):
+
+    opt_tests = []
+    opt_trains = []
+
+    sopt_tests = []
+    sopt_trains = []
+
+    for i in folds:
+        # test
+        dte = path + data + test + name + fold + str(i) + ".csv"
+        sqte = path + label + test + name + fold + str(i) + ".csv"
+
+        # train
+        dtr = path + data + train + name + fold + str(i) + ".csv"
+        sqtr = path + label + train + name + fold + str(i) + ".csv"
+
+        opt_test, opt_train, sopt_test, sopt_train = fold_results(tests, n_labels, dtr, sqtr, dte, sqte)
+
+        opt_tests.append(opt_test)
+        opt_trains.append(opt_train)
+
+        sopt_tests.append(sopt_test)
+        sopt_trains.append(sopt_train)
+
+    opt_tests = np.array(opt_tests).transpose()
+    opt_trains = np.array(opt_trains).transpose()
+    sopt_tests = np.array(sopt_tests).transpose()
+    sopt_trains = np.array(sopt_trains).transpose()
+
+    # Optimal Data
+
+    opt_tests_avg_std = (opt_tests.mean(0), opt_tests.std(0))
+
+    opt_trains_avg_std = (opt_trains.mean(0), opt_trains.std(0))
+
+    # Suboptimal Data
+
+    sopt_tests_avg_std = (sopt_tests.mean(0), sopt_tests.std(0))
+
+    sopt_trains_avg_std = (sopt_trains.mean(0), sopt_trains.std(0))
+
+    return opt_tests_avg_std, opt_trains_avg_std, sopt_tests_avg_std, sopt_trains_avg_std
+
+

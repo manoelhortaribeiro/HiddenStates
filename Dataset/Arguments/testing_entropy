@@ -1,0 +1,7 @@
+-D /home/manoel/Projects/hidden_states_entropy/Dataset/Data/NATOPS/dataTestNATOPSFold1.csv
+-L /home/manoel/Projects/hidden_states_entropy/Dataset/Data/NATOPS/seqLabelsTestNATOPSFold1.csv
+-d /home/manoel/Projects/hidden_states_entropy/Dataset/Data/NATOPS/dataTrainNATOPSFold1.csv
+-l /home/manoel/Projects/hidden_states_entropy/Dataset/Data/NATOPS/seqLabelsTrainNATOPSFold1.csv
+-m /home/manoel/Projects/hidden_states_entropy/Dataset/Output/Model/
+-s /home/manoel/Projects/hidden_states_entropy/Dataset/Output/Stats/
+-r /home/manoel/Projects/hidden_states_entropy/Dataset/Output/Results/
