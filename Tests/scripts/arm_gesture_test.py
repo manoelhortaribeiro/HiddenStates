@@ -22,7 +22,7 @@ date = datetime.datetime.utcnow().strftime("%d_%m_%y-%H:%M")
 description = "ArmGestureContinuous"
 
 
-project_folder = "/home/manoel/Projects/"
+project_folder = "/home/manoelribeiro/"
 out = "hidden_states_entropy/Dataset/Output/Results/"
 
 f = open(project_folder + out + description + date, "a")
