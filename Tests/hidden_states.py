@@ -142,7 +142,7 @@ def test_case(number_states, s_ent, labels, x, y, x_t, y_t):
     # Now we go for the sample entropy approach.
     latent_pbl = GraphLDCRF(n_states_per_label=optimal_states, inference_method='dai')
     base_ssvm = NSlackSSVM(latent_pbl, C=1, tol=.01, inactive_threshold=1e-3, batch_size=10, verbose=0, n_jobs=8)
-    latent_svm = LatentSSVM(base_ssvm=base_ssvm, latent_iter=5)
+    latent_svm = LatentSSVM(base_ssvm=base_ssvm, latent_iter=10)
     latent_svm.fit(x, y)
 
     print "------- TEST 2 OPTIMAL STATES -------"
@@ -153,6 +153,10 @@ def test_case(number_states, s_ent, labels, x, y, x_t, y_t):
     sopt_test = latent_svm.score(x_t, y_t)
     sopt_train = latent_svm.score(x, y)
 
+    print opt_test
+    print opt_train
+    print sopt_test
+    print sopt_train
     return opt_test, opt_train, sopt_test, sopt_train
 
 
@@ -189,8 +193,8 @@ def fold_results(tests, labels, datatrain, seqtrain, datatest, seqtest):
         opt_tests.append(opt_test)
         opt_trains.append(opt_train)
 
-        sopt_tests.append(sopt_tests)
-        sopt_trains.append(sopt_trains)
+        sopt_tests.append(sopt_test)
+        sopt_trains.append(sopt_train)
 
     return opt_tests, opt_trains, sopt_tests, sopt_trains
 
