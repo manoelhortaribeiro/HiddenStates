@@ -88,7 +88,8 @@ class GraphLDCRF(LatentGraphCRF):
         # treat all edges the same
         edges = [[self._get_edges(x)] for x in X]
         features = np.array([self._get_features(x) for x in X])
-        return kmeans_init(features, Y, edges, n_labels=self.n_labels,
-                           n_states_per_label=self.n_states_per_label)  # self.random_init(X, Y)
+        # return kmeans_init(features, Y, edges, n_labels=self.n_labels,
+        #                   n_states_per_label=self.n_states_per_label)
+        return self.random_init(X, Y)
 
 

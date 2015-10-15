@@ -4,7 +4,6 @@ from sklearn import metrics
 from sklearn.metrics import confusion_matrix
 
 from pystruct.learners import NSlackSSVM, LatentSSVM
-import matplotlib.pyplot as plt
 
 # Internal Imports
 import Util.pyeeg as pyeeg  # Contains the sample entropy calculation
@@ -53,6 +52,14 @@ def sample_entropy(X, Y):
 
         done += 1.0
         print str(done/len(a.keys())*100) + "% DONE!"
+
+    total_entropy = 0
+
+    for key in a.keys():
+        total_entropy += samp_entropy_sum[key]
+
+    for key in a.keys():
+        samp_entropy_sum[key] = samp_entropy_sum[key]/(float(total_entropy))
 
     return samp_entropy_sum.items()
 
@@ -225,10 +232,10 @@ def eval_data_set(tests, n_labels, folds, path, data, label, train, test, name, 
         sopt_tests.append(sopt_test)
         sopt_trains.append(sopt_train)
 
-    opt_tests = np.array(opt_tests).transpose()
-    opt_trains = np.array(opt_trains).transpose()
-    sopt_tests = np.array(sopt_tests).transpose()
-    sopt_trains = np.array(sopt_trains).transpose()
+    opt_tests = np.array(opt_tests)
+    opt_trains = np.array(opt_trains)
+    sopt_tests = np.array(sopt_tests)
+    sopt_trains = np.array(sopt_trains)
 
     # Optimal Data
 

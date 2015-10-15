@@ -4,27 +4,25 @@ import datetime
 __author__ = 'Manoel Ribeiro'
 
 
-tests = [12, 14, 16, 18, 20, 24, 28, 32, 36]
-n_labels = 6
-folds = [1, 2, 3, 4, 5]
-path = "/home/manoel/Projects/hidden_states_entropy/Dataset/Data/ArmGestureContinuous/"
+tests = [20, 24, 28, 34, 40, 50]
+n_labels = 10
+folds = [1, 2, 3, 4]
+path = "/home/manoel/Projects/hidden_states_entropy/Dataset/Data/CAD120/"
 data = "data"
 label = "seqLabels"
 train = "Train"
 test = "Test"
-name = "ArmGestureContinuous"
+name = "CAD120"
 fold = "Fold"
 
 opt_tests_avg_std, opt_trains_avg_std, sopt_tests_avg_std, sopt_trains_avg_std = \
-    [1, 2, 3], [1, 2, 3], [1, 3, 4], [1, 3, 4]
-
-    #hs.eval_data_set(tests, n_labels, folds, path, data, label, train, test, name, fold)
+    hs.eval_data_set(tests, n_labels, folds, path, data, label, train, test, name, fold)
 
 date = datetime.datetime.utcnow().strftime("%d_%m_%y-%H:%M")
 description = "ArmGestureContinuous"
 
 
-project_folder = "/home/manoelribeiro/"
+project_folder = "/home/manoel/Projects/"
 out = "hidden_states_entropy/Dataset/Output/Results/"
 
 f = open(project_folder + out + description + date, "a")
