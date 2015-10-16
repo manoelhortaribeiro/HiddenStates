@@ -102,6 +102,53 @@ def divide_hidden_states_entropy(balls, buckets, measure):
     return states
 
 
+def divide_hidden_states_entropy_c(balls, buckets, measure, c):
+
+    original_balls = balls
+
+    # initialize each bucket with one ball
+    balls -= buckets
+    balls_dist = buckets
+
+    states = []
+    for i in range(buckets):
+        states.append(1)
+
+    # gets measure into array and normalize it
+    values = []
+    for i, j in measure:
+        values.append(j)
+
+    sum_values = np.array(values).sum()
+    values = map(lambda x: x/sum_values, values)
+
+    # get actual values in the distribution
+    actual_values = [float(x) / balls_dist for x in states]
+
+    # distribute the rest of the buckets
+    while balls != 0:
+        diff = [a-b for a, b in zip(values, actual_values)]
+
+        # gets the tuple with (x,y) where X,
+        # is position, and Y is the value of diff
+        tuple = sorted(enumerate(diff), key=(lambda k: k[1]))
+
+        # do some bookkeeping
+        balls -= 1
+        balls_dist += 1
+
+        for i in range(buckets):
+            if states[tuple[-(i+1)][0]] < c * original_balls or i+1 == buckets:
+                print -(i+1), c*original_balls, states[tuple[-(i+1)][0]]
+                states[tuple[-(i+1)][0]] += 1
+                break
+
+        actual_values = [float(x) / balls_dist for x in states]
+        print states
+        print actual_values
+    return states
+
+
 def divide_hidden_states_normal(balls, buckets):
 
     states = []
@@ -120,10 +167,16 @@ def divide_hidden_states_normal(balls, buckets):
 
 
 # does the work for one of the hidden states distributions
-def test_case(number_states, s_ent, labels, x, y, x_t, y_t):
+def test_case(number_states, s_ent, labels, x, y, x_t, y_t, kind):
 
     # Gets the different states
-    optimal_states = divide_hidden_states_entropy(number_states, labels, s_ent)
+    if kind == "Equal":
+        optimal_states = divide_hidden_states_entropy(number_states, labels, s_ent)
+    if kind == "Capped40%":
+        optimal_states = divide_hidden_states_entropy_c(number_states, labels, s_ent, 0.4)
+    if kind == "Capped30%":
+        optimal_states = divide_hidden_states_entropy_c(number_states, labels, s_ent, 0.3)
+
     suboptimal_states = divide_hidden_states_normal(number_states, labels)
 
     print "Optimal States: ", optimal_states
@@ -168,7 +221,7 @@ def test_case(number_states, s_ent, labels, x, y, x_t, y_t):
 
 
 # does the work for one fold
-def fold_results(tests, labels, datatrain, seqtrain, datatest, seqtest):
+def fold_results(tests, labels, datatrain, seqtrain, datatest, seqtest, kind):
 
     print "Loading data..."
     x, y, x_t, y_t = load_data(datatrain, seqtrain, datatest, seqtest)
@@ -195,7 +248,7 @@ def fold_results(tests, labels, datatrain, seqtrain, datatest, seqtest):
     print "Starting test!"
 
     for i in tests:
-        opt_test, opt_train, sopt_test, sopt_train = test_case(i, s_ent, labels, x, y, x_t, y_t)
+        opt_test, opt_train, sopt_test, sopt_train = test_case(i, s_ent, labels, x, y, x_t, y_t, kind)
 
         opt_tests.append(opt_test)
         opt_trains.append(opt_train)
@@ -207,7 +260,7 @@ def fold_results(tests, labels, datatrain, seqtrain, datatest, seqtest):
 
 
 # does all the folds in a data-set
-def eval_data_set(tests, n_labels, folds, path, data, label, train, test, name, fold):
+def eval_data_set(tests, n_labels, folds, path, data, label, train, test, name, fold, kind="Equal"):
 
     opt_tests = []
     opt_trains = []
@@ -224,7 +277,7 @@ def eval_data_set(tests, n_labels, folds, path, data, label, train, test, name, 
         dtr = path + data + train + name + fold + str(i) + ".csv"
         sqtr = path + label + train + name + fold + str(i) + ".csv"
 
-        opt_test, opt_train, sopt_test, sopt_train = fold_results(tests, n_labels, dtr, sqtr, dte, sqte)
+        opt_test, opt_train, sopt_test, sopt_train = fold_results(tests, n_labels, dtr, sqtr, dte, sqte, kind)
 
         opt_tests.append(opt_test)
         opt_trains.append(opt_train)
