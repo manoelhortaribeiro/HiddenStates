@@ -19,7 +19,7 @@ opt_tests_avg_std, opt_trains_avg_std, sopt_tests_avg_std, sopt_trains_avg_std =
     hs.eval_data_set(tests, n_labels, folds, path, data, label, train, test, name, fold, kind="Capped30%")
 
 date = datetime.datetime.utcnow().strftime("%d_%m_%y-%H:%M")
-description = "ArmGestureContinuous"
+description = "CAD120c30"
 
 
 project_folder = "/home/manoel/Projects/"

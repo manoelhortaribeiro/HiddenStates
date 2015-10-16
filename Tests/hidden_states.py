@@ -131,21 +131,19 @@ def divide_hidden_states_entropy_c(balls, buckets, measure, c):
 
         # gets the tuple with (x,y) where X,
         # is position, and Y is the value of diff
-        tuple = sorted(enumerate(diff), key=(lambda k: k[1]))
+        tuplediff = sorted(enumerate(diff), key=(lambda k: k[1]))
 
         # do some bookkeeping
         balls -= 1
         balls_dist += 1
 
         for i in range(buckets):
-            if states[tuple[-(i+1)][0]] < c * original_balls or i+1 == buckets:
-                print -(i+1), c*original_balls, states[tuple[-(i+1)][0]]
-                states[tuple[-(i+1)][0]] += 1
+            if states[tuplediff[-(i+1)][0]] < c * original_balls or i+1 == buckets:
+                states[tuplediff[-(i+1)][0]] += 1
                 break
 
         actual_values = [float(x) / balls_dist for x in states]
-        print states
-        print actual_values
+
     return states
 
 
