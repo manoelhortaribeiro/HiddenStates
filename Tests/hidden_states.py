@@ -234,7 +234,8 @@ def fold_results(tests, labels, datatrain, seqtrain, datatest, seqtest, kind, su
 
     print "Calculating Sample Entropy..."
 
-    s_ent = [(0,0.1), (1,0.1), (2,0.1), (3,0.1), (4,0.1), (5,0.1), (6,0.1), (7,0.1), (8,0.1), (9,0.1)]#sample_entropy(x, y)
+    s_ent = sample_entropy(x, y)
+    # s_ent = [(0,0.1), (1,0.1), (2,0.1), (3,0.1), (4,0.1), (5,0.1), (6,0.1), (7,0.1), (8,0.1), (9,0.1)]
 
     print "Sample Entropy Calculated!"
 
