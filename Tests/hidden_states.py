@@ -165,9 +165,9 @@ def divide_hidden_states_normal(balls, buckets):
 
 
 # does the work for one of the hidden states distributions
-def test_case(number_states, s_ent, labels, x, y, x_t, y_t, kind):
+def test_case(number_states, s_ent, labels, x, y, x_t, y_t, kind, subopt, opt):
 
-    # Gets the different states
+    # Gets the different states divisions
     if kind == "Equal":
         optimal_states = divide_hidden_states_entropy(number_states, labels, s_ent)
     if kind == "Capped40%":
@@ -183,43 +183,50 @@ def test_case(number_states, s_ent, labels, x, y, x_t, y_t, kind):
     # TEST 1 #
     # Suppose that we can use 30 hidden states, a naive approach
     # would be to distribute them equally throughout the labels.
-    latent_pbl = GraphLDCRF(n_states_per_label=suboptimal_states, inference_method='dai')
-    base_ssvm = NSlackSSVM(latent_pbl, C=1, tol=.01, inactive_threshold=1e-3, batch_size=10, verbose=0, n_jobs=6)
-    latent_svm = LatentSSVM(base_ssvm=base_ssvm, latent_iter=10)
-    latent_svm.fit(x, y)
 
-    print "------- TEST 1 SUBOPTIMAL STATES -------"
-    print("Score with SSSVM:")
-    print("Train: {:2.6f}".format(latent_svm.score(x, y)))
-    print("Test: {:2.6f}".format(latent_svm.score(x_t, y_t)))
+    if subopt:
+        latent_pbl = GraphLDCRF(n_states_per_label=suboptimal_states, inference_method='dai')
+        base_ssvm = NSlackSSVM(latent_pbl, C=1, tol=.01, inactive_threshold=1e-3, batch_size=10, verbose=0, n_jobs=8)
+        latent_svm = LatentSSVM(base_ssvm=base_ssvm, latent_iter=10)
+        latent_svm.fit(x, y)
 
-    opt_test = latent_svm.score(x_t, y_t)
-    opt_train = latent_svm.score(x, y)
+        print "------- TEST 1 SUBOPTIMAL STATES -------"
+        print("Score with SSSVM:")
+        print("Train: {:2.6f}".format(latent_svm.score(x, y)))
+        print("Test: {:2.6f}".format(latent_svm.score(x_t, y_t)))
+
+        sopt_test = latent_svm.score(x_t, y_t)
+        sopt_train = latent_svm.score(x, y)
+    else:
+        sopt_test = 0
+        sopt_train = 0
 
     # TEST 2 #
     # Now we go for the sample entropy approach.
-    latent_pbl = GraphLDCRF(n_states_per_label=optimal_states, inference_method='dai')
-    base_ssvm = NSlackSSVM(latent_pbl, C=1, tol=.01, inactive_threshold=1e-3, batch_size=10, verbose=0, n_jobs=8)
-    latent_svm = LatentSSVM(base_ssvm=base_ssvm, latent_iter=10)
-    latent_svm.fit(x, y)
 
-    print "------- TEST 2 OPTIMAL STATES -------"
-    print("Score with SSSVM:")
-    print("Train: {:2.6f}".format(latent_svm.score(x, y)))
-    print("Test: {:2.6f}".format(latent_svm.score(x_t, y_t)))
+    if opt:
+        latent_pbl = GraphLDCRF(n_states_per_label=optimal_states, inference_method='dai')
+        base_ssvm = NSlackSSVM(latent_pbl, C=1, tol=.01, inactive_threshold=1e-3, batch_size=10, verbose=0, n_jobs=8)
+        latent_svm = LatentSSVM(base_ssvm=base_ssvm, latent_iter=10)
+        latent_svm.fit(x, y)
 
-    sopt_test = latent_svm.score(x_t, y_t)
-    sopt_train = latent_svm.score(x, y)
+        print "------- TEST 2 OPTIMAL STATES -------"
+        print("Score with SSSVM:")
+        print("Train: {:2.6f}".format(latent_svm.score(x, y)))
+        print("Test: {:2.6f}".format(latent_svm.score(x_t, y_t)))
 
-    print opt_test
-    print opt_train
-    print sopt_test
-    print sopt_train
+        opt_test = latent_svm.score(x_t, y_t)
+        opt_train = latent_svm.score(x, y)
+
+    else:
+        opt_test = 0
+        opt_train = 0
+
     return opt_test, opt_train, sopt_test, sopt_train
 
 
 # does the work for one fold
-def fold_results(tests, labels, datatrain, seqtrain, datatest, seqtest, kind):
+def fold_results(tests, labels, datatrain, seqtrain, datatest, seqtest, kind, subopt, opt):
 
     print "Loading data..."
     x, y, x_t, y_t = load_data(datatrain, seqtrain, datatest, seqtest)
@@ -227,7 +234,7 @@ def fold_results(tests, labels, datatrain, seqtrain, datatest, seqtest, kind):
 
     print "Calculating Sample Entropy..."
 
-    s_ent = sample_entropy(x, y)
+    s_ent = [(0,0.1), (1,0.1), (2,0.1), (3,0.1), (4,0.1), (5,0.1), (6,0.1), (7,0.1), (8,0.1), (9,0.1)]#sample_entropy(x, y)
 
     print "Sample Entropy Calculated!"
 
@@ -246,7 +253,8 @@ def fold_results(tests, labels, datatrain, seqtrain, datatest, seqtest, kind):
     print "Starting test!"
 
     for i in tests:
-        opt_test, opt_train, sopt_test, sopt_train = test_case(i, s_ent, labels, x, y, x_t, y_t, kind)
+        opt_test, opt_train, sopt_test, sopt_train = test_case(i, s_ent, labels, x, y,
+                                                               x_t, y_t, kind, subopt,opt)
 
         opt_tests.append(opt_test)
         opt_trains.append(opt_train)
@@ -258,7 +266,8 @@ def fold_results(tests, labels, datatrain, seqtrain, datatest, seqtest, kind):
 
 
 # does all the folds in a data-set
-def eval_data_set(tests, n_labels, folds, path, data, label, train, test, name, fold, kind="Equal"):
+def eval_data_set(tests, n_labels, folds, path, data, label, train,
+                  test, name, fold, kind="Equal", subopt=True, opt=True):
 
     opt_tests = []
     opt_trains = []
@@ -275,7 +284,8 @@ def eval_data_set(tests, n_labels, folds, path, data, label, train, test, name, 
         dtr = path + data + train + name + fold + str(i) + ".csv"
         sqtr = path + label + train + name + fold + str(i) + ".csv"
 
-        opt_test, opt_train, sopt_test, sopt_train = fold_results(tests, n_labels, dtr, sqtr, dte, sqte, kind)
+        opt_test, opt_train, sopt_test, sopt_train = fold_results(tests, n_labels, dtr, sqtr, dte,
+                                                                  sqte, kind, subopt, opt)
 
         opt_tests.append(opt_test)
         opt_trains.append(opt_train)

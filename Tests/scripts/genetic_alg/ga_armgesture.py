@@ -5,7 +5,7 @@ __author__ = 'Manoel Ribeiro'
 
 
 n_labels = 6
-folds = [1, 2, 3, 4, 5]
+folds = [1]#, 2, 3, 4, 5]
 path = "/home/manoel/Projects/hidden_states_entropy/Dataset/Data/ArmGestureContinuous/"
 data = "data"
 label = "seqLabels"
@@ -15,7 +15,7 @@ name = "ArmGestureContinuous"
 fold = "Fold"
 
 tests = ga.main(n_labels, folds, path, data, label, train, test, name, fold,
-                init=6, p_size=10)
+                init=10, p_size=12)
 
 date = datetime.datetime.utcnow().strftime("%d_%m_%y-%H:%M")
 description = "GA_armgesture"
