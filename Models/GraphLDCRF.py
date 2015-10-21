@@ -1,42 +1,9 @@
 import numpy as np
 from pystruct.models import GraphCRF, LatentGraphCRF
 from sklearn.cluster import KMeans
+from scipy import sparse
 
-__author__ = 'Bruno Teixeira'
-
-
-def random_init(self, X, Y):
-    H = [np.random.randint(self.n_states, size=y.shape) for y in Y]
-    return H
-
-
-def kmeans_init(X, Y, all_edges, n_labels, n_states_per_label,
-                symmetric=True):
-    all_feats = []
-    # iterate over samples
-    for x, y, edges in zip(X, Y, all_edges):
-        # first, get neighbor counts from nodes
-        # add unaries
-        features = np.hstack([x])
-        all_feats.append(features)
-    all_feats_stacked = np.vstack(all_feats)
-    Y_stacked = np.hstack(Y).ravel()
-    # for each state, run k-means over whole dataset
-    H = [np.zeros(y.shape, dtype=np.int) for y in Y]
-    label_indices = np.hstack([0, np.cumsum(n_states_per_label)])
-    for label in np.unique(Y_stacked):
-        try:
-            km = KMeans(n_clusters=n_states_per_label[label])
-        except TypeError:
-            # for old versions :-/
-            km = KMeans(k=n_states_per_label[label])
-        indicator = Y_stacked == label
-        f = all_feats_stacked[indicator]
-        km.fit(f)
-        for feats_sample, y, h in zip(all_feats, Y, H):
-            pred = km.predict(feats_sample[0]).astype(np.int)
-            h.ravel()[0] = pred + label_indices[label]
-    return H
+__author__ = 'Manoel Ribeiro'
 
 
 class GraphLDCRF(LatentGraphCRF):
@@ -81,15 +48,24 @@ class GraphLDCRF(LatentGraphCRF):
                           inference_method=inference_method)
 
     def random_init(self, X, Y):
-        H = [np.random.randint(self.n_states, size=y.shape) for y in Y]
+
+        H = []
+        for y in Y:
+            h = []
+            for value in y:
+                base = 0
+                for i in range(value):
+                    base += self.n_states_per_label[i]
+                h.append(np.random.randint(base,self.n_states_per_label[value] + base))
+            H.append(np.array(h))
+
         return H
 
     def init_latent(self, X, Y):
         # treat all edges the same
         edges = [[self._get_edges(x)] for x in X]
         features = np.array([self._get_features(x) for x in X])
-        # return kmeans_init(features, Y, edges, n_labels=self.n_labels,
-        #                   n_states_per_label=self.n_states_per_label)
         return self.random_init(X, Y)
+
 
 

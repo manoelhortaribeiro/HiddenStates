@@ -1,25 +1,25 @@
-import Tests.hidden_states as hs
+import Tests.hs as hs
 import datetime
 
 __author__ = 'Manoel Ribeiro'
 
 
-tests = [20, 24, 28, 34, 40, 50]
-n_labels = 10
-folds = [1, 2, 3, 4]
-path = "/home/manoel/Projects/hidden_states_entropy/Dataset/Data/CAD120/"
+tests = [12, 14, 16, 18, 20, 24, 28, 32, 36]
+n_labels = 6
+folds = [1, 2, 3, 4, 5]
+path = "/home/manoel/Projects/hidden_states_entropy/Dataset/Data/ArmGestureContinuous/"
 data = "data"
 label = "seqLabels"
 train = "Train"
 test = "Test"
-name = "CAD120"
+name = "ArmGestureContinuous"
 fold = "Fold"
 
 opt_tests_avg_std, opt_trains_avg_std, sopt_tests_avg_std, sopt_trains_avg_std = \
     hs.eval_data_set(tests, n_labels, folds, path, data, label, train, test, name, fold)
 
 date = datetime.datetime.utcnow().strftime("%d_%m_%y-%H:%M")
-description = "CAD120"
+description = "ArmGestureContinuous"
 
 
 project_folder = "/home/manoel/Projects/"

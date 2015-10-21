@@ -14,16 +14,17 @@ from Models.GraphLDCRF import GraphLDCRF
 __author__ = 'Manoel Ribeiro'
 
 
-def write_confusion_matrix(y_t, y_p):
-    y_ts = []
-    for y_ti in y_t:
-        y_ts.append(y_ti.tolist())
+def calculate_maximum_hidden(buckets, y):
+        # calculate maximum number of hidden states as number of instances
+    maximum = []
+    for i in range(buckets):
+        maximum.append(0)
 
-    y_ps = []
-    for y_pi in y_p:
-        y_ps.append(y_pi.tolist())
+    for i in y:
+        for j in i:
+            maximum[j] += 1
 
-    return confusion_matrix(sum(y_ts, []), sum(y_ps, [])), metrics.classification_report(y_ts, y_ps)
+    return maximum
 
 
 def sample_entropy(X, Y):
@@ -64,45 +65,9 @@ def sample_entropy(X, Y):
     return samp_entropy_sum.items()
 
 
-def divide_hidden_states_entropy(balls, buckets, measure):
+def divide_hidden_states_entropy_c(balls, buckets, measure, c, y):
 
-    # initialize each bucket with one ball
-    balls -= buckets
-    balls_dist = buckets
-
-    states = []
-    for i in range(buckets):
-        states.append(1)
-
-    # gets measure into array and normalize it
-    values = []
-    for i, j in measure:
-        values.append(j)
-
-    sum_values = np.array(values).sum()
-    values = map(lambda x: x/sum_values, values)
-
-    # get actual values in the distribution
-    actual_values = [float(x) / balls_dist for x in states]
-
-    # distribute the rest of the buckets
-    while balls != 0:
-        diff = [a-b for a, b in zip(values, actual_values)]
-
-        # gets the tuple with (x,y) where X,
-        # is position, and Y is the value of diff
-        tuple = max(enumerate(diff), key=(lambda k: k[1]))
-
-        # do some bookkeeping
-        balls -= 1
-        balls_dist +=1
-        states[tuple[0]] += 1
-        actual_values = [float(x) / balls_dist for x in states]
-
-    return states
-
-
-def divide_hidden_states_entropy_c(balls, buckets, measure, c):
+    maximum = calculate_maximum_hidden(buckets, y)
 
     original_balls = balls
 
@@ -138,9 +103,11 @@ def divide_hidden_states_entropy_c(balls, buckets, measure, c):
         balls_dist += 1
 
         for i in range(buckets):
-            if states[tuplediff[-(i+1)][0]] < c * original_balls or i+1 == buckets:
-                states[tuplediff[-(i+1)][0]] += 1
-                break
+            index = tuplediff[-(i+1)][0]
+            if states[index] < c * original_balls or i+1 == buckets:
+                if states[index] < maximum[index]:
+                    states[index] += 1
+                    break
 
         actual_values = [float(x) / balls_dist for x in states]
 
@@ -165,33 +132,37 @@ def divide_hidden_states_normal(balls, buckets):
 
 
 # does the work for one of the hidden states distributions
-def test_case(number_states, s_ent, labels, x, y, x_t, y_t, kind, subopt, opt):
+def test_case(number_states, s_ent, labels, x, y, x_t, y_t, kind, subopt, opt, svmiter, seed, n_jobs):
 
     # Gets the different states divisions
     if kind == "Equal":
-        optimal_states = divide_hidden_states_entropy(number_states, labels, s_ent)
+        optimal_states = divide_hidden_states_entropy_c(number_states, labels, s_ent, 1, y)
     if kind == "Capped40%":
-        optimal_states = divide_hidden_states_entropy_c(number_states, labels, s_ent, 0.4)
+        optimal_states = divide_hidden_states_entropy_c(number_states, labels, s_ent, 0.4, y)
     if kind == "Capped30%":
-        optimal_states = divide_hidden_states_entropy_c(number_states, labels, s_ent, 0.3)
+        optimal_states = divide_hidden_states_entropy_c(number_states, labels, s_ent, 0.3, y)
+    if kind == "Capped20%":
+        optimal_states = divide_hidden_states_entropy_c(number_states, labels, s_ent, 0.2, y)
 
     suboptimal_states = divide_hidden_states_normal(number_states, labels)
 
-    print "Optimal States: ", optimal_states
+    np.random.seed(seed)
+
     print "Suboptimal States: ", suboptimal_states
+    print "Optimal States: ", optimal_states
 
     # TEST 1 #
     # Suppose that we can use 30 hidden states, a naive approach
     # would be to distribute them equally throughout the labels.
 
     if subopt:
-        latent_pbl = GraphLDCRF(n_states_per_label=suboptimal_states, inference_method='dai')
-        base_ssvm = NSlackSSVM(latent_pbl, C=1, tol=.01, inactive_threshold=1e-3, batch_size=10, verbose=0, n_jobs=8)
-        latent_svm = LatentSSVM(base_ssvm=base_ssvm, latent_iter=10)
+        latent_pbl = GraphLDCRF(n_states_per_label=optimal_states, inference_method='dai')
+        base_ssvm = NSlackSSVM(latent_pbl, C=1, tol=.01,
+                               inactive_threshold=1e-3, batch_size=10, verbose=0, n_jobs=n_jobs)
+        latent_svm = LatentSSVM(base_ssvm=base_ssvm, latent_iter=svmiter)
         latent_svm.fit(x, y)
 
         print "------- TEST 1 SUBOPTIMAL STATES -------"
-        print("Score with SSSVM:")
         print("Train: {:2.6f}".format(latent_svm.score(x, y)))
         print("Test: {:2.6f}".format(latent_svm.score(x_t, y_t)))
 
@@ -206,12 +177,12 @@ def test_case(number_states, s_ent, labels, x, y, x_t, y_t, kind, subopt, opt):
 
     if opt:
         latent_pbl = GraphLDCRF(n_states_per_label=optimal_states, inference_method='dai')
-        base_ssvm = NSlackSSVM(latent_pbl, C=1, tol=.01, inactive_threshold=1e-3, batch_size=10, verbose=0, n_jobs=8)
-        latent_svm = LatentSSVM(base_ssvm=base_ssvm, latent_iter=10)
+        base_ssvm = NSlackSSVM(latent_pbl, C=1, tol=.01, inactive_threshold=1e-3,
+                               batch_size=10, verbose=0, n_jobs=n_jobs)
+        latent_svm = LatentSSVM(base_ssvm=base_ssvm, latent_iter=svmiter)
         latent_svm.fit(x, y)
 
         print "------- TEST 2 OPTIMAL STATES -------"
-        print("Score with SSSVM:")
         print("Train: {:2.6f}".format(latent_svm.score(x, y)))
         print("Test: {:2.6f}".format(latent_svm.score(x_t, y_t)))
 
@@ -226,7 +197,7 @@ def test_case(number_states, s_ent, labels, x, y, x_t, y_t, kind, subopt, opt):
 
 
 # does the work for one fold
-def fold_results(tests, labels, datatrain, seqtrain, datatest, seqtest, kind, subopt, opt):
+def fold_results(tests, labels, datatrain, seqtrain, datatest, seqtest, kind, subopt, opt, svmiter, seed, n_jobs):
 
     print "Loading data..."
     x, y, x_t, y_t = load_data(datatrain, seqtrain, datatest, seqtest)
@@ -235,7 +206,7 @@ def fold_results(tests, labels, datatrain, seqtrain, datatest, seqtest, kind, su
     print "Calculating Sample Entropy..."
 
     s_ent = sample_entropy(x, y)
-    # s_ent = [(0,0.1), (1,0.1), (2,0.1), (3,0.1), (4,0.1), (5,0.1), (6,0.1), (7,0.1), (8,0.1), (9,0.1)]
+    #s_ent = [(0,0.1), (1,0.1), (2, 0.1), (3, 0.1), (4, 0.1), (5, 0.1), (6, 0.1), (7, 0.1), (8, 0.1), (9, 0.5)]
 
     print "Sample Entropy Calculated!"
 
@@ -254,8 +225,8 @@ def fold_results(tests, labels, datatrain, seqtrain, datatest, seqtest, kind, su
     print "Starting test!"
 
     for i in tests:
-        opt_test, opt_train, sopt_test, sopt_train = test_case(i, s_ent, labels, x, y,
-                                                               x_t, y_t, kind, subopt,opt)
+        opt_test, opt_train, sopt_test, sopt_train = test_case(i, s_ent, labels, x, y, x_t, y_t,
+                                                               kind, subopt, opt, svmiter, seed, n_jobs)
 
         opt_tests.append(opt_test)
         opt_trains.append(opt_train)
@@ -267,8 +238,8 @@ def fold_results(tests, labels, datatrain, seqtrain, datatest, seqtest, kind, su
 
 
 # does all the folds in a data-set
-def eval_data_set(tests, n_labels, folds, path, data, label, train,
-                  test, name, fold, kind="Equal", subopt=True, opt=True):
+def eval_data_set(tests, n_labels, folds, path, data, label, train, test, name, fold,
+                  kind="Equal", subopt=True, opt=True, svmiter=10, seed=1, n_jobs=1):
 
     opt_tests = []
     opt_trains = []
@@ -277,6 +248,8 @@ def eval_data_set(tests, n_labels, folds, path, data, label, train,
     sopt_trains = []
 
     for i in folds:
+
+        print "FOLD:", i
         # test
         dte = path + data + test + name + fold + str(i) + ".csv"
         sqte = path + label + test + name + fold + str(i) + ".csv"
@@ -286,7 +259,7 @@ def eval_data_set(tests, n_labels, folds, path, data, label, train,
         sqtr = path + label + train + name + fold + str(i) + ".csv"
 
         opt_test, opt_train, sopt_test, sopt_train = fold_results(tests, n_labels, dtr, sqtr, dte,
-                                                                  sqte, kind, subopt, opt)
+                                                                  sqte, kind, subopt, opt, svmiter, seed, n_jobs)
 
         opt_tests.append(opt_test)
         opt_trains.append(opt_train)

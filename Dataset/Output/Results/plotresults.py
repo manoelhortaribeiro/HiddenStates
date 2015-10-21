@@ -4,7 +4,6 @@ from matplotlib.legend_handler import HandlerLine2D
 from math import sqrt
 SPINE_COLOR = 'gray'
 
-
 def latexify(fig_width=None, fig_height=None, columns=1):
     """Set up matplotlib's RC params for LaTeX plotting.
     Call this before plotting a figure.
@@ -53,37 +52,34 @@ latexify()
 
 states = [20, 24, 28, 34, 40, 50]
 
-optimal_test_avg = [ 0.83246115,  0.8218603 ,  0.83647529,  0.81195062,  0.82077249,
-        0.83707442]
+optimal_test_avg = [0.83246115,  0.8218603 ,  0.83647529,  0.81195062,  0.82077249, 0.83707442]
 
-optimal_test_st_dev = [ 0.02967843,  0.02458085,  0.02046321,  0.01884786,  0.04443667,
-        0.02193327]
+optimal_test_st_dev = [0.02967843,  0.02458085,  0.02046321,  0.01884786,  0.04443667, 0.02193327]
 
-suboptimal_test_avg = [ 0.81361319,  0.8162139 ,  0.81874201,  0.83276991,  0.82490031,
-        0.82102333]
+optimal_test30_avg = [0.83023337,  0.81974224,  0.81349959,  0.81975141,  0.82695132, 0.83794698]
 
-suboptimal_test_st_dev = [ 0.01548539,  0.03001671,  0.02944946,  0.02381246,  0.02143981,
-        0.02252606]
+optimal_test30_st_dev = [0.02392133,  0.00943456,  0.02138163,  0.00351471,  0.01242099, 0.0247848]
 
-optimal_test30_avg = [ 0.83023337,  0.81974224,  0.81349959,  0.81975141,  0.82695132,
-        0.83794698]
+suboptimal_test_avg =  0.81735903,  0.8192368 ,  0.80867533,  0.82586498,  0.83312217, 0.81411102]
 
-optimal_test30_st_dev = [ 0.02392133,  0.00943456,  0.02138163,  0.00351471,  0.01242099,
-        0.0247848 ]
+suboptimal_test_st_dev = [0.01728637,  0.02211535,  0.02272138,  0.01631501,  0.01543042, 0.01543365]
+
 
 plt.xlabel("Number of Hidden States")
 plt.ylabel("Accuracy")
 
 lineopt, = plt.plot(states, optimal_test_avg, "g-", label="Optimal")
-plt.errorbar(states, optimal_test_avg, optimal_test_st_dev, linestyle='None', ecolor="g")
+#plt.errorbar(states, optimal_test_avg, optimal_test_st_dev, linestyle='None', ecolor="g")
 plt.legend(handler_map={lineopt: HandlerLine2D(numpoints=4)})
 
 lineopt30, = plt.plot(states, optimal_test30_avg, "r", label="Optimal c30%")
-plt.errorbar(states, optimal_test30_avg, optimal_test30_st_dev, linestyle='None', ecolor="r")
+#plt.errorbar(states, optimal_test30_avg, optimal_test30_st_dev, linestyle='None', ecolor="r")
 plt.legend(handler_map={lineopt: HandlerLine2D(numpoints=4)})
 
 linesopt, = plt.plot(states, suboptimal_test_avg, "b--", label="Sub-optimal")
-plt.errorbar(states, suboptimal_test_avg, suboptimal_test_st_dev, linestyle='None', ecolor="b")
+#plt.errorbar(states, suboptimal_test_avg, suboptimal_test_st_dev, linestyle='None', ecolor="b")
 plt.legend(handler_map={linesopt: HandlerLine2D(numpoints=4)})
+
+plt.legend(loc=4)
 
 plt.show()

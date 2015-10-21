@@ -1,10 +1,10 @@
-import Tests.hidden_states as hs
+import Tests.hs as hs
 import datetime
 
 __author__ = 'Manoel Ribeiro'
 
 
-tests = [20, 24, 28, 34, 40, 50]
+tests = [50]
 n_labels = 10
 folds = [1, 2, 3, 4]
 path = "/home/manoel/Projects/hidden_states_entropy/Dataset/Data/CAD120/"
@@ -14,12 +14,14 @@ train = "Train"
 test = "Test"
 name = "CAD120"
 fold = "Fold"
+date = datetime.datetime.utcnow().strftime("%d_%m_%y-%H:%M")
+
+svmiter = 60
 
 opt_tests_avg_std, opt_trains_avg_std, sopt_tests_avg_std, sopt_trains_avg_std = \
-    hs.eval_data_set(tests, n_labels, folds, path, data, label, train, test, name, fold, kind="Capped30%")
+    hs.eval_data_set(tests, n_labels, folds, path, data, label, train, test, name, fold, svmiter=svmiter)
 
-date = datetime.datetime.utcnow().strftime("%d_%m_%y-%H:%M")
-description = "CAD120c30"
+description = "CAD120_60iter_50states"
 
 
 project_folder = "/home/manoel/Projects/"
@@ -27,7 +29,7 @@ out = "hidden_states_entropy/Dataset/Output/Results/"
 
 f = open(project_folder + out + description + date, "a")
 
-f.write("Number of latent iterations in the SSVM: 10\n")
+f.write("Number of latent iterations in the SSVM: " + str(svmiter) + "\n")
 
 f.write("Number of states used in each test: " + str(tests) + "\n")
 
