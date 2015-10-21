@@ -4,8 +4,8 @@ import aux
 __author__ = 'Manoel Ribeiro'
 
 
-tests = [10, 20, 30, 40, 50]
-description = "CAD120_10-50_"
+tests = [20, 30, 40, 50]
+description = "CAD120_10-50_seed1"
 svmiter = 10
 seed = 1
 n_jobs = 8
