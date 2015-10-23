@@ -47,7 +47,12 @@ class GraphLDCRF(LatentGraphCRF):
         GraphCRF.__init__(self, n_states=None, n_features=n_features,
                           inference_method=inference_method)
 
+
     def random_init(self, X, Y):
+        H = [np.random.randint(self.n_states, size=y.shape) for y in Y]
+        return H
+
+    def p_random_init(self, X, Y):
 
         H = []
         for y in Y:

@@ -19,8 +19,10 @@ def cad120():
 
 
 def write_file(project_folder, out, description, date, svmiter, tests, opt_tests_avg_std,
-              opt_trains_avg_std, sopt_tests_avg_std, sopt_trains_avg_std):
+              opt_trains_avg_std, sopt_tests_avg_std, sopt_trains_avg_std, detailed):
     f = open(project_folder + out + description + date, "a")
+
+    f.write(detailed + "\n")
 
     f.write("Number of latent iterations in the SSVM: " + str(svmiter) + "\n")
 

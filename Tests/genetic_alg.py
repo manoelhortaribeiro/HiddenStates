@@ -1,51 +1,22 @@
 import random
 import functools
+import numpy
 import multiprocessing
-
+# Deap Imports
 from deap import base
 from deap import creator
 from deap import tools
-import numpy
-
-
+# Deap Imports
 from pystruct.learners import NSlackSSVM, LatentSSVM
-
 # Internal Imports
 from Util.data_parser import load_data
 from Models.GraphLDCRF import GraphLDCRF
 
 __author__ = 'Manoel Ribeiro'
 
+# ----------------- I/O ----------------- #
+
 ALLFOLDS = {}
-
-
-def test_case(svm, x, y, x_t, y_t, states):
-
-
-    # TEST #
-    latent_pbl = GraphLDCRF(n_states_per_label=states, inference_method='dai')
-    base_ssvm = NSlackSSVM(latent_pbl, C=1, tol=.01, inactive_threshold=1e-3, batch_size=10, verbose=0, n_jobs=1)
-    latent_svm = LatentSSVM(base_ssvm=base_ssvm, latent_iter=svm)
-    latent_svm.fit(x, y)
-
-    test = latent_svm.score(x_t, y_t)
-
-    return test
-
-
-# does all the folds in a data-set
-def eval_data_set(svm, i, states):
-
-    x, y, x_t, y_t = ALLFOLDS[i]
-
-    result = test_case(svm, x, y, x_t, y_t, states)
-
-    return result,
-
-
-def random_thingy(x):
-    return random.randrange(1, x)
-
 
 def load_all_folds(path, data, label, train, test, name, fold, folds):
 
@@ -61,36 +32,62 @@ def load_all_folds(path, data, label, train, test, name, fold, folds):
         x, y, x_t, y_t = load_data(dtr, sqtr, dte, sqte)
         ALLFOLDS[i] = (x, y, x_t, y_t)
 
+# ----------------- Fitness ----------------- #
 
-def main(n_labels, folds, path, data, label, train, test, name, fold, init, p_size=10, CXPB=0.5,
-         MUTPB=0.2, NGEN=4, svm=7, t_size=2, seed=1):
+memory = {}
 
-    random.seed(seed)
-    numpy.random.seed(seed)
-    load_all_folds(path, data, label, train, test, name, fold, folds)
+def test_case(svm, x, y, x_t, y_t, states):
 
-    print "FOLDS LOADED"
-    ind_size = n_labels
 
-    # creates a fitness that minimizes the first objective
-    creator.create("FitnessMin", base.Fitness, weights=(-1.0,))
+    # TEST #
+    latent_pbl = GraphLDCRF(n_states_per_label=states, inference_method='dai')
+    base_ssvm = NSlackSSVM(latent_pbl, C=1, tol=.01, inactive_threshold=1e-3, batch_size=10, verbose=0, n_jobs=1)
+    latent_svm = LatentSSVM(base_ssvm=base_ssvm, latent_iter=svm)
+    latent_svm.fit(x, y)
 
-    # creates list individual
-    creator.create("Individual", list, fitness=creator.FitnessMin)
+    test = latent_svm.score(x_t, y_t)
 
-    # initialize high order functions
-    initializator = functools.partial(random_thingy, init)
+    return test
 
-    toolbox = base.Toolbox()
 
+def eval_data_set(svm, i, states):
+
+    x, y, x_t, y_t = ALLFOLDS[i]
+
+    if memory.has_key((tuple(states),i)):
+        result = memory[(tuple(states),i)]
+    else:
+        result = random.random() #test_case(svm, x, y, x_t, y_t, states)
+        memory[(tuple(states),i)] = result
+
+    return result,
+
+# ----------------- Helpers ----------------- #
+
+
+def random_thingy(x):
+    return random.randrange(1, x)
+
+
+def redo_evaluate(folds, svm, toolbox):
     # Chooses a fold to evaluate with
     this_fold = random.choice(folds)
     evaluate = functools.partial(eval_data_set, svm, this_fold)
     toolbox.register("evaluate", evaluate)
 
+
+def setup(folds, svm, init, t_size, n_labels):
+
+    toolbox = base.Toolbox()
+
+    # initialize high order functions
+    initializator = functools.partial(random_thingy, init)
+
+    redo_evaluate(folds, svm, toolbox)
+
     # register everything
-    toolbox.register("attr_float",  initializator)
-    toolbox.register("individual", tools.initRepeat, creator.Individual, toolbox.attr_float, n=ind_size)
+    toolbox.register("atrr",  initializator)
+    toolbox.register("individual", tools.initRepeat, creator.Individual, toolbox.atrr, n=n_labels)
     toolbox.register("population", tools.initRepeat, list, toolbox.individual)
     toolbox.register("mate", tools.cxTwoPoint)
     toolbox.register("mutate", tools.mutUniformInt, low=1, up=init, indpb=0.1)
@@ -106,7 +103,28 @@ def main(n_labels, folds, path, data, label, train, test, name, fold, init, p_si
     stats.register("max", numpy.max)
     logbook = tools.Logbook()
     logbook.header = "gen", "avg", "max", "min", "std"
-    # define constants in the GA
+
+    return toolbox, logbook, stats
+
+
+
+def main(n_labels, folds, path, data, label, train, test, name, fold, init, p_size=3, CXPB=0.8,
+         MUTPB=0.2, NGEN=4, svm=7, t_size=2, seed=1, elite_size=1):
+
+    # seed random generators
+    random.seed(seed)
+    numpy.random.seed(seed)
+
+    # load folds
+    load_all_folds(path, data, label, train, test, name, fold, folds)
+
+    # creates a fitness that minimizes the first objective
+    creator.create("FitnessMin", base.Fitness, weights=(-1.0,))
+
+    # creates list individual
+    creator.create("Individual", list, fitness=creator.FitnessMin)
+
+    toolbox, logbook, stats = setup(folds, svm, init, t_size, n_labels)
 
     pop = toolbox.population(n=p_size)
 
@@ -118,10 +136,15 @@ def main(n_labels, folds, path, data, label, train, test, name, fold, init, p_si
 
     for g in range(NGEN):
 
-        print g, "/", NGEN
+        print g, "/", NGEN, "len:", len(pop[:])
+        print pop
 
         # Select the next generation individuals
         offspring = toolbox.select(pop, len(pop))
+
+        hall_of_fame = tools.selBest(offspring, elite_size)
+        print hall_of_fame[0], hall_of_fame[0].fitness.values
+
         # Clone the selected individuals
         offspring = toolbox.map(toolbox.clone, offspring)
 
@@ -129,14 +152,20 @@ def main(n_labels, folds, path, data, label, train, test, name, fold, init, p_si
         for child1, child2 in zip(offspring[::2], offspring[1::2]):
             if random.random() < CXPB:
                 toolbox.mate(child1, child2)
-                del child1.fitness.values
-                del child2.fitness.values
 
         # Apply mutation on the offspring
         for mutant in offspring:
             if random.random() < MUTPB:
                 toolbox.mutate(mutant)
-                del mutant.fitness.values
+
+        offspring = tools.selBest(offspring + hall_of_fame, len(pop))
+
+        # Delete all fitness values
+        for i in offspring:
+            del i.fitness.values
+
+        for i in hall_of_fame:
+            del i.fitness.values
 
         # Evaluate the individuals with an invalid fitness
         invalid_ind = [ind for ind in offspring if not ind.fitness.valid]
@@ -145,9 +174,7 @@ def main(n_labels, folds, path, data, label, train, test, name, fold, init, p_si
             ind.fitness.values = fit
 
         # Chooses a fold to evaluate with
-        this_fold = random.choice(folds)
-        evaluate = functools.partial(eval_data_set, svm, this_fold)
-        toolbox.register("evaluate", evaluate)
+        redo_evaluate(folds, svm, toolbox)
 
         # The population is entirely replaced by the offspring
         pop[:] = offspring

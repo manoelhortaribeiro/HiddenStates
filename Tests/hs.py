@@ -156,7 +156,7 @@ def test_case(number_states, s_ent, labels, x, y, x_t, y_t, kind, subopt, opt, s
     # would be to distribute them equally throughout the labels.
 
     if subopt:
-        latent_pbl = GraphLDCRF(n_states_per_label=optimal_states, inference_method='dai')
+        latent_pbl = GraphLDCRF(n_states_per_label=suboptimal_states, inference_method='dai')
         base_ssvm = NSlackSSVM(latent_pbl, C=1, tol=.01,
                                inactive_threshold=1e-3, batch_size=10, verbose=0, n_jobs=n_jobs)
         latent_svm = LatentSSVM(base_ssvm=base_ssvm, latent_iter=svmiter)
