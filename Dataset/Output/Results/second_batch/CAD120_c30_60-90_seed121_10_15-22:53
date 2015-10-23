@@ -1,0 +1,5 @@
+CAD120_c30_60-90_seed121_10_15-22:53
+Number of latent iterations in the SSVM: 10
+Number of states used in each test: [20, 30, 40, 50]
+Optimal-test (avg, std): (array([ 0.82431529,  0.81659076,  0.81787259,  0.81913324]), array([ 0.0117013 ,  0.0349051 ,  0.02664434,  0.02864297]))
+Optimal-train (avg, std): (array([ 0.99642471,  0.98980198,  0.99230774,  0.99072149]), array([ 0.00161599,  0.0073389 ,  0.00589013,  0.00273151]))

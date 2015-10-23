@@ -1,31 +1,31 @@
 import random
 import functools
-import numpy as np
+import multiprocessing
 
 from deap import base
 from deap import creator
 from deap import tools
+import numpy
 
-from sklearn import metrics
-from sklearn.metrics import confusion_matrix
 
 from pystruct.learners import NSlackSSVM, LatentSSVM
 
 # Internal Imports
-import Util.pyeeg as pyeeg  # Contains the sample entropy calculation
 from Util.data_parser import load_data
 from Models.GraphLDCRF import GraphLDCRF
 
 __author__ = 'Manoel Ribeiro'
 
+ALLFOLDS = {}
 
-def test_case(x, y, x_t, y_t, states):
+
+def test_case(svm, x, y, x_t, y_t, states):
 
 
     # TEST #
     latent_pbl = GraphLDCRF(n_states_per_label=states, inference_method='dai')
-    base_ssvm = NSlackSSVM(latent_pbl, C=1, tol=.01, inactive_threshold=1e-3, batch_size=10, verbose=0, n_jobs=6)
-    latent_svm = LatentSSVM(base_ssvm=base_ssvm, latent_iter=10)
+    base_ssvm = NSlackSSVM(latent_pbl, C=1, tol=.01, inactive_threshold=1e-3, batch_size=10, verbose=0, n_jobs=1)
+    latent_svm = LatentSSVM(base_ssvm=base_ssvm, latent_iter=svm)
     latent_svm.fit(x, y)
 
     test = latent_svm.score(x_t, y_t)
@@ -34,9 +34,20 @@ def test_case(x, y, x_t, y_t, states):
 
 
 # does all the folds in a data-set
-def eval_data_set(folds, path, data, label, train, test, name, fold, states):
+def eval_data_set(svm, i, states):
 
-    tests = []
+    x, y, x_t, y_t = ALLFOLDS[i]
+
+    result = test_case(svm, x, y, x_t, y_t, states)
+
+    return result,
+
+
+def random_thingy(x):
+    return random.randrange(1, x)
+
+
+def load_all_folds(path, data, label, train, test, name, fold, folds):
 
     for i in folds:
         # test
@@ -48,25 +59,17 @@ def eval_data_set(folds, path, data, label, train, test, name, fold, states):
         sqtr = path + label + train + name + fold + str(i) + ".csv"
 
         x, y, x_t, y_t = load_data(dtr, sqtr, dte, sqte)
-        test = random.random() #test_case(x, y, x_t, y_t, states)
-        tests.append(test)
-
-    tests = 10#np.array(tests)
-
-    # Optimal Data
-
-    tests_avg = 12#tests.mean(0)
-
-    return tests_avg,
+        ALLFOLDS[i] = (x, y, x_t, y_t)
 
 
-def random_thingy(x):
-    return random.randrange(1, x)
+def main(n_labels, folds, path, data, label, train, test, name, fold, init, p_size=10, CXPB=0.5,
+         MUTPB=0.2, NGEN=4, svm=7, t_size=2, seed=1):
 
+    random.seed(seed)
+    numpy.random.seed(seed)
+    load_all_folds(path, data, label, train, test, name, fold, folds)
 
-def main(n_labels, folds, path, data, label, train, test, name,
-         fold, init, p_size=10):
-
+    print "FOLDS LOADED"
     ind_size = n_labels
 
     # creates a fitness that minimizes the first objective
@@ -78,40 +81,58 @@ def main(n_labels, folds, path, data, label, train, test, name,
     # initialize high order functions
     initializator = functools.partial(random_thingy, init)
 
-    evaluate = functools.partial(eval_data_set, folds, path, data,label, train, test, name, fold)
+    toolbox = base.Toolbox()
+
+    # Chooses a fold to evaluate with
+    this_fold = random.choice(folds)
+    evaluate = functools.partial(eval_data_set, svm, this_fold)
+    toolbox.register("evaluate", evaluate)
 
     # register everything
-    toolbox = base.Toolbox()
     toolbox.register("attr_float",  initializator)
-    toolbox.register("individual", tools.initRepeat, creator.Individual,toolbox.attr_float, n=ind_size)
+    toolbox.register("individual", tools.initRepeat, creator.Individual, toolbox.attr_float, n=ind_size)
     toolbox.register("population", tools.initRepeat, list, toolbox.individual)
     toolbox.register("mate", tools.cxTwoPoint)
     toolbox.register("mutate", tools.mutUniformInt, low=1, up=init, indpb=0.1)
-    toolbox.register("select", tools.selTournament, tournsize=3)
-    toolbox.register("evaluate", evaluate)
+    toolbox.register("select", tools.selTournament, tournsize=t_size)
+    pool = multiprocessing.Pool()
+    toolbox.register("map", pool.map)
 
+    # creates stats
+    stats = tools.Statistics(key=lambda a: a.fitness.values)
+    stats.register("avg", numpy.mean)
+    stats.register("std", numpy.std)
+    stats.register("min", numpy.min)
+    stats.register("max", numpy.max)
+    logbook = tools.Logbook()
+    logbook.header = "gen", "avg", "max", "min", "std"
     # define constants in the GA
-    CXPB, MUTPB, NGEN = 0.5, 0.2, 40
+
     pop = toolbox.population(n=p_size)
 
     # evaluate the entire population
-    fitnesses = map(toolbox.evaluate, pop)
+    fitnesses = toolbox.map(toolbox.evaluate, pop)
+
     for ind, fit in zip(pop, fitnesses):
         ind.fitness.values = fit
 
     for g in range(NGEN):
+
+        print g, "/", NGEN
+
         # Select the next generation individuals
         offspring = toolbox.select(pop, len(pop))
         # Clone the selected individuals
-        offspring = map(toolbox.clone, offspring)
+        offspring = toolbox.map(toolbox.clone, offspring)
 
-        # Apply crossover and mutation on the offspring
+        # Apply crossover on the offspring
         for child1, child2 in zip(offspring[::2], offspring[1::2]):
             if random.random() < CXPB:
                 toolbox.mate(child1, child2)
                 del child1.fitness.values
                 del child2.fitness.values
 
+        # Apply mutation on the offspring
         for mutant in offspring:
             if random.random() < MUTPB:
                 toolbox.mutate(mutant)
@@ -123,7 +144,16 @@ def main(n_labels, folds, path, data, label, train, test, name,
         for ind, fit in zip(invalid_ind, fitnesses):
             ind.fitness.values = fit
 
+        # Chooses a fold to evaluate with
+        this_fold = random.choice(folds)
+        evaluate = functools.partial(eval_data_set, svm, this_fold)
+        toolbox.register("evaluate", evaluate)
+
         # The population is entirely replaced by the offspring
         pop[:] = offspring
 
-    print pop
+        record = stats.compile(pop)
+        logbook.record(gen=g, **record)
+
+    return zip(pop, fitnesses), logbook.stream
+
