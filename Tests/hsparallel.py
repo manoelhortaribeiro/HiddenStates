@@ -135,8 +135,6 @@ def divide_hidden_states_normal(balls, buckets):
 # does the work for one of the hidden states distributions
 def test_case(number_states, s_ent, labels, x, y, x_t, y_t, kind, subopt, opt, svmiter, seed, n_jobs):
 
-
-    return 1,2,3,4
     # Gets the different states divisions
     if kind == "Equal":
         optimal_states = divide_hidden_states_entropy_c(number_states, labels, s_ent, 1, y)

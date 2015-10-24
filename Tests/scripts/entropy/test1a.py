@@ -4,11 +4,11 @@ import aux
 __author__ = 'Manoel Ribeiro'
 
 tests = [20, 30, 40, 50]
-description = "cad120_7i1s_t20-50"
+description = "cad120p_7i5s_t20-50"
 svmiter = 7
-seed = 1
+seed = 5
 n_jobs = 3
-detailed = "Full random init, seed 1, jobs 3, svmiter 7"
+detailed = "Full random init, seed 5, jobs 3, svmiter 7"
 
 n_labels, folds, path, data, label, train, test, name, fold, date, project_folder, out = aux.cad120()
 
