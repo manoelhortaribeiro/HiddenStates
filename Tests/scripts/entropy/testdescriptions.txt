@@ -1,0 +1,29 @@
+
+
+Running at: iVision. batch 2.1
+------------------------------------------------------------------------------------------------
+10/23/2015
+test1  |  Fra, seed [1,2], jobs 25, svmiter 7          |  Checks efficiency of our method      | /hidden_states/
+test2  |  Fra, seed [3,4], jobs 25, svmiter 7          |  Checks efficiency of our method      | "
+10/24/2015
+test1a |  Full random init, seed 5, jobs 1, svmiter 7  |  " Parallel version w/diff seeds      | /parallel/hidden_states/
+test1b |  Full random init, seed 6, jobs 1, svmiter 7  |  " Parallel version w/diff seeds      | "
+test2a |  Full random init, seed 7, jobs 1, svmiter 7  |  " Parallel version w/diff seeds      | "
+test2b |  Full random init, seed 8, jobs 1, svmiter 7  |  " Parallel version w/diff seeds      |
+------------------------------------------------------------------------------------------------
+
+
+Running at: escher.verlab. batch 2.2
+----------------------------------------------------------------------------------------------
+test3 | Fra, seed 1, 8 jobs, svm iter [10,25,50] s30   | Checks how svmiter changes the diff | /newtests/hidden_states/
+test4 | Fra, seed 1, 8 jobs, svm iter [5,7] s30        | Checks how svmiter changes the diff | /newtests/hidden_states/
+----------------------------------------------------------------------------------------------
+
+Running at: iVision. batch 2.3
+----------------------------------------------------------------------------------------------
+10/24/2015
+test5a | Fra, seed 1, 8 jobs, svm iter [5,25] s20   | Checks how svmiter changes the diff    | /parallel2/hidden_states/
+test5b | Fra, seed 1, 8 jobs, svm iter [7,10] s20   | Checks how svmiter changes the diff    | ""
+test5b | Fra, seed 1, 8 jobs, svm iter [50] s20     | Checks how svmiter changes the diff    | ""
+----------------------------------------------------------------------------------------------
+
