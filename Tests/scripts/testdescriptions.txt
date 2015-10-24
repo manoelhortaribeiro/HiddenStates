@@ -28,3 +28,9 @@ test5b | Fra, seed 1, 8 jobs, svm iter [7,10] s20   | Checks how svmiter changes
 test5b | Fra, seed 1, 8 jobs, svm iter [50] s20     | Checks how svmiter changes the diff    | ""
 ----------------------------------------------------------------------------------------------
 
+Running at: iVision. batch 2.3
+-----------------------------------------------------------------------
+10/24/2015
+gafirst_run | init = 6, p_size = 15, CXPB = 0.6, MUTPB = 0.2,         | /parallel3/hidden_states/
+            | NGEN = 15, t_size = 3,seed = 1, svm = 5, elite_size = 1 |
+-----------------------------------------------------------------------
