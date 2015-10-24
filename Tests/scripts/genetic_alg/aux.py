@@ -17,13 +17,19 @@ def cad120():
     return n_labels, folds, path, data, label, train, test, name, fold, date, project_folder, out
 
 
-def write_file(project_folder, out, description, date, tests, logbook):
+def write_file(project_folder, out, description, date, tests, logbook, best, svmiter):
 
     f = open(project_folder + out + description + date, "a")
 
     f.write(logbook)
-    f.write("\nNumber of latent iterations in the SSVM: 7\n")
-    f.write("(Ind,Fitness): ")
+    f.write("\nNumber of latent iterations in the SSVM: " + str(svmiter))
+    f.write("\n(Ind,Fitness): ")
     f.write(str(tests))
-    f.write("\n")
+
+    f.write("\nBest Individuals: ")
+    f.write("\n|- Gen -|-------------------- States ---------------|--------Fitness-------|- Fold -|")
+
+    for b in best:
+        f.write("\n|   " + str(b[0]) + "           " + str(b[1]) + "           " + str(b[2])[1:9] + "              " + str(b[3]))
+    f.close()
 

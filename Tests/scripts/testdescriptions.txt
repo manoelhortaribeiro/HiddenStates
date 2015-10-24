@@ -12,10 +12,11 @@ test2a |  Full random init, seed 7, jobs 1, svmiter 7  |  " Parallel version w/d
 test2b |  Full random init, seed 8, jobs 1, svmiter 7  |  " Parallel version w/diff seeds      |
 ------------------------------------------------------------------------------------------------
 
-
 Running at: escher.verlab. batch 2.2
 ----------------------------------------------------------------------------------------------
+10/23/2015
 test3 | Fra, seed 1, 8 jobs, svm iter [10,25,50] s30   | Checks how svmiter changes the diff | /newtests/hidden_states/
+10/24/2015
 test4 | Fra, seed 1, 8 jobs, svm iter [5,7] s30        | Checks how svmiter changes the diff | /newtests/hidden_states/
 ----------------------------------------------------------------------------------------------
 

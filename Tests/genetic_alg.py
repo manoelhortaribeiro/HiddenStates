@@ -18,6 +18,7 @@ __author__ = 'Manoel Ribeiro'
 
 ALLFOLDS = {}
 
+
 def load_all_folds(path, data, label, train, test, name, fold, folds):
 
     for i in folds:
@@ -36,10 +37,9 @@ def load_all_folds(path, data, label, train, test, name, fold, folds):
 
 memory = {}
 
+
 def test_case(svm, x, y, x_t, y_t, states):
 
-
-    # TEST #
     latent_pbl = GraphLDCRF(n_states_per_label=states, inference_method='dai')
     base_ssvm = NSlackSSVM(latent_pbl, C=1, tol=.01, inactive_threshold=1e-3, batch_size=10, verbose=0, n_jobs=1)
     latent_svm = LatentSSVM(base_ssvm=base_ssvm, latent_iter=svm)
@@ -58,7 +58,7 @@ def eval_data_set(svm, i, states):
         result = memory[(tuple(states),i)]
     else:
         result = random.random() #test_case(svm, x, y, x_t, y_t, states)
-        memory[(tuple(states),i)] = result
+        memory[(tuple(states), i)] = result
 
     return result,
 
@@ -74,6 +74,7 @@ def redo_evaluate(folds, svm, toolbox):
     this_fold = random.choice(folds)
     evaluate = functools.partial(eval_data_set, svm, this_fold)
     toolbox.register("evaluate", evaluate)
+    return this_fold
 
 
 def setup(folds, svm, init, t_size, n_labels):
@@ -83,7 +84,7 @@ def setup(folds, svm, init, t_size, n_labels):
     # initialize high order functions
     initializator = functools.partial(random_thingy, init)
 
-    redo_evaluate(folds, svm, toolbox)
+    current_fold = redo_evaluate(folds, svm, toolbox)
 
     # register everything
     toolbox.register("atrr",  initializator)
@@ -104,9 +105,9 @@ def setup(folds, svm, init, t_size, n_labels):
     logbook = tools.Logbook()
     logbook.header = "gen", "avg", "max", "min", "std"
 
-    return toolbox, logbook, stats
+    return toolbox, logbook, stats, current_fold
 
-
+# ----------------- Genetic Program ----------------- #
 
 def main(n_labels, folds, path, data, label, train, test, name, fold, init, p_size=3, CXPB=0.8,
          MUTPB=0.2, NGEN=4, svm=7, t_size=2, seed=1, elite_size=1):
@@ -124,12 +125,14 @@ def main(n_labels, folds, path, data, label, train, test, name, fold, init, p_si
     # creates list individual
     creator.create("Individual", list, fitness=creator.FitnessMin)
 
-    toolbox, logbook, stats = setup(folds, svm, init, t_size, n_labels)
+    toolbox, logbook, stats, current_fold = setup(folds, svm, init, t_size, n_labels)
 
     pop = toolbox.population(n=p_size)
 
     # evaluate the entire population
     fitnesses = toolbox.map(toolbox.evaluate, pop)
+
+    hall_of_fame_all = []
 
     for ind, fit in zip(pop, fitnesses):
         ind.fitness.values = fit
@@ -137,13 +140,19 @@ def main(n_labels, folds, path, data, label, train, test, name, fold, init, p_si
     for g in range(NGEN):
 
         print g, "/", NGEN, "len:", len(pop[:])
-        print pop
+        for i in pop:
+            print i, i.fitness.values
 
         # Select the next generation individuals
-        offspring = toolbox.select(pop, len(pop))
+        offspring = toolbox.select(pop, len(pop[:]))
 
         hall_of_fame = tools.selBest(offspring, elite_size)
-        print hall_of_fame[0], hall_of_fame[0].fitness.values
+
+        for i in hall_of_fame:
+            hall_of_fame_all.append((g, i, i.fitness.values, current_fold))
+
+        if g is NGEN-1:
+            break
 
         # Clone the selected individuals
         offspring = toolbox.map(toolbox.clone, offspring)
@@ -174,7 +183,7 @@ def main(n_labels, folds, path, data, label, train, test, name, fold, init, p_si
             ind.fitness.values = fit
 
         # Chooses a fold to evaluate with
-        redo_evaluate(folds, svm, toolbox)
+        current_fold = redo_evaluate(folds, svm, toolbox)
 
         # The population is entirely replaced by the offspring
         pop[:] = offspring
@@ -182,5 +191,5 @@ def main(n_labels, folds, path, data, label, train, test, name, fold, init, p_si
         record = stats.compile(pop)
         logbook.record(gen=g, **record)
 
-    return zip(pop, fitnesses), logbook.stream
+    return zip(pop, fitnesses), logbook.stream, hall_of_fame_all
 
