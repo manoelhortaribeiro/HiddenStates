@@ -140,8 +140,6 @@ def main(n_labels, folds, path, data, label, train, test, name, fold, init, p_si
     for g in range(NGEN):
 
         print g, "/", NGEN, "len:", len(pop[:])
-        for i in pop:
-            print i, i.fitness.values
 
         # Select the next generation individuals
         offspring = toolbox.select(pop, len(pop[:]))

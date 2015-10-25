@@ -9,7 +9,7 @@ test2  |  Fra, seed [3,4], jobs 25, svmiter 7          |  Checks efficiency of o
 test1a |  Full random init, seed 5, jobs 1, svmiter 7  |  " Parallel version w/diff seeds      | /parallel/hidden_states/
 test1b |  Full random init, seed 6, jobs 1, svmiter 7  |  " Parallel version w/diff seeds      | "
 test2a |  Full random init, seed 7, jobs 1, svmiter 7  |  " Parallel version w/diff seeds      | "
-test2b |  Full random init, seed 8, jobs 1, svmiter 7  |  " Parallel version w/diff seeds      |
+test2b |  Full random init, seed 8, jobs 1, svmiter 7  |  " Parallel version w/diff seeds      | "
 ------------------------------------------------------------------------------------------------
 
 Running at: escher.verlab. batch 2.2

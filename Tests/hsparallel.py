@@ -135,6 +135,7 @@ def divide_hidden_states_normal(balls, buckets):
 # does the work for one of the hidden states distributions
 def test_case(number_states, s_ent, labels, x, y, x_t, y_t, kind, subopt, opt, svmiter, seed, n_jobs):
 
+
     # Gets the different states divisions
     if kind == "Equal":
         optimal_states = divide_hidden_states_entropy_c(number_states, labels, s_ent, 1, y)
@@ -194,7 +195,7 @@ def test_case(number_states, s_ent, labels, x, y, x_t, y_t, kind, subopt, opt, s
         opt_test = 0
         opt_train = 0
 
-    return (opt_test, opt_train, sopt_test, sopt_train)
+    return opt_test, opt_train, sopt_test, sopt_train
 
 
 # does the work for one fold
@@ -213,16 +214,33 @@ def fold_results(tests, labels, datatrain, seqtrain, datatest, seqtest, kind, su
 
     print "Sample Entropy: ", s_ent
 
+    # Arrays containing the results.
+
+    # ~Optimal~ stuff
+    opt_tests = []
+    opt_trains = []
+
+    # Suboptimal stuff
+    sopt_tests = []
+    sopt_trains = []
 
     print "Starting test!"
 
     evaluate = functools.partial(test_case, s_ent=s_ent, labels=labels, x=x, y=y, x_t=x_t, y_t=y_t,
-                      kind=kind, subopt=subopt, opt=opt, svmiter=svmiter, seed=seed, n_jobs=n_jobs)
+                                 kind=kind, subopt=subopt, opt=opt, svmiter=svmiter, seed=seed, n_jobs=n_jobs)
 
     p = multiprocessing.Pool(4)
     t = p.map(evaluate, tests)
 
-    return t[0], t[1], t[2], t[3]
+    for i in t:
+
+        opt_tests.append(i[0])
+        opt_trains.append(i[1])
+
+        sopt_tests.append(i[2])
+        sopt_trains.append(i[3])
+
+    return opt_tests, opt_trains, sopt_tests, sopt_trains
 
 
 # does all the folds in a data-set
