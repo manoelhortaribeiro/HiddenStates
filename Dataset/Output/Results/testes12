@@ -1,0 +1,47 @@
+Full random init, seed 1, jobs 15, svmiter 7
+Number of latent iterations in the SSVM: 7
+Number of states used in each test: [20, 30, 40, 50]
+Optimal-test (avg, std): (array([ 0.83793004,  0.81885452,  0.81194642,  0.80685894]), array([ 0.0183667 ,  0.02200394,  0.01865816,  0.03398549]))
+Optimal-train (avg, std): (array([ 0.99826417,  0.99043995,  0.9883568 ,  0.98403218]), array([ 0.00226295,  0.01171642,  0.00875374,  0.00964032]))
+Sub-Optimal-test (avg, std): (array([ 0.81553116,  0.8137963 ,  0.79275656,  0.83658144]), array([ 0.03703645,  0.01834699,  0.03145797,  0.03302787]))
+Sub-Optimal-train (avg, std): (array([ 0.98595116,  0.9921875 ,  0.99079304,  0.99713342]), array([ 0.00935892,  0.01353165,  0.00883397,  0.00146769]))
+
+Full random init, seed 3, jobs 15, svmiter 7
+Number of latent iterations in the SSVM: 7
+Number of states used in each test: [20, 30, 40, 50]
+Optimal-test (avg, std): (array([ 0.84375776,  0.82381636,  0.82498322,  0.84523474]), array([ 0.02869886,  0.02788698,  0.01918655,  0.02073465]))
+Optimal-train (avg, std): (array([ 0.99714424,  0.99603529,  0.99358924,  0.99640633]), array([ 0.00176945,  0.0026124 ,  0.00081757,  0.00335991]))
+Sub-Optimal-test (avg, std): (array([ 0.82929729,  0.81174983,  0.82419605,  0.83571354]), array([ 0.00967098,  0.03265915,  0.02777041,  0.01496227]))
+Sub-Optimal-train (avg, std): (array([ 0.99604292,  0.99349003,  0.99039574,  0.99749835]), array([ 0.00319104,  0.00525795,  0.00323521,  0.00122823]))
+
+Full random init, seed 5, jobs 3, svmiter 7
+Number of latent iterations in the SSVM: 7
+Number of states used in each test: [20, 30, 40, 50]
+Optimal-test (avg, std): (array([ 0.82274169,  0.8369527 ,  0.82068679,  0.8194296 ]), array([ 0.02219525,  0.02096007,  0.02910535,  0.03187896]))
+Optimal-train (avg, std): (array([ 0.99791887,  0.99145127,  0.993214  ,  0.99465794]), array([ 0.00284524,  0.00318552,  0.00383666,  0.00353791]))
+Sub-Optimal-test (avg, std): (array([ 0.81069137,  0.81509258,  0.8209821 ,  0.81914066]), array([ 0.01333193,  0.01290421,  0.02864108,  0.02791686]))
+Sub-Optimal-train (avg, std): (array([ 0.99207838,  0.99425217,  0.98154151,  0.97468495]), array([ 0.00587386,  0.00378539,  0.00749754,  0.01409112]))
+
+Full random init, seed 6, jobs 3, svmiter 7
+Number of latent iterations in the SSVM: 7
+Number of states used in each test: [20, 30, 40, 50]
+Optimal-test (avg, std): (array([ 0.82741987,  0.82283307,  0.81029974,  0.80764082]), array([ 0.01791165,  0.02475836,  0.01217445,  0.03151903]))
+Optimal-train (avg, std): (array([ 0.9954273 ,  0.99185785,  0.99072821,  0.98322519]), array([ 0.00524059,  0.00493701,  0.00794214,  0.01207431]))
+Sub-Optimal-test (avg, std): (array([ 0.81303174,  0.80454541,  0.81603647,  0.8276933 ]), array([ 0.01080623,  0.02049345,  0.01732611,  0.03166045]))
+Sub-Optimal-train (avg, std): (array([ 0.99295433,  0.99362532,  0.98872391,  0.99291291]), array([ 0.00868651,  0.00866207,  0.00919254,  0.00821042]))
+
+Full random init, seed 7, jobs 3, svmiter 7
+Number of latent iterations in the SSVM: 7
+Number of states used in each test: [20, 30, 40, 50]
+Optimal-test (avg, std): (array([ 0.84124031,  0.82379561,  0.82451604,  0.79862562]), array([ 0.01713637,  0.03490643,  0.01184646,  0.01620074]))
+Optimal-train (avg, std): (array([ 0.99784415,  0.99398185,  0.99153237,  0.98156778]), array([ 0.001641  ,  0.0025073 ,  0.00611313,  0.00793585]))
+Sub-Optimal-test (avg, std): (array([ 0.83178969,  0.8147546 ,  0.83402524,  0.81621429]), array([ 0.02654663,  0.02703446,  0.02688205,  0.0251933 ]))
+Sub-Optimal-train (avg, std): (array([ 0.99674283,  0.99180278,  0.99249891,  0.99503099]), array([ 0.00335951,  0.00936894,  0.00347478,  0.00154991]))
+
+Full random init, seed 8, jobs 3, svmiter 7
+Number of latent iterations in the SSVM: 7
+Number of states used in each test: [20, 30, 40, 50]
+Optimal-test (avg, std): (array([ 0.82849283,  0.83073825,  0.81642735,  0.81071752]), array([ 0.01617888,  0.01455587,  0.02293893,  0.01934039]))
+Optimal-train (avg, std): (array([ 0.99397113,  0.98937309,  0.98998989,  0.98503337]), array([ 0.00963967,  0.00933558,  0.00649157,  0.01796369]))
+Sub-Optimal-test (avg, std): (array([ 0.82732037,  0.82635216,  0.81261502,  0.83021468]), array([ 0.01849264,  0.02633186,  0.02967562,  0.03666131]))
+Sub-Optimal-train (avg, std): (array([ 0.99643082,  0.99677613,  0.98634748,  0.99231637]), array([ 0.00164294,  0.00163102,  0.0091672 ,  0.00772189]))
