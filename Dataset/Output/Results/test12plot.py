@@ -91,7 +91,7 @@ suboptimal_stdev.append(array([ 0.01849264,  0.02633186,  0.02967562,  0.0366613
 
 optimal_test = array(optimal_test).mean(0)
 suboptimal_test = array(suboptimal_test).mean(0)
-optimal_stdev = numpy.sqrt(array(optimal_stdev).std(0))
+optimal_stdev = numpy.sqrt(array(suboptimal_stdev).__pow__(2).sum(0))
 suboptimal_stdev = numpy.sqrt(array(suboptimal_stdev).__pow__(2).mean(0))
 
 print optimal_stdev

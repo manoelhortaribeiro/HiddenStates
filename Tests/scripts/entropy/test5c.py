@@ -7,7 +7,7 @@ tests = [20]
 svmiter = 50
 n_jobs = 1
 seed = 1
-description = "cad120_10i1s_t50"
+description = "cad120_50i1s_t20"
 detailed = "Full random init, seed 1, jobs 1, svmiter 50"
 
 n_labels, folds, path, data, label, train, test, name, fold, date, project_folder, out = aux.cad120()
