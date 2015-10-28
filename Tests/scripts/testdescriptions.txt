@@ -1,4 +1,4 @@
-Running at: iVision. batch 2.3
+Running at: not running, waiting ro approval
 -----------------------------------------------------------------------
 10/24/2015
 gafirst_run | init = 6, p_size = 15, CXPB = 0.6, MUTPB = 0.2,         | /parallel3/hidden_states/
@@ -7,15 +7,19 @@ gafirst_run | init = 6, p_size = 15, CXPB = 0.6, MUTPB = 0.2,         | /paralle
 
 Running at: iVision. batch 2.4
 ------------------------------------------------------------------------------------------------
-10/25/2015
+10/26/2015
 test1_new   |  Fra, seed [1,2], jobs 25, svmiter 7      |  Checks efficiency of our method      | /parallel2/hidden_states/
-test2_new  |  Fra, seed [3,4], jobs 25, svmiter 7      |  for 60,70,80,90 hidden states        | "
-10/25/2015
+test2_new  |  Fra, seed [3,4], jobs 25, svmiter 7      |  for 60,70,80,90 hidden states         | "
 test1aa |  Full random init, seed 5, jobs 1, svmiter 7  |  " Parallel version w/diff seeds      | /parallel2/hidden_states/
-test1bb |  Full random init, seed 6, jobs 1, svmiter 7  |  " Parallel version w/diff seeds      | "
-test2aa |  Full random init, seed 7, jobs 1, svmiter 7  |  " Parallel version w/diff seeds      | "
+Running at: escher. batch 2.4
+10/27/2015
+test1bb |  Full random init, seed 6, jobs 1, svmiter 7  |  " Parallel version w/diff seeds      | /parallel/hidden_states/
+Running at: marvin. batch 2.4
+10/28/2015
+test2aa |  Full random init, seed 7, jobs 1, svmiter 7  |  " Parallel version w/diff seeds      | /parallel/hidden_states/ 
 test2bb |  Full random init, seed 8, jobs 1, svmiter 7  |  " Parallel version w/diff seeds      | "
 ------------------------------------------------------------------------------------------------
+
 
 
 ------------------------------------------------------------------------------------------------
@@ -26,6 +30,16 @@ test2bb |  Full random init, seed 8, jobs 1, svmiter 7  |  " Parallel version w/
 ------------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------
 
+FINISHED: results/teste34 and results/teste5
+Running at: escher. batch 2.5
+----------------------------------------------------------------------------------------------
+10/26/2015
+test5d | Fra, seed 1, 8 jobs, svm iter [75] s20   | Checks how svmiter changes the diff    | /parallel/hidden_states/
+test5e | Fra, seed 1, 8 jobs, svm iter [100] s20   | Checks how svmiter changes the diff    | ""
+10/26/2015
+test4a | Fra, seed 1, 8 jobs, svm iter [75] s30   | Checks how svmiter changes the diff    | /parallel/hidden_states/
+test3a | Fra, seed 1, 8 jobs, svm iter [100] s30   | Checks how svmiter changes the diff    | ""
+----------------------------------------------------------------------------------------------
 
 
 FINISHED: Results/teste12

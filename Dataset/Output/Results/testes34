@@ -38,3 +38,19 @@ Optimal-train (avg, std): (array([ 0.99334465]), array([ 0.00485025]))
 Sub-Optimal-test (avg, std): (array([ 0.83978979]), array([ 0.01765497]))
 Sub-Optimal-train (avg, std): (array([ 0.99784684]), array([ 0.00159736]))
 
+
+Full random init, seed 1, jobs 8, svmiter 75
+Number of latent iterations in the SSVM: 75
+Number of states used in each test: [30]
+Optimal-test (avg, std): (array([ 0.82713726]), array([ 0.0182359]))
+Optimal-train (avg, std): (array([ 0.99334465]), array([ 0.00485025]))
+Sub-Optimal-test (avg, std): (array([ 0.84300867]), array([ 0.01461922]))
+Sub-Optimal-train (avg, std): (array([ 0.99571918]), array([ 0.00500777]))
+
+Full random init, seed 1, jobs 8, svmiter 100
+Number of latent iterations in the SSVM: 100
+Number of states used in each test: [30]
+Optimal-test (avg, std): (array([ 0.82713726]), array([ 0.0182359]))
+Optimal-train (avg, std): (array([ 0.99334465]), array([ 0.00485025]))
+Sub-Optimal-test (avg, std): (array([ 0.84300867]), array([ 0.01461922]))
+Sub-Optimal-train (avg, std): (array([ 0.99571918]), array([ 0.00500777]))
