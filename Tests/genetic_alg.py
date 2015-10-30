@@ -93,7 +93,7 @@ def setup(folds, svm, init, t_size, n_labels):
     toolbox.register("mate", tools.cxTwoPoint)
     toolbox.register("mutate", tools.mutUniformInt, low=1, up=init, indpb=0.1)
     toolbox.register("select", tools.selTournament, tournsize=t_size)
-    pool = multiprocessing.Pool()
+    pool = multiprocessing.Pool(processes=15)
     toolbox.register("map", pool.map)
 
     # creates stats
@@ -148,6 +148,7 @@ def main(n_labels, folds, path, data, label, train, test, name, fold, init, p_si
 
         for i in hall_of_fame:
             hall_of_fame_all.append((g, i, i.fitness.values, current_fold))
+            print i, i.fitness.values
 
         if g is NGEN-1:
             break
