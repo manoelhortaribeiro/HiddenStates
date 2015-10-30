@@ -189,6 +189,7 @@ def test_case(number_states, s_ent, labels, x, y, x_t, y_t, kind, subopt, opt, s
 
     np.random.seed(seed)
 
+
     print "Suboptimal States: ", suboptimal_states
     print "Optimal States: ", optimal_states
 
