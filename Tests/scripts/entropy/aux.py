@@ -4,7 +4,7 @@ import datetime
 def cad120():
     n_labels = 10
     folds = [1, 2, 3, 4]
-    path = "/home/bruno.teixeira/parallel4/hidden_states/Dataset/Data/CAD120/"
+    path = "../../../Dataset/Data/CAD120/"
     data = "data"
     label = "seqLabels"
     train = "Train"

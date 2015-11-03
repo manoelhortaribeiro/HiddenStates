@@ -7,7 +7,7 @@ from pystruct.learners import NSlackSSVM, LatentSSVM
 
 # Internal Imports
 import Util.pyeeg as pyeeg  # Contains the sample entropy calculation
-from Util.data_parser import load_data
+from Util.data_parser import load_data, remove_activity_data
 from Models.GraphLDCRF import GraphLDCRF
 import multiprocessing
 import functools
@@ -242,8 +242,14 @@ def test_case(number_states, s_ent, labels, x, y, x_t, y_t, kind, subopt, opt, s
 def fold_results(tests, labels, datatrain, seqtrain, datatest, seqtest, kind, subopt, opt, svmiter, seed, n_jobs, measure):
 
     print "Loading data..."
-    x, y, x_t, y_t = load_data(datatrain, seqtrain, datatest, seqtest)
+    X, Y, X_t, Y_t = load_data(datatrain, seqtrain, datatest, seqtest)
     print "Data loaded!"
+
+    print "Removing data..."
+    # remove activity from data
+    x, y = remove_activity_data(X, Y, 9)
+    # remove activity from data
+    x_t, y_t = remove_activity_data(X_t, Y_t, 9)
 
     if measure is "sampen":
         print "Calculating Sample Entropy..."
@@ -273,7 +279,7 @@ def fold_results(tests, labels, datatrain, seqtrain, datatest, seqtest, kind, su
 
     print "Starting test!"
 
-    evaluate = functools.partial(test_case, s_ent=s_ent, labels=labels, x=x, y=y, x_t=x_t, y_t=y_t,
+    evaluate = functools.partial(test_case, s_ent=s_ent, labels=labels, x=X, y=Y, x_t=X_t, y_t=Y_t,
                                  kind=kind, subopt=subopt, opt=opt, svmiter=svmiter, seed=seed,
                                  n_jobs=n_jobs)
 
