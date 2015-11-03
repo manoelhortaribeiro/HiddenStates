@@ -189,7 +189,6 @@ def test_case(number_states, s_ent, labels, x, y, x_t, y_t, kind, subopt, opt, s
 
     np.random.seed(seed)
 
-
     print "Suboptimal States: ", suboptimal_states
     print "Optimal States: ", optimal_states
 
@@ -213,6 +212,8 @@ def test_case(number_states, s_ent, labels, x, y, x_t, y_t, kind, subopt, opt, s
     else:
         sopt_test = 0
         sopt_train = 0
+
+    np.random.seed(seed)
 
     # TEST 2 #
     # Now we go for the sample entropy approach.
@@ -247,13 +248,13 @@ def fold_results(tests, labels, datatrain, seqtrain, datatest, seqtest, kind, su
 
     print "Removing data..."
     # remove activity from data
-    x, y = remove_activity_data(X, Y, 9)
+    X, Y = remove_activity_data(X, Y, 9)
     # remove activity from data
-    x_t, y_t = remove_activity_data(X_t, Y_t, 9)
+    X_t, Y_t = remove_activity_data(X_t, Y_t, 9)
 
     if measure is "sampen":
         print "Calculating Sample Entropy..."
-        s_ent = sample_entropy(x, y)
+        s_ent = sample_entropy(X, Y)
         # s_ent = [(0,0.1), (1,0.1), (2, 0.1), (3, 0.1), (4, 0.1), (5, 0.1), (6, 0.1), (7, 0.1), (8, 0.1), (9, 0.5)]
         print "Sample Entropy Calculated!"
         print "Sample Entropy: ", s_ent
@@ -261,7 +262,7 @@ def fold_results(tests, labels, datatrain, seqtrain, datatest, seqtest, kind, su
 
     if measure is "stderror":
         print "Calculating Standard error..."
-        s_ent = standard_error(x, y)
+        s_ent = standard_error(X, Y)
         # s_ent = [(0,0.1), (1,0.1), (2, 0.1), (3, 0.1), (4, 0.1), (5, 0.1), (6, 0.1), (7, 0.1), (8, 0.1), (9, 0.5)]
         print "Standard error Calculated!"
         print "Sample Error: ", s_ent

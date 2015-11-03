@@ -57,7 +57,7 @@ def eval_data_set(svm, i, states):
     if memory.has_key((tuple(states),i)):
         result = memory[(tuple(states),i)]
     else:
-        result = random.random() #test_case(svm, x, y, x_t, y_t, states)
+        result = test_case(svm, x, y, x_t, y_t, states)
         memory[(tuple(states), i)] = result
 
     return result,
