@@ -1,5 +1,5 @@
 import numpy as np
-
+from numpy.linalg import norm
 from sklearn import metrics
 from sklearn.metrics import confusion_matrix
 
@@ -11,7 +11,7 @@ from Util.data_parser import load_data, remove_activity_data
 from Models.GraphLDCRF import GraphLDCRF
 import multiprocessing
 import functools
-from scipy.stats import sem
+import scipy.spatial.distance as dist
 
 __author__ = 'Manoel Ribeiro'
 
@@ -51,7 +51,7 @@ def sample_entropy(X, Y):
             std = np.std(i)
             partial += pyeeg.samp_entropy(i, 2, 0.2*std)
 
-        samp_entropy_sum[key] = partial
+        samp_entropy_sum[key] = partial/float(len(matrix))
 
         done += 1.0
         print str(done/len(a.keys())*100) + "% DONE!"
@@ -66,12 +66,39 @@ def sample_entropy(X, Y):
 
     return samp_entropy_sum.items()
 
+
+def parallel_loot(mat):
+
+        matrix = np.array(mat).transpose()
+
+        partial = 0
+        num_non_zero = len(matrix)*len(matrix)
+        for i in range(len(matrix)):
+            for j in range(i, len(matrix)):
+                if i is j:
+                    continue
+                if (np.count_nonzero(matrix[i]) is 0) or (np.count_nonzero(matrix[j]) is 0):
+                    num_non_zero += 1
+                    continue
+
+                # cosine similarity
+                u = matrix[i]
+                v = matrix[j]
+                first = np.dot(u, v)
+                second = np.sqrt(np.array(u).__pow__(2).sum()) * np.sqrt(np.array(v).__pow__(2).sum())
+                third = first/second
+                final = 1.0 - third
+
+                partial += final
+
+            if i % 10 is 0:
+                print partial, i, "/", len(matrix)
+        partial /= float(num_non_zero)
+
+
 def standard_error(X,Y):
 
     a = {}
-
-
-    done = 0.0
 
     for k in range(len(X)):
         for i, j in zip(X[k][0],Y[k]):
@@ -81,19 +108,22 @@ def standard_error(X,Y):
 
     samp_entropy_sum = {}
 
+    tmp = []
+    for i in a.items():
+        tmp.append(i[1])
+
+    p = multiprocessing.Pool(4)
+    t = p.map(parallel_loot, tmp)
+
     for key in a.keys():
         matrix = np.array(a[key]).transpose()
-        partial = 0
 
-        for i in matrix:
+    print t
 
-            partial += sem(i)
-        samp_entropy_sum[key] = partial
+    quit()
 
-        done += 1.0
-        print str(done/len(a.keys())*100) + "% DONE!"
+    samp_entropy_sum[key] = partial
 
-    total_entropy = 0
 
     for key in a.keys():
         total_entropy += samp_entropy_sum[key]
@@ -266,7 +296,6 @@ def fold_results(tests, labels, datatrain, seqtrain, datatest, seqtest, kind, su
         # s_ent = [(0,0.1), (1,0.1), (2, 0.1), (3, 0.1), (4, 0.1), (5, 0.1), (6, 0.1), (7, 0.1), (8, 0.1), (9, 0.5)]
         print "Standard error Calculated!"
         print "Sample Error: ", s_ent
-
 
     # Arrays containing the results.
 

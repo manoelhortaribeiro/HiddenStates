@@ -4,7 +4,7 @@ import aux
 __author__ = 'Manoel Ribeiro'
 
 tests = [10, 12, 14, 16, 18]
-description = "cadNEW120_7i1s_t10-18"
+description = "normcadNEW120_7i1s_t10-18"
 svmiter = 7
 seed = 1
 n_jobs = 1
