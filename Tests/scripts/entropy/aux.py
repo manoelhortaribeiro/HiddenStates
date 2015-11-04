@@ -2,9 +2,9 @@ import datetime
 
 
 def cad120():
-    n_labels = 10
+    n_labels = 9
     folds = [1, 2, 3, 4]
-    path = "../../../Dataset/Data/CAD120/"
+    path = "/home/bruno.teixeira/parallel6/hidden_states/Dataset/Data/CAD120/"
     data = "data"
     label = "seqLabels"
     train = "Train"
@@ -12,7 +12,7 @@ def cad120():
     name = "CAD120"
     fold = "Fold"
     date = datetime.datetime.utcnow().strftime("%d_%m_%y-%H:%M")
-    project_folder = "/home/bruno.teixeira/parallel4/"
+    project_folder = "/home/bruno.teixeira/parallel6/"
     out = "hidden_states/Dataset/Output/Results/"
 
     return n_labels, folds, path, data, label, train, test, name, fold, date, project_folder, out
