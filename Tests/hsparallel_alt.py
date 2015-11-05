@@ -37,7 +37,7 @@ def sample_entropy(X, Y):
 
     for k in range(len(X)):
         for i, j in zip(X[k][0],Y[k]):
-            if a.has_key(j) == False:
+            if a.has_key(j) is False:
                 a[j] = []
             a[j].append(i)
 
@@ -67,36 +67,20 @@ def sample_entropy(X, Y):
     return samp_entropy_sum.items()
 
 
-def parallel_loot(mat):
+def parallel_loot(mat, m):
 
         matrix = np.array(mat).transpose()
 
-        partial = 0
-        num_non_zero = len(matrix)*len(matrix)
-        for i in range(len(matrix)):
-            for j in range(i, len(matrix)):
-                if i is j:
-                    continue
-                if (np.count_nonzero(matrix[i]) is 0) or (np.count_nonzero(matrix[j]) is 0):
-                    num_non_zero += 1
-                    continue
+        print "matrix shape:", matrix.shape
 
-                # cosine similarity
-                u = matrix[i]
-                v = matrix[j]
-                first = np.dot(u, v)
-                second = np.sqrt(np.array(u).__pow__(2).sum()) * np.sqrt(np.array(v).__pow__(2).sum())
-                third = first/second
-                final = 1.0 - third
+        p = dist.pdist(matrix,m)
+        print "pdist shape", p.shape
+        print p.sum()
 
-                partial += final
-
-            if i % 10 is 0:
-                print partial, i, "/", len(matrix)
-        partial /= float(num_non_zero)
+        return p.sum()
 
 
-def standard_error(X,Y):
+def cosine_dist(X, Y, measure):
 
     a = {}
 
@@ -106,33 +90,29 @@ def standard_error(X,Y):
                 a[j] = []
             a[j].append(i)
 
-    samp_entropy_sum = {}
+    func = functools.partial(parallel_loot, m=measure)
+    cosine_dist_sum = {}
 
     tmp = []
     for i in a.items():
         tmp.append(i[1])
 
     p = multiprocessing.Pool(4)
-    t = p.map(parallel_loot, tmp)
-
-    for key in a.keys():
-        matrix = np.array(a[key]).transpose()
+    t = p.map(func, tmp)
 
     print t
 
-    quit()
+    total_cosine_dist = 0
 
-    samp_entropy_sum[key] = partial
-
-
-    for key in a.keys():
-        total_entropy += samp_entropy_sum[key]
+    for i in range(len(t)):
+        cosine_dist_sum[i] = t[i]
+        total_cosine_dist += t[i]
 
     for key in a.keys():
-        samp_entropy_sum[key] = samp_entropy_sum[key]/(float(total_entropy))
+        cosine_dist_sum[key] = cosine_dist_sum[key]/(float(total_cosine_dist))
 
-    return samp_entropy_sum.items()
 
+    return cosine_dist_sum.items()
 
 
 def divide_hidden_states_entropy_c(balls, buckets, measure, c, y):
@@ -289,13 +269,12 @@ def fold_results(tests, labels, datatrain, seqtrain, datatest, seqtest, kind, su
         print "Sample Entropy Calculated!"
         print "Sample Entropy: ", s_ent
 
-
-    if measure is "stderror":
-        print "Calculating Standard error..."
-        s_ent = standard_error(X, Y)
+    else:
+        print "Calculating", measure, " Dist..."
+        s_ent = cosine_dist(X, Y, measure)
         # s_ent = [(0,0.1), (1,0.1), (2, 0.1), (3, 0.1), (4, 0.1), (5, 0.1), (6, 0.1), (7, 0.1), (8, 0.1), (9, 0.5)]
-        print "Standard error Calculated!"
-        print "Sample Error: ", s_ent
+        print "Cosine Dist Calculated!"
+        print "Cosine Dist: ", s_ent
 
     # Arrays containing the results.
 

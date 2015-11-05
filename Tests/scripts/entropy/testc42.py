@@ -3,8 +3,8 @@ import aux
 
 __author__ = 'Manoel Ribeiro'
 
-tests = [10, 12, 14, 16, 18]
-description = "cadNEW120_7i3s_t10-18"
+tests = [9, 10, 12, 14, 16, 18]
+description = "ccadNEW120_7i3s_t10-18"
 svmiter = 7
 seed = 3
 n_jobs = 1
@@ -14,7 +14,7 @@ n_labels, folds, path, data, label, train, test, name, fold, date, project_folde
 
 opt_tests_avg_std, opt_trains_avg_std, sopt_tests_avg_std, sopt_trains_avg_std = \
     hs.eval_data_set(tests, n_labels, folds, path, data, label, train, test, name, fold, kind="Equal",
-                     svmiter=svmiter, seed=seed, n_jobs=n_jobs)
+                     svmiter=svmiter, seed=seed, n_jobs=n_jobs, measure="seuclidean")
 
 aux.write_file(project_folder, out, description, date, svmiter, tests, opt_tests_avg_std,
                opt_trains_avg_std, sopt_tests_avg_std, sopt_trains_avg_std, detailed)
