@@ -111,6 +111,7 @@ def calculate_maximum_hidden(buckets, y):
 
 def divide_hidden_states_entropy_c(balls, buckets, measure, c, y):
 
+    print c
     maximum = calculate_maximum_hidden(buckets, y)
 
     original_balls = balls
