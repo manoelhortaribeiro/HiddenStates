@@ -16,6 +16,7 @@ def remove_activity_data(X, Y, activity):
                                        range(len(X[i][0]) - 1)]).astype(np.int16).T))
     return X_f, Y_f
 
+
 def load_data(file_data_train, file_label_train, file_data_test, file_label_test):
     # Open and load Data Train
     f = open(file_data_train)
@@ -31,7 +32,7 @@ def load_data(file_data_train, file_label_train, file_data_test, file_label_test
                     (np.transpose(xs), (np.array([range(len(xs[0]) - 1) + (range(1, len(xs[0]))), (range(1, len(xs[0])))+range(len(xs[0]) - 1)])).astype(np.int16).T))
                 xs = []
         elif len(sline) > 2:
-            xs.append(np.array(line.rstrip().split(','))[1:-1].astype(np.float))
+            xs.append(np.array(line.rstrip().split(','))[:].astype(np.float))
 
     f = open(file_label_train)
     data = f.readlines()
@@ -41,7 +42,7 @@ def load_data(file_data_train, file_label_train, file_data_test, file_label_test
     for n, line in enumerate(data, 1):
         sline = np.array(line.rstrip().split(','))
         if len(sline) > 2:
-            Y.append(np.array(line.rstrip().split(','))[1:-1].astype(np.int16))
+            Y.append(np.array(line.rstrip().split(','))[:].astype(np.int16))
 
     # Open and load Data test
     f = open(file_data_test)
@@ -57,7 +58,7 @@ def load_data(file_data_train, file_label_train, file_data_test, file_label_test
                     (np.transpose(xs), (np.array([range(len(xs[0]) - 1) + (range(1, len(xs[0]))), (range(1, len(xs[0])))+range(len(xs[0]) - 1)])).astype(np.int16).T))
             xs = []
         elif len(sline) > 2:
-            xs.append(np.array(line.rstrip().split(','))[1:-1].astype(np.float))
+            xs.append(np.array(line.rstrip().split(','))[:].astype(np.float))
 
     f = open(file_label_test)
     data = f.readlines()
@@ -66,7 +67,7 @@ def load_data(file_data_train, file_label_train, file_data_test, file_label_test
     for n, line in enumerate(data, 1):
         sline = np.array(line.rstrip().split(','))
         if len(sline) > 2:
-            Y_t.append(np.array(line.rstrip().split(','))[1:-1].astype(np.int16))
+            Y_t.append(np.array(line.rstrip().split(','))[:].astype(np.int16))
 
     return X, Y, X_t, Y_t
 

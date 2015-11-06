@@ -7,9 +7,9 @@ tests = [6, 10, 14, 18, 22, 26, 30]
 
 description = "NEWag_7i2s_t6-30"
 svmiter = 7
-seed = 2
+seed = 3
 n_jobs = 4
-detailed = "Full random init, seed 2, jobs 4, svmiter 7"
+detailed = "Full random init, seed 3, jobs 4, svmiter 7"
 
 n_labels, folds, path, data, label, train, test, name, fold, date, project_folder, out = aux.armgesture()
 

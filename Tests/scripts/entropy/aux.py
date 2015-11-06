@@ -17,6 +17,7 @@ def cad120():
 
     return n_labels, folds, path, data, label, train, test, name, fold, date, project_folder, out
 
+
 def armgesture():
     n_labels = 6
     folds = [1, 2, 3, 4, 5]
