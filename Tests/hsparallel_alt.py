@@ -7,7 +7,7 @@ from pystruct.learners import NSlackSSVM, LatentSSVM
 from Util.data_parser import load_data, remove_activity_data
 from Models.GraphLDCRF import GraphLDCRF
 from measures import *
-
+import scipy.spatial.distance as distance
 
 __author__ = 'Manoel Ribeiro'
 
@@ -73,7 +73,8 @@ def test_case(number_states, s_ent, labels, x, y, x_t, y_t, kind, subopt, opt, s
 
 
 # does the work for one fold
-def fold_results(tests, labels, datatrain, seqtrain, datatest, seqtest, kind, subopt, opt, svmiter, seed, n_jobs):
+def fold_results(tests, labels, datatrain, seqtrain, datatest, seqtest, kind,
+                 subopt, opt, svmiter, seed, n_jobs, measure, datapath):
 
     print "Loading data..."
 
@@ -87,10 +88,19 @@ def fold_results(tests, labels, datatrain, seqtrain, datatest, seqtest, kind, su
     # remove activity from data
     # X_t, Y_t = remove_activity_data(X_t, Y_t, 9)
 
-    print "Calculating Sample Entropy..."
-    s_ent = sample_entropy(X, Y)
-    print "Sample Entropy: ", s_ent
+    if measure is "sampen":
+        s_ent = sample_entropy(X, Y)
 
+    if measure is "cosine":
+        s_ent = calculate_dist(distance.cosine, datapath)
+
+    if measure is "correlation":
+        s_ent = calculate_dist(distance.correlation, datapath)
+
+    if measure is "sqeuclidian":
+        s_ent = calculate_dist(distance.sqeuclidean, datapath)
+
+    print "distribution: ", s_ent
     # Arrays containing the results.
 
     # ~Optimal~ stuff
@@ -121,8 +131,9 @@ def fold_results(tests, labels, datatrain, seqtrain, datatest, seqtest, kind, su
 
 
 # does all the folds in a data-set
-def eval_data_set(tests, n_labels, folds, path, data, label, train, test, name, fold,
-                  kind=1, subopt=True, opt=True, svmiter=10, seed=1, n_jobs=4):
+def eval_data_set(tests, n_labels, folds, path, data, label, train, test, name, fold, datapath,
+                  kind=1, subopt=True, opt=True, svmiter=10, seed=1, n_jobs=4, measure="sampen"):
+
 
     opt_tests = []
     opt_trains = []
@@ -145,7 +156,7 @@ def eval_data_set(tests, n_labels, folds, path, data, label, train, test, name, 
 
         opt_test, opt_train, sopt_test, sopt_train = fold_results(tests, n_labels, dtr, sqtr, dte,
                                                                   sqte, kind, subopt, opt, svmiter,
-                                                                  seed, n_jobs)
+                                                                  seed, n_jobs, measure, datapath)
 
         opt_tests.append(opt_test)
         opt_trains.append(opt_train)

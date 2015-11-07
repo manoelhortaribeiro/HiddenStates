@@ -6,53 +6,6 @@ from scipy import sparse
 __author__ = 'Manoel Ribeiro'
 
 
-def kmeans_init(X, Y, all_edges, n_labels, n_states_per_label,
-                symmetric=True):
-    all_feats = []
-    # iterate over samples
-    for x, y, edges in zip(X, Y, all_edges):
-        # first, get neighbor counts from nodes
-        n_nodes = x.shape[0]
-        labels_one_hot = np.zeros((n_nodes, n_labels), dtype=np.int)
-        y = y.ravel()
-        gx = np.ogrid[:n_nodes]
-        labels_one_hot[gx, y] = 1
-
-        size = np.prod(y.shape)
-        graphs = [sparse.coo_matrix((np.ones(e.shape[0]), e.T), (size, size))
-                  for e in edges]
-        if symmetric:
-            directions = [g + g.T for g in graphs]
-        else:
-            directions = [T for g in graphs for T in [g, g.T]]
-        neighbors = [s * labels_one_hot.reshape(size, -1) for s in directions]
-        neighbors = np.hstack(neighbors)
-        # normalize (for borders)
-        neighbors /= np.maximum(neighbors.sum(axis=1)[:, np.newaxis], 1)
-
-        # add unaries
-        features = np.hstack([x, neighbors])
-        all_feats.append(features)
-    all_feats_stacked = np.vstack(all_feats)
-    Y_stacked = np.hstack(Y).ravel()
-    # for each state, run k-means over whole dataset
-    H = [np.zeros(y.shape, dtype=np.int) for y in Y]
-    label_indices = np.hstack([0, np.cumsum(n_states_per_label)])
-    for label in np.unique(Y_stacked):
-        try:
-            km = KMeans(n_clusters=n_states_per_label[label])
-        except TypeError:
-            # for old versions :-/
-            km = KMeans(k=n_states_per_label[label])
-        indicator = Y_stacked == label
-        f = all_feats_stacked[indicator]
-        km.fit(f)
-        for feats_sample, y, h in zip(all_feats, Y, H):
-            indicator_sample = y.ravel() == label
-            pred = km.predict(feats_sample[indicator_sample]).astype(np.int)
-            h.ravel()[indicator_sample] = pred + label_indices[label]
-    return H
-
 class GraphLDCRF(LatentGraphCRF):
     """LDCRF with latent states for variables.
 
@@ -102,8 +55,7 @@ class GraphLDCRF(LatentGraphCRF):
         # treat all edges the same
         edges = [[self._get_edges(x)] for x in X]
         features = np.array([self._get_features(x) for x in X])
-        return kmeans_init(features, Y, edges, n_labels=self.n_labels,
-                           n_states_per_label=self.n_states_per_label)
+        return self.random_init(X, Y)
 
 
 

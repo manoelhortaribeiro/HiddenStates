@@ -1,4 +1,4 @@
-from pystruct.learners import NSlackSSVM, LatentSSVM, OneSlackSSVM
+from pystruct.learners import NSlackSSVM, LatentSSVM
 from sklearn.metrics import confusion_matrix
 from sklearn import metrics
 import matplotlib.pyplot as plt
@@ -12,9 +12,7 @@ datatest = "/home/manoel/Projects/hidden_states_entropy/Dataset/Data/ArmGestureC
 seqtrain = "/home/manoel/Projects/hidden_states_entropy/Dataset/Data/ArmGestureContinuous/seqLabelsTrainArmGestureContinuousFold1.csv"
 seqtest = "/home/manoel/Projects/hidden_states_entropy/Dataset/Data/ArmGestureContinuous/seqLabelsTestArmGestureContinuousFold1.csv"
 
-
 x, y, x_t, y_t = load_data(datatrain, seqtrain, datatest, seqtest)
-
 
 np.random.seed(1)
 

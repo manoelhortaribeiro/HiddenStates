@@ -84,13 +84,12 @@ def calculate_dist(dist, data_path):
 
         label_dist[key] /= total_dist
 
-    print label_dist
+    return label_dist.items()
 
 
-
-calculate_dist(distance.sqeuclidean,"/home/manoel/Projects/hidden_states_entropy/Dataset/Data/ArmGestureContinuous/ArmGestureDiscrete.mat")
-calculate_dist(distance.correlation,"/home/manoel/Projects/hidden_states_entropy/Dataset/Data/ArmGestureContinuous/ArmGestureDiscrete.mat")
-calculate_dist(distance.cosine,"/home/manoel/Projects/hidden_states_entropy/Dataset/Data/ArmGestureContinuous/ArmGestureDiscrete.mat")
+#calculate_dist(distance.sqeuclidean,"/home/manoel/Projects/hidden_states_entropy/Dataset/Data/ArmGestureContinuous/ArmGestureDiscrete.mat")
+#print calculate_dist(distance.correlation,"/home/manoel/Projects/hidden_states_entropy/Dataset/Data/ArmGestureContinuous/ArmGestureDiscrete.mat")
+#calculate_dist(distance.cosine,"/home/manoel/Projects/hidden_states_entropy/Dataset/Data/ArmGestureContinuous/ArmGestureDiscrete.mat")
 
 def sample_entropy(data_x, data_y):
     """
@@ -196,9 +195,8 @@ def calculate_maximum_hidden(buckets, y):
     return maximum
 
 
-def divide_hidden_states_entropy_c(balls, buckets, measure, c, y):
+def divide_hidden_states_measure_c(balls, buckets, measure, c, y):
 
-    print c
     maximum = calculate_maximum_hidden(buckets, y)
 
     original_balls = balls

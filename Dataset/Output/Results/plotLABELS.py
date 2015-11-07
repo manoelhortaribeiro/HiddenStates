@@ -60,18 +60,18 @@ label_hash, old_label_hash = get_labels_features()
 
 latexif.latexify()
 
-f, axarray = plt.subplots(5, 2, figsize=(12,12))
+f, axarray = plt.subplots(10, 2, figsize=(12,12))
 
 
-for feat in range(5):
-    for i in old_label_hash[2]:
+for feat in range(10):
+    for i in old_label_hash[1]:
         axarray[feat, 0].plot(i[feat])
 
 
-    for i in label_hash[2]:
+    for i in label_hash[1]:
         axarray[feat,1].plot(i[feat])
 
 
-plt.tight_layout() # Or equ# ivalently,  "plt.tight_layout()"
+plt.tight_layout()
 
-plt.savefig("../Results/imgs/LABEL2.pdf")
+plt.savefig("../Results/imgs/LABEL1.pdf")
