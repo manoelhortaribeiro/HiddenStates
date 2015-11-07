@@ -17,7 +17,7 @@ def test_case(number_states, s_ent, labels, x, y, x_t, y_t, kind, subopt, opt, s
 
     # Gets the different states divisions, notice that the parameter kind, given as input
     # can create a cap, where no label may receive more than k% of the available hidden states
-    optimal_states = divide_hidden_states_entropy_c(number_states, labels, s_ent, kind, y)
+    optimal_states = divide_hidden_states_measure_c(number_states, labels, s_ent, kind, y)
 
     suboptimal_states = divide_hidden_states_arbitrary(number_states, labels)
 

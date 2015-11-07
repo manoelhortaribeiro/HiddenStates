@@ -1,9 +1,96 @@
-import Util.pyeeg as pyeeg  # Contains the sample entropy calculation
 import numpy as np
+import scipy.io as sio
+import scipy.spatial.distance as distance
 
 __author__ = 'Manoel Ribeiro'
 
 
+def normalize_samples(data_path):
+
+    # ------- IO operations ------- #
+
+    data = sio.loadmat(data_path)
+    label_hash = {}
+    normalized_hash = {}
+
+    labels = data['labels'].transpose()
+    sequences = data['seqs'].transpose()
+
+    # each label is a vector containing the same label for the time length, such as:
+    # [0,0,0,0,0,0,0,0,0,0,0], [1,1,1,1,1,1,1,1,1,1], [3,3,3,3,3,3,3,3,3,3], but with
+    # a bunch of tuples, therefore we use label[0][0][0][0], to get rid of annoying tuples.
+
+    for label in labels:
+        if label_hash.has_key(label[0][0][0]) is False:
+            label_hash[label[0][0][0]] = []
+            normalized_hash[label[0][0][0]] = []
+
+    # this appends all the samples to each corresponding label
+    for idx, label in enumerate(labels):
+        label_hash[label[0][0][0]].append(sequences[idx][0])
+
+    biggest_len = 0
+
+
+    # this
+    for idx, label_samples in label_hash.items():
+        for sample in label_samples:
+
+            if len(sample[0]) > biggest_len:
+                biggest_len = len(sample[0])
+
+    for idx, label_samples in label_hash.items():
+
+        normalized_samples = []
+        for idy, sample in enumerate(label_samples):
+
+            matrix = []
+
+            for idz, feature in enumerate(sample):
+                length = len(feature)
+                range_norm = np.array(range(1,biggest_len)) * float(length)/biggest_len
+                normal_array = np.interp(range_norm, range(length), feature)
+                matrix.append(normal_array)
+
+            normalized_samples.append(matrix)
+
+        label_hash[idx] = normalized_samples
+
+    return label_hash
+
+
+def calculate_dist(dist, data_path):
+
+    label_hash = normalize_samples(data_path)
+
+    label_dist = {}
+    total_dist = 0
+
+    for label in label_hash.keys():
+
+        label_dist[label] = 0
+        for feature in range(20):
+            feature_dist = 0
+            for sample1 in label_hash[label]:
+
+                for sample2 in label_hash[label]:
+
+                    feature_dist += dist(sample1[feature], sample2[feature])
+                    total_dist += dist(sample1[feature], sample2[feature])
+
+            label_dist[label] += feature_dist
+
+    for key in label_dist.keys():
+
+        label_dist[key] /= total_dist
+
+    print label_dist
+
+
+
+calculate_dist(distance.sqeuclidean,"/home/manoel/Projects/hidden_states_entropy/Dataset/Data/ArmGestureContinuous/ArmGestureDiscrete.mat")
+calculate_dist(distance.correlation,"/home/manoel/Projects/hidden_states_entropy/Dataset/Data/ArmGestureContinuous/ArmGestureDiscrete.mat")
+calculate_dist(distance.cosine,"/home/manoel/Projects/hidden_states_entropy/Dataset/Data/ArmGestureContinuous/ArmGestureDiscrete.mat")
 
 def sample_entropy(data_x, data_y):
     """
@@ -174,4 +261,5 @@ def divide_hidden_states_arbitrary(balls, buckets):
         pointer += 1
 
     return states
+
 
