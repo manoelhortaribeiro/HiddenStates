@@ -5,11 +5,11 @@ __author__ = 'Manoel Ribeiro'
 
 tests = [6,10,14,18,22,26,30]
 
-description = "ag_7i1COSINEsc3_t6-30"
+description = "ag_7i3COSINEsc3_t6-30"
 svmiter = 7
-seed = 1
+seed = 3
 n_jobs = 4
-detailed = "Full random init, seed 1, jobs 4, svmiter 7"
+detailed = "Full random init, seed 3, jobs 4, svmiter 7"
 
 datapath, n_labels, folds, path, data, label, train, test, name, fold, date, project_folder, out = aux.armgesture()
 
@@ -21,9 +21,9 @@ opt_tests_avg_std, opt_trains_avg_std, sopt_tests_avg_std, sopt_trains_avg_std =
 aux.write_file(project_folder, out, description, date, svmiter, tests, opt_tests_avg_std,
                opt_trains_avg_std, sopt_tests_avg_std, sopt_trains_avg_std, detailed)
 
-description = "ag_7i1CORRELATIONsc3_t6-30"
+description = "ag_7i3CORRELATIONsc3_t6-30"
 
-detailed = "Full random init, seed 1, jobs 4, svmiter 7"
+detailed = "Full random init, seed 3, jobs 4, svmiter 7"
 
 datapath, n_labels, folds, path, data, label, train, test, name, fold, date, project_folder, out = aux.armgesture()
 
@@ -35,9 +35,9 @@ opt_tests_avg_std, opt_trains_avg_std, sopt_tests_avg_std, sopt_trains_avg_std =
 aux.write_file(project_folder, out, description, date, svmiter, tests, opt_tests_avg_std,
                opt_trains_avg_std, sopt_tests_avg_std, sopt_trains_avg_std, detailed)
 
-description = "ag_7i1EUCLIDIANsc3_t6-30"
+description = "ag_7i3EUCLIDIANsc3_t6-30"
 
-detailed = "Full random init, seed 1, jobs 4, svmiter 7"
+detailed = "Full random init, seed 3, jobs 4, svmiter 7"
 
 datapath, n_labels, folds, path, data, label, train, test, name, fold, date, project_folder, out = aux.armgesture()
 
