@@ -8,51 +8,49 @@ import latexif
 
 latexif.latexify()
 
-states = [6, 8, 10, 12, 14, 18, 22, 24, 30]
+states = [6, 10, 14, 18, 22, 26, 30]
 
-optimal_test = []
-optimal_test.append(array([ 0.9049292 ,  0.90990781,  0.91575178,  0.91919491,  0.9202868 ,
-        0.93753164,  0.94019407,  0.94201182,  0.94617944]))  # seed 1
+arbitrary = []
 
-optimal_test.append(array([ 0.9049292 ,  0.90253325,  0.91119144,  0.9212405 ,  0.92612842,
-        0.93475822,  0.93699933,  0.94477985,  0.94640768]))  # seed 3
+arbitrary.append(array([ 0.90588912,  0.92699383,  0.93286083,  0.93621147,  0.93991812,
+        0.94800092,  0.94041291]))  # seed 1
+arbitrary.append(array([ 0.90588912,  0.92289503,  0.92205703,  0.93363083,  0.94620915,
+        0.94814196,  0.95016242]))  # seed 1
+arbitrary.append(array([ 0.90588912,  0.92387445,  0.93219905,  0.93079083,  0.93963439,
+        0.94595777,  0.94041587]))  # seed 1
 
-optimal_test.append(array([ 0.9049292 ,  0.9040255 ,  0.91409404,  0.92577236,  0.93313452,
-        0.93606111,  0.94049705,  0.94205947,  0.94662216]))   # seed 6
+correlation = []
 
-optimal_test.append(array([ 0.9049292 ,  0.90433517,  0.9085026 ,  0.92710932,  0.93422968,
-        0.937084  ,  0.94412959,  0.94518641,  0.94975143]))  # seed 7
+correlation.append(array([ 0.90588912,  0.91371941,  0.91627386,  0.93249511,  0.93928062,
+        0.94152061,  0.94645912]))  # seed 1
+correlation.append(array([ 0.90588912,  0.91188985,  0.92351398,  0.93319545,  0.94277467,
+        0.93886093,  0.94613498]))  # seed 1
+correlation.append(array([ 0.90588912,  0.91728541,  0.9315417 ,  0.92582981,  0.93310589,
+        0.94467013,  0.94426692]))  # seed 1
 
+cosine = []
 
-suboptimal_test = []
-suboptimal_test.append(array([ 0.9049292 ,  0.90880417,  0.91652772,  0.92334171,  0.92310744,
-        0.94447217,  0.93794476,  0.94396284,  0.94606755])) # seed 1
-
-suboptimal_test.append(array([ 0.9049292 ,  0.90433517,  0.9085026 ,  0.92710932,  0.93422968,
-        0.937084  ,  0.94412959,  0.94518641,  0.94975143])) # seed 3
-
-suboptimal_test.append(array([ 0.9049292 ,  0.90408748,  0.92537913,  0.92622674,  0.91633071,
-        0.93078465,  0.9402849 ,  0.93764743,  0.94699193])) # seed 6
-
-suboptimal_test.append(array([ 0.9049292 ,  0.90408748,  0.92537913,  0.92622674,  0.91633071,
-        0.93078465,  0.9402849 ,  0.93764743,  0.94699193])) # seed 7
-
-stdev = array(optimal_test).std(0)
+cosine.append(array([ 0.90588912,  0.91701792,  0.91772423,  0.93805965,  0.93567749,
+        0.94137566,  0.95048514]))  # seed 1
+cosine.append(array([ 0.90588912,  0.91923092,  0.93117317,  0.93807661,  0.93925852,
+        0.94578884,  0.94415402]))  # seed 1
+cosine.append(array([ 0.90588912,  0.91237192,  0.92839415,  0.93992653,  0.94225563,
+        0.94668393,  0.94191523]))  # seed 1
 
 
-optimal_test = array(optimal_test).mean(0)
-
-suboptimal_test = array(suboptimal_test).mean(0)
+cosine = array(cosine).mean(0)
+correlation = array(correlation).mean(0)
+arbitrary = array(arbitrary).mean(0)
 
 
 plt.xlabel("Number of Hidden States")
 plt.ylabel("Accuracy")
 
-lineopt, = plt.plot(states, optimal_test, "g-", label="Ours")
+lineopt, = plt.plot(states, cosine, "g-", label="Ours")
 
+linesopt, = plt.plot(states, correlation, "r-", label="Correlation")
 
-linesopt, = plt.plot(states, suboptimal_test, "b--", label="Arbitrary")
-
+linesopt, = plt.plot(states, arbitrary, "b--", label="Arbitrary")
 
 
 plt.tight_layout()
@@ -62,4 +60,4 @@ ax = plt.gca()
 ax.grid(True)
 plt.legend(loc=4)
 
-plt.savefig("../Results/imgs/AG.pdf")
+plt.show()
