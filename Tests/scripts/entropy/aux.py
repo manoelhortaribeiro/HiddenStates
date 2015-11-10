@@ -1,7 +1,41 @@
 import datetime
 
+def NATOPS2():
+    n_labels = 6
+    folds = [1, 2, 3, 4, 5]
+    path = "/home/manoel/Projects/hidden_states_entropy/Dataset/Data/NATOPS/"
+    data = "data"
+    label = "seqLabels"
+    train = "Train"
+    test = "Test"
+    name = "NATOPS"
+    fold = "Fold"
+    date = datetime.datetime.utcnow().strftime("%d_%m_%y-%H:%M")
+    project_folder = "/home/manoel/Projects/"
+    out = "hidden_states_entropy/Dataset/Output/Results/"
+    datapath = path + "/NATOPS6.mat"
 
-def armgesture2():
+    return datapath, n_labels, folds, path, data, label, train, test, name, fold, date, project_folder, out
+
+def NATOPS():
+    n_labels = 6
+    folds = [1, 2, 3, 4, 5]
+    path = "/home/bruno.teixeira/distance3/hidden_states/Dataset/Data/NATOPS/"
+    data = "data"
+    label = "seqLabels"
+    train = "Train"
+    test = "Test"
+    name = "NATOPS"
+    fold = "Fold"
+    date = datetime.datetime.utcnow().strftime("%d_%m_%y-%H:%M")
+    project_folder = "/home/bruno.teixeira/distance3/"
+    out = "hidden_states/Dataset/Output/Results/"
+    datapath = path + "/NATOPS6.mat"
+
+    return datapath, n_labels, folds, path, data, label, train, test, name, fold, date, project_folder, out
+
+
+def armgesture():
     n_labels = 6
     folds = [1, 2, 3, 4, 5]
     path = "/home/manoel/Projects/hidden_states_entropy/Dataset/Data/ArmGestureContinuous/"
@@ -20,7 +54,7 @@ def armgesture2():
 
 
 
-def armgesture():
+def armgesture2():
     n_labels = 6
     folds = [1, 2, 3, 4, 5]
     path = "/home/bruno.teixeira/distance1/hidden_states/Dataset/Data/ArmGestureContinuous/"
