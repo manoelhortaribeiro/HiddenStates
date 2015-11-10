@@ -1,6 +1,7 @@
 import numpy as np
 import scipy.io as sio
 import scipy.spatial.distance as distance
+import math
 
 __author__ = 'Manoel Ribeiro'
 
@@ -68,22 +69,26 @@ def calculate_dist(dist, data_path):
 
     for label in label_hash.keys():
 
+        print label
         label_dist[label] = 0
         for feature in range(20):
             feature_dist = 0
             for sample1 in label_hash[label]:
 
                 for sample2 in label_hash[label]:
+                    tmp = dist(sample1[feature], sample2[feature])
 
-                    feature_dist += dist(sample1[feature], sample2[feature])
-                    total_dist += dist(sample1[feature], sample2[feature])
+                    if math.isnan(tmp) is False:
+                        feature_dist += tmp
+                        total_dist += tmp
 
             label_dist[label] += feature_dist
 
     for key in label_dist.keys():
 
         label_dist[key] /= total_dist
-
+    print label_dist.items()
+    quit()
     return label_dist.items()
 
 

@@ -1,6 +1,6 @@
 import datetime
 
-def NATOPS2():
+def NATOPS():
     n_labels = 6
     folds = [1, 2, 3, 4, 5]
     path = "/home/manoel/Projects/hidden_states_entropy/Dataset/Data/NATOPS/"
@@ -17,7 +17,7 @@ def NATOPS2():
 
     return datapath, n_labels, folds, path, data, label, train, test, name, fold, date, project_folder, out
 
-def NATOPS():
+def NATOPS2():
     n_labels = 6
     folds = [1, 2, 3, 4, 5]
     path = "/home/bruno.teixeira/distance3/hidden_states/Dataset/Data/NATOPS/"
