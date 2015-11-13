@@ -6,7 +6,7 @@ SPINE_COLOR = 'gray'
 
 import latexif
 import pprint
-#latexif.latexify()
+latexif.latexify()
 
 states = [6, 10, 14, 18, 22, 26, 30, 35, 40, 45, 50]
 

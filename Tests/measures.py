@@ -87,8 +87,6 @@ def calculate_dist(dist, data_path):
     for key in label_dist.keys():
 
         label_dist[key] /= total_dist
-    print label_dist.items()
-    quit()
     return label_dist.items()
 
 
