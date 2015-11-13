@@ -29,9 +29,17 @@ cosine.append(array([ 0.59734093,  0.56855122,  0.52730152,  0.54708501,  0.2147
 cosine.append(array([ 0.61053246,  0.58108265,  0.6164102 ,  0.48720989,  0.21179819]))  # seed 1
 
 
+euclidian = []
+
+euclidian.append(array([ 0.62969643,  0.57075676,  0.55856037,  0.52958928,  0.20901503]))  # seed 1
+euclidian.append(array([ 0.63024278,  0.58693004,  0.58188393,  0.55471561,  0.23177235]))  # seed 2
+euclidian.append(array([ 0.64234367,  0.60324327,  0.60345698,  0.51513683,  0.21613778]))  # seed 3
+
+
 cosine = array(cosine).mean(0)
 correlation = array(correlation).mean(0)
 arbitrary = array(arbitrary).mean(0)
+euclidian = array(euclidian).mean(0)
 
 
 plt.xlabel("Number of Hidden States")
@@ -42,6 +50,9 @@ lineopt, = plt.plot(states, cosine, "g-", label="Cosine")
 linesopt, = plt.plot(states, correlation, "r-", label="Correlation")
 
 linesopt, = plt.plot(states, arbitrary, "b--", label="Arbitrary")
+
+
+linesopt, = plt.plot(states, euclidian, "c-", label="Euclidian")
 
 
 plt.tight_layout()

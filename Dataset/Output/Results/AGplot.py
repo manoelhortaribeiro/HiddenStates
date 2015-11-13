@@ -37,7 +37,8 @@ cosine.append(array([ 0.90588912,  0.91923092,  0.93117317,  0.93807661,  0.9392
 cosine.append(array([ 0.90588912,  0.91237192,  0.92839415,  0.93992653,  0.94225563,
         0.94668393,  0.94191523,   0.94900374,  0.95087479,  0.94639483,  0.94470775]))  # seed 1
 
-
+cosinestd = array(cosine).std(0)
+print cosinestd
 cosine = array(cosine).mean(0)
 correlation = array(correlation).mean(0)
 arbitrary = array(arbitrary).mean(0)
