@@ -9,7 +9,7 @@ import pprint
 #latexif.latexify()
 
 states = [6, 10, 14, 18, 22, 26, 30, 35, 40, 45, 50]
-
+states2 = [6, 10, 14, 18, 22, 26, 30]
 arbitrary = []
 
 arbitrary.append(array([ 0.90588912,  0.92699383,  0.93286083,  0.93621147,  0.93991812,
@@ -37,13 +37,23 @@ cosine.append(array([ 0.90588912,  0.91923092,  0.93117317,  0.93807661,  0.9392
 cosine.append(array([ 0.90588912,  0.91237192,  0.92839415,  0.93992653,  0.94225563,
         0.94668393,  0.94191523,   0.94900374,  0.95087479,  0.94639483,  0.94470775]))  # seed 1
 
+euclidian = []
+
+euclidian.append(array([ 0.90588912,  0.92019434,  0.9235711 ,  0.93636967,  0.93193848,
+        0.93849892,  0.94145999, 0.94996026,  0.94272726,  0.95177286,  0.95301446]))  # seed 1
+euclidian.append(array([ 0.90588912,  0.91597391,  0.93260202,  0.9308337 ,  0.94563359,
+        0.94447607,  0.93806153,  0.94259824,  0.95106202,  0.95386015,  0.95668299]))  # seed 1
+euclidian.append(array([ 0.90588912,  0.91793681,  0.93142436,  0.93690183,  0.94742124,
+        0.94408173,  0.94494681, 0.95071651,  0.94694151,  0.95186995,  0.95147378]))  # seed 1
+
 cosinestd = array(cosine).std(0)
-print cosinestd
 cosine = array(cosine).mean(0)
 correlation = array(correlation).mean(0)
 arbitrary = array(arbitrary).mean(0)
+euclidian = array(euclidian).mean(0)
 
 
+print euclidian - arbitrary
 plt.xlabel("Number of Hidden States")
 plt.ylabel("Accuracy")
 
@@ -52,6 +62,8 @@ lineopt, = plt.plot(states, cosine, "g-", label="Cosine")
 linesopt, = plt.plot(states, correlation, "r-", label="Correlation")
 
 linesopt, = plt.plot(states, arbitrary, "b--", label="Arbitrary")
+
+linesopt, = plt.plot(states, euclidian, "y--", label="Euclidian")
 
 
 plt.tight_layout()

@@ -41,6 +41,8 @@ correlation = array(correlation).mean(0)
 arbitrary = array(arbitrary).mean(0)
 euclidian = array(euclidian).mean(0)
 
+print euclidian - arbitrary
+
 
 plt.xlabel("Number of Hidden States")
 plt.ylabel("Accuracy")
