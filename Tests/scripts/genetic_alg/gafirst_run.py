@@ -3,7 +3,7 @@ import aux
 
 __author__ = 'Manoel Ribeiro'
 
-n_labels, folds, path, data, label, train, test, name, fold, date, project_folder, out = aux.cad120()
+data_path, n_labels, folds, path, data, label, train, test, name, fold, date, project_folder, out = aux.armgesture()
 
 description = "run0_CAD120_GA_seed1"
 

@@ -38,6 +38,25 @@ def NATOPS2():
 def armgesturethreefold():
     n_labels = 6
     folds = [1, 2, 3]
+    path = "/home/bruno.teixeira/distance5/hidden_states/Dataset/Data/ArmGestureContinuous3Fold/"
+    data = "data"
+    label = "seqLabels"
+    train = "Train"
+    test = "Test"
+    name = "ArmGestureContinuous"
+    fold = "Fold"
+    date = datetime.datetime.utcnow().strftime("%d_%m_%y-%H:%M")
+    project_folder = "/home/bruno.teixeira/distance5/"
+    out = "hidden_states/Dataset/Output/Results/"
+    datapath = path + "/ArmGestureDiscrete.mat"
+
+    return datapath, n_labels, folds, path, data, label, train, test, name, fold, date, project_folder, out
+
+
+
+def armgesturethreefold2():
+    n_labels = 6
+    folds = [1, 2, 3]
     path = "/home/manoel/Projects/hidden_states_entropy/Dataset/Data/ArmGestureContinuous3Fold/"
     data = "data"
     label = "seqLabels"
