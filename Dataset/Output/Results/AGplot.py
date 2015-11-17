@@ -4,9 +4,9 @@ import numpy
 from numpy import array
 SPINE_COLOR = 'gray'
 
-import latexif
+#import latexif
 import pprint
-latexif.latexify()
+#latexif.latexify()
 
 states = [6, 10, 14, 18, 22, 26, 30, 35, 40, 45, 50]
 states2 = [6, 10, 14, 18, 22, 26, 30]
