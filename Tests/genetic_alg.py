@@ -57,7 +57,7 @@ def eval_data_set(svm, i, states):
     if memory.has_key((tuple(states),i)):
         result = memory[(tuple(states),i)]
     else:
-        result = test_case(svm, x, y, x_t, y_t, states)
+        result = random.random() #test_case(svm, x, y, x_t, y_t, states)
         memory[(tuple(states), i)] = result
 
     return result,
@@ -120,7 +120,7 @@ def main(n_labels, folds, path, data, label, train, test, name, fold, init, p_si
     load_all_folds(path, data, label, train, test, name, fold, folds)
 
     # creates a fitness that minimizes the first objective
-    creator.create("FitnessMin", base.Fitness, weights=(-1.0,))
+    creator.create("FitnessMin", base.Fitness, weights=(1.0,))
 
     # creates list individual
     creator.create("Individual", list, fitness=creator.FitnessMin)
