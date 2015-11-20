@@ -8,11 +8,11 @@ data_path, n_labels, folds, path, data, label, train, test, name, fold, date, pr
 description = "run0_CAD120_GA_seed1"
 
 init = 6
-p_size = 15
+p_size = 30
 CXPB = 0.6
 MUTPB = 0.2
-NGEN = 10
-t_size = 3
+NGEN = 100000
+t_size = 2
 seed = 1
 svm = 5
 elite_size = 1

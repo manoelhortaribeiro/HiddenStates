@@ -16,12 +16,13 @@ __author__ = 'Manoel Ribeiro'
 
 # ----------------- I/O ----------------- #
 
-ALLFOLDS = {}
+FOLDs = {}
 
 
 def load_all_folds(path, data, label, train, test, name, fold, folds):
+    tmp = ["TRAIN", "TEST", "VALIDATION"]
 
-    for i in folds:
+    for idx, i in enumerate(folds):
         # test
         dte = path + data + test + name + fold + str(i) + ".csv"
         sqte = path + label + test + name + fold + str(i) + ".csv"
@@ -31,7 +32,8 @@ def load_all_folds(path, data, label, train, test, name, fold, folds):
         sqtr = path + label + train + name + fold + str(i) + ".csv"
 
         x, y, x_t, y_t = load_data(dtr, sqtr, dte, sqte)
-        ALLFOLDS[i] = (x, y, x_t, y_t)
+        FOLDs[tmp[idx]] = (x, y, x_t, y_t)
+
 
 # ----------------- Fitness ----------------- #
 
@@ -39,7 +41,6 @@ memory = {}
 
 
 def test_case(svm, x, y, x_t, y_t, states):
-
     latent_pbl = GraphLDCRF(n_states_per_label=states, inference_method='dai')
     base_ssvm = NSlackSSVM(latent_pbl, C=1, tol=.01, inactive_threshold=1e-3, batch_size=10, verbose=0, n_jobs=1)
     latent_svm = LatentSSVM(base_ssvm=base_ssvm, latent_iter=svm)
@@ -50,51 +51,120 @@ def test_case(svm, x, y, x_t, y_t, states):
     return test
 
 
-def eval_data_set(svm, i, states):
+def eval_data_set( states):
+    print FOLDs["TRAIN"]
+    x, y = FOLDs["TRAIN"]
+    x_t, y_t = FOLDs["TEST"]
 
-    x, y, x_t, y_t = ALLFOLDS[i]
-
-    if memory.has_key((tuple(states),i)):
-        result = memory[(tuple(states),i)]
+    if memory.has_key(tuple(states)):
+        result = memory[tuple(states)]
     else:
-        result = random.random() #test_case(svm, x, y, x_t, y_t, states)
-        memory[(tuple(states), i)] = result
+        result = test_case(svm, x, y, x_t, y_t, states)
+        memory[tuple(states)] = result
 
     return result,
+
 
 # ----------------- Helpers ----------------- #
 
 
-def random_thingy(x):
-    return random.randrange(1, x)
+def distribute(x, n_labels):
+    balls_left = x
+
+    list = []
+
+    for i in range(n_labels):
+        list.append(1)
+
+    balls_left = balls_left - n_labels
+
+    while (balls_left != 0):
+        next = random.randrange(n_labels)
+        list[next] += 1
+        balls_left -= 1
+
+    return list
 
 
-def redo_evaluate(folds, svm, toolbox):
-    # Chooses a fold to evaluate with
-    this_fold = random.choice(folds)
-    evaluate = functools.partial(eval_data_set, svm, this_fold)
-    toolbox.register("evaluate", evaluate)
-    return this_fold
+def adjust(ind, init, n_labels):
+    if sum(ind) is init:
+        return ind
+
+    while sum(ind) > init:
+        next = random.randrange(0, n_labels)
+        while(next <= 1):
+            next = random.randrange(0, n_labels)
+        ind[next] -= 1
+
+    while sum(ind) < init:
+        next = random.randrange(0, n_labels)
+        ind[next] += 1
+
+    return ind
 
 
-def setup(folds, svm, init, t_size, n_labels):
+def funky_crossover(ind1, ind2):
 
+    initsum = numpy.array(ind1).sum()
+    init = sum(ind1)
+    n_labels = len(ind1)
+    size = len(ind1) / 2
+    strip_end = 615
+    while strip_end != 6:
+        strip_start = random.randrange(0, size + 1)
+        strip_end = strip_start + 3
+
+    print(strip_start, strip_end)
+    ind1new = ind1[:strip_start] + ind2[strip_start:strip_end] + ind1[strip_end:]
+    ind2new = ind2[:strip_start] + ind1[strip_start:strip_end] + ind2[strip_end:]
+    print(ind1[:strip_start] + ind2[strip_start:strip_end] + ind1[strip_end:])
+    ind1new = adjust(ind1new, init, n_labels)
+    ind2new = adjust(ind2new, init, n_labels)
+
+    if numpy.array(ind1new).sum() != initsum or numpy.array(ind2new).sum() != initsum:
+        print "ERROR"
+        quit()
+    return ind1new, ind2new
+
+
+def funky_mutation(ind1):
+    lenof = len(ind1)
+    initsum = numpy.array(ind1).sum()
+    points = random.sample(range(lenof), 2)
+
+    indnew = ind1
+    if indnew[points[1]] > 1:
+        indnew[points[0]] += 1
+        indnew[points[1]] -= 1
+
+    if numpy.array(indnew).sum() != initsum:
+        print "ERROR"
+        quit()
+    return indnew,
+
+
+def setup(init, t_size, n_labels):
     toolbox = base.Toolbox()
 
+    random.seed()
     # initialize high order functions
-    initializator = functools.partial(random_thingy, init)
-
-    current_fold = redo_evaluate(folds, svm, toolbox)
+    initializator = functools.partial(distribute, x=init, n_labels=n_labels)
 
     # register everything
-    toolbox.register("atrr",  initializator)
-    toolbox.register("individual", tools.initRepeat, creator.Individual, toolbox.atrr, n=n_labels)
+    toolbox.register("atrr", initializator)
+    toolbox.register("individual", tools.initIterate, creator.Individual, toolbox.atrr, )
     toolbox.register("population", tools.initRepeat, list, toolbox.individual)
-    toolbox.register("mate", tools.cxTwoPoint)
-    toolbox.register("mutate", tools.mutUniformInt, low=1, up=init, indpb=0.1)
-    toolbox.register("select", tools.selTournament, tournsize=t_size)
-    pool = multiprocessing.Pool(processes=15)
-    toolbox.register("map", pool.map)
+
+    toolbox.register("mate", funky_crossover)
+
+    toolbox.register("mutate", funky_mutation)
+
+    toolbox.register("select", tools.selTournament, tournsize=2)
+
+    # pool = multiprocessing.Pool(processes=15)
+    toolbox.register("map", map)
+
+    toolbox.register("evaluate", eval_data_set)
 
     # creates stats
     stats = tools.Statistics(key=lambda a: a.fitness.values)
@@ -105,13 +175,13 @@ def setup(folds, svm, init, t_size, n_labels):
     logbook = tools.Logbook()
     logbook.header = "gen", "avg", "max", "min", "std"
 
-    return toolbox, logbook, stats, current_fold
+    return toolbox, logbook, stats
+
 
 # ----------------- Genetic Program ----------------- #
 
 def main(n_labels, folds, path, data, label, train, test, name, fold, init, p_size=3, CXPB=0.8,
          MUTPB=0.2, NGEN=4, svm=7, t_size=2, seed=1, elite_size=1):
-
     # seed random generators
     random.seed(seed)
     numpy.random.seed(seed)
@@ -119,18 +189,20 @@ def main(n_labels, folds, path, data, label, train, test, name, fold, init, p_si
     # load folds
     load_all_folds(path, data, label, train, test, name, fold, folds)
 
-    # creates a fitness that minimizes the first objective
+    # creates a fitness that MAXIMIZES the first objective
     creator.create("FitnessMin", base.Fitness, weights=(1.0,))
 
     # creates list individual
     creator.create("Individual", list, fitness=creator.FitnessMin)
 
-    toolbox, logbook, stats, current_fold = setup(folds, svm, init, t_size, n_labels)
+    toolbox, logbook, stats = setup(init, t_size, n_labels)
 
     pop = toolbox.population(n=p_size)
 
+
     # evaluate the entire population
     fitnesses = toolbox.map(toolbox.evaluate, pop)
+
 
     hall_of_fame_all = []
 
@@ -147,10 +219,10 @@ def main(n_labels, folds, path, data, label, train, test, name, fold, init, p_si
         hall_of_fame = tools.selBest(offspring, elite_size)
 
         for i in hall_of_fame:
-            hall_of_fame_all.append((g, i, i.fitness.values, current_fold))
+            hall_of_fame_all.append((g, i, i.fitness.values))
             print i, i.fitness.values
 
-        if g is NGEN-1:
+        if g is NGEN - 1:
             break
 
         # Clone the selected individuals
@@ -181,8 +253,6 @@ def main(n_labels, folds, path, data, label, train, test, name, fold, init, p_si
         for ind, fit in zip(invalid_ind, fitnesses):
             ind.fitness.values = fit
 
-        # Chooses a fold to evaluate with
-        current_fold = redo_evaluate(folds, svm, toolbox)
 
         # The population is entirely replaced by the offspring
         pop[:] = offspring
@@ -191,4 +261,3 @@ def main(n_labels, folds, path, data, label, train, test, name, fold, init, p_si
         logbook.record(gen=g, **record)
 
     return zip(pop, fitnesses), logbook.stream, hall_of_fame_all
-

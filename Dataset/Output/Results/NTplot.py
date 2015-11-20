@@ -19,9 +19,12 @@ arbitrary.append(array([0.63178273, 0.62324567, 0.63423899, 0.61559671,
 
 correlation = []
 
-correlation.append(array([0.59676031, 0.57951379, 0.58017263, 0.53591397, 0.20717255]))  # seed 1
-correlation.append(array([0.62711334, 0.57247285, 0.57627877, 0.50048226, 0.21036323]))  # seed 2
-correlation.append(array([0.60904804, 0.63052835, 0.5996046, 0.50108224, 0.22196802]))  # seed 3
+correlation.append(array([ 0.6426352,  0.66004447,  0.61641077, 0.59676031,
+                           0.57951379, 0.58017263, 0.53591397, 0.20717255]))  # seed 1
+correlation.append(array([0.62811314,  0.62318541,  0.61577255, 0.62711334,
+                          0.57247285, 0.57627877, 0.50048226, 0.21036323]))  # seed 2
+correlation.append(array([ 0.65141778,  0.65471109,  0.64607639, 0.60904804,
+                           0.63052835, 0.5996046, 0.50108224, 0.22196802]))  # seed 3
 
 cosine = []
 
@@ -36,9 +39,10 @@ cosine.append(array([0.6302896, 0.64150081, 0.65056799, 0.61053246,
 
 euclidian = []
 
-euclidian.append(array([0.62969643, 0.57075676, 0.55856037, 0.52958928, 0.20901503]))  # seed 1
-euclidian.append(array([0.63024278, 0.58693004, 0.58188393, 0.55471561, 0.23177235]))  # seed 2
-euclidian.append(array([0.64234367, 0.60324327, 0.60345698, 0.51513683, 0.21613778]))  # seed 3
+
+euclidian.append(array([ 0.62110839,  0.61716555,  0.65842796, 0.62969643, 0.57075676, 0.55856037, 0.52958928, 0.20901503]))  # seed 1
+euclidian.append(array([0.64029296,  0.60889143,  0.57763288, 0.63024278, 0.58693004, 0.58188393, 0.55471561, 0.23177235]))  # seed 2
+euclidian.append(array([0.64408124,  0.63354017,  0.63970257, 0.64234367, 0.60324327, 0.60345698, 0.51513683, 0.21613778]))  # seed 3
 
 cosinestd = array(cosine).std(0)
 correlationstd = array(correlation).std(0)
@@ -62,12 +66,12 @@ plt.ylabel("Accuracy")
 
 lineopt, = plt.plot(states, cosine, "g-", label="Cosine")
 
-# linesopt, = plt.plot(states, correlation, "r-", label="Correlation")
+linesopt, = plt.plot(states, correlation, "r-", label="Correlation")
 
 linesopt, = plt.plot(states, arbitrary, "b--", label="Arbitrary")
 
 
-# linesopt, = plt.plot(states, euclidian, "c-", label="Euclidian")
+linesopt, = plt.plot(states, euclidian, "c-", label="Euclidian")
 
 
 plt.tight_layout()
