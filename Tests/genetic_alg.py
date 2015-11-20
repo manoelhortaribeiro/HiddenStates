@@ -11,9 +11,8 @@ from pystruct.learners import NSlackSSVM, LatentSSVM
 # Internal Imports
 from Util.data_parser import load_data
 from Models.GraphLDCRF import GraphLDCRF
-
+from Tests.measures import divide_hidden_states_arbitrary
 __author__ = 'Manoel Ribeiro'
-
 # ----------------- I/O ----------------- #
 
 FOLDs = {}
@@ -39,11 +38,10 @@ def load_all_folds(path, data, label, train, test, name, fold, folds):
 
 memory = {}
 
-
-def test_case(svm, x, y, x_t, y_t, states):
+def test_case(x, y, x_t, y_t, states):
     latent_pbl = GraphLDCRF(n_states_per_label=states, inference_method='dai')
     base_ssvm = NSlackSSVM(latent_pbl, C=1, tol=.01, inactive_threshold=1e-3, batch_size=10, verbose=0, n_jobs=1)
-    latent_svm = LatentSSVM(base_ssvm=base_ssvm, latent_iter=svm)
+    latent_svm = LatentSSVM(base_ssvm=base_ssvm, latent_iter=5)
     latent_svm.fit(x, y)
 
     test = latent_svm.score(x_t, y_t)
@@ -51,15 +49,15 @@ def test_case(svm, x, y, x_t, y_t, states):
     return test
 
 
-def eval_data_set( states):
-    print FOLDs["TRAIN"]
-    x, y = FOLDs["TRAIN"]
-    x_t, y_t = FOLDs["TEST"]
+def eval_data_set(states):
+
+    garbage1, garbage2, x, y = FOLDs["TRAIN"]
+    garbage1, garbage2, x_t, y_t = FOLDs["TEST"]
 
     if memory.has_key(tuple(states)):
         result = memory[tuple(states)]
     else:
-        result = test_case(svm, x, y, x_t, y_t, states)
+        result = test_case(x, y, x_t, y_t, states)
         memory[tuple(states)] = result
 
     return result,
@@ -146,7 +144,6 @@ def funky_mutation(ind1):
 def setup(init, t_size, n_labels):
     toolbox = base.Toolbox()
 
-    random.seed()
     # initialize high order functions
     initializator = functools.partial(distribute, x=init, n_labels=n_labels)
 
@@ -159,9 +156,9 @@ def setup(init, t_size, n_labels):
 
     toolbox.register("mutate", funky_mutation)
 
-    toolbox.register("select", tools.selTournament, tournsize=2)
+    toolbox.register("select", tools.selTournament, tournsize=t_size)
 
-    # pool = multiprocessing.Pool(processes=15)
+    pool = multiprocessing.Pool(processes=15)
     toolbox.register("map", map)
 
     toolbox.register("evaluate", eval_data_set)
@@ -181,7 +178,7 @@ def setup(init, t_size, n_labels):
 # ----------------- Genetic Program ----------------- #
 
 def main(n_labels, folds, path, data, label, train, test, name, fold, init, p_size=3, CXPB=0.8,
-         MUTPB=0.2, NGEN=4, svm=7, t_size=2, seed=1, elite_size=1):
+         MUTPB=0.2, NGEN=4, t_size=2, seed=1, elite_size=1):
     # seed random generators
     random.seed(seed)
     numpy.random.seed(seed)
@@ -260,4 +257,8 @@ def main(n_labels, folds, path, data, label, train, test, name, fold, init, p_si
         record = stats.compile(pop)
         logbook.record(gen=g, **record)
 
-    return zip(pop, fitnesses), logbook.stream, hall_of_fame_all
+    arbitrary = divide_hidden_states_arbitrary(init,n_labels)
+
+    arbitrary_acc = eval_data_set(arbitrary)
+
+    return zip(pop, fitnesses), logbook.stream, hall_of_fame_all, arbitrary_acc
