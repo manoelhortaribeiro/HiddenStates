@@ -153,10 +153,6 @@ def setup(init, t_size, n_labels):
 
     pop = toolbox.population(n=4)
 
-    print pop
-    toolbox.mate(pop[0], pop[1])
-    print pop
-
     toolbox.register("evaluate", eval_data_set, foldtrain=FOLDs["TRAIN"], foldtest=FOLDs["TEST"])
 
     # creates stats
@@ -224,11 +220,14 @@ def main(n_labels, folds, path, data, label, train, test, name, fold, init, p_si
         for child1, child2 in zip(offspring[::2], offspring[1::2]):
             if random.random() < CXPB:
                 toolbox.mate(child1, child2)
+                del child1.fitness.values
+                del child2.fitness.values
 
         # Apply mutation on the offspring
         for mutant in offspring:
             if random.random() < MUTPB:
                 toolbox.mutate(mutant)
+                del mutant.fitness.values
 
         offspring = tools.selBest(offspring + hall_of_fame, len(pop))
 
