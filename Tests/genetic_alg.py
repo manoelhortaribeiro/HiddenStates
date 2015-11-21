@@ -149,9 +149,7 @@ def setup(init, t_size, n_labels):
     toolbox.register("select", tools.selTournament, tournsize=t_size)
 
     pool = multiprocessing.Pool(processes=10)
-    toolbox.register("map", map)
-
-    pop = toolbox.population(n=4)
+    toolbox.register("map", pool.map)
 
     toolbox.register("evaluate", eval_data_set, foldtrain=FOLDs["TRAIN"], foldtest=FOLDs["TEST"])
 
