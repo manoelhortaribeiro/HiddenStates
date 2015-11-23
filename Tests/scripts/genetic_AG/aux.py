@@ -1,6 +1,6 @@
 import datetime
 
-def armgesture2():
+def armgesture():
     n_labels = 6
     folds = [1, 2, 3]
     path = "/home/bruno.teixeira/distance7/hidden_states/Dataset/Data/ArmGestureContinuous3FoldHALF/"
@@ -18,7 +18,7 @@ def armgesture2():
     return datapath, n_labels, folds, path, data, label, train, test, name, fold, date, project_folder, out
 
 
-def armgesture():
+def armgesture2():
     n_labels = 6
     folds = [1, 2, 3]
     path = "/home/manoel/Projects/hidden_states_entropy/Dataset/Data/ArmGestureContinuous3FoldHALF/"

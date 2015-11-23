@@ -58,7 +58,7 @@ def eval_data_set(states, foldtrain, foldtest):
     if memory.has_key(tuple(states)):
         result = memory[tuple(states)]
     else:
-        result = 1 #test_case(x, y, x_t, y_t, states)
+        result = test_case(x, y, x_t, y_t, states)
         memory[tuple(states)] = result
 
     return result,
@@ -109,8 +109,8 @@ def funky_crossover(ind1, ind2):
     ind1, ind2 = tools.cxOnePoint(ind1, ind2)
 
     # print(ind1[:strip_start] + ind2[strip_start:strip_end] + ind1[strip_end:])
-    #ind1 = adjust(ind1, init, n_labels)
-    #ind2 = adjust(ind2, init, n_labels)
+    ind1 = adjust(ind1, init, n_labels)
+    ind2 = adjust(ind2, init, n_labels)
     return ind1, ind2
 
 
@@ -205,9 +205,7 @@ def main(n_labels, folds, path, data, label, train, test, name, fold, init, p_si
 
         for i in hall_of_fame:
             hall_of_fame_all.append((g, i, i.fitness.values))
-
-        for i in pop:
-            print i
+            print i, i.fitness.values
 
         if g is NGEN - 1:
             break
