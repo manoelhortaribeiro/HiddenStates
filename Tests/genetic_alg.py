@@ -196,6 +196,7 @@ def main(n_labels, folds, path, data, label, train, test, name, fold, init, p_si
 
     for g in range(NGEN):
 
+        print pop
         print g, "/", NGEN, "len:", len(pop[:])
 
         # Select the next generation individuals
@@ -217,14 +218,11 @@ def main(n_labels, folds, path, data, label, train, test, name, fold, init, p_si
         for child1, child2 in zip(offspring[::2], offspring[1::2]):
             if random.random() < CXPB:
                 toolbox.mate(child1, child2)
-                del child1.fitness.values
-                del child2.fitness.values
 
         # Apply mutation on the offspring
         for mutant in offspring:
             if random.random() < MUTPB:
                 toolbox.mutate(mutant)
-                del mutant.fitness.values
 
         offspring = tools.selBest(offspring + hall_of_fame, len(pop))
 
@@ -242,8 +240,8 @@ def main(n_labels, folds, path, data, label, train, test, name, fold, init, p_si
             ind.fitness.values = fit
 
 
-        # The population is entirely replaced by the offspring
-        pop[:] = offspring
+        # The population is entirely replaced by the offspring + the hall of fame
+        pop[:] = tools.selBest(offspring, p_size) + hall_of_fame
 
         record = stats.compile(pop)
         logbook.record(gen=g, **record)

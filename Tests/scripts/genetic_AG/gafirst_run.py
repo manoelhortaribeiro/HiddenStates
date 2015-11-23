@@ -7,7 +7,7 @@ data_path, n_labels, folds, path, data, label, train, test, name, fold, date, pr
 
 description = "run0_CAD120_GA_seed1"
 
-init = 30
+init = 36
 p_size = 20
 CXPB = 0.6
 MUTPB = 0.6
