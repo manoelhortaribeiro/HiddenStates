@@ -4,18 +4,15 @@ from Util.latexif import latexify, create_table
 
 #latexify()
 
-states = [48, 42, 36, 30, 24, 18, 12, 6]
+states = [30, 24, 18, 12, 6]
 
 arbitrary = []
 
-arbitrary.append(array([0.63129163, 0.66858605, 0.67378368, 0.62510438,
-                        0.58820275, 0.58319109, 0.50442872, 0.20143244]))  # seed 1
+arbitrary.append(array([ 0.82294259,  0.82141513,  0.82038043,  0.78403575,  0.59615377]))  # seed 1
 
-arbitrary.append(array([0.63421717, 0.63820677, 0.64477087, 0.61066447,
-                        0.61300221, 0.55307995, 0.47815937, 0.20619404]))  # seed 2
+arbitrary.append(array([ 0.8378856 ,  0.83896836,  0.80771602,  0.8026215 ,  0.59660132]))  # seed 2
 
-arbitrary.append(array([0.63178273, 0.62324567, 0.63423899, 0.61559671,
-                        0.62169793, 0.59199289, 0.50217412, 0.2056543]))  # seed 3
+arbitrary.append(array([ 0.8381184 ,  0.84599226,  0.81534056,  0.7664829 ,  0.59615377]))  # seed 3
 
 correlation = []
 
@@ -40,9 +37,9 @@ cosine.append(array([0.6302896, 0.64150081, 0.65056799, 0.61053246,
 euclidian = []
 
 
-euclidian.append(array([ 0.62110839,  0.61716555,  0.65842796, 0.62969643, 0.57075676, 0.55856037, 0.52958928, 0.20901503]))  # seed 1
-euclidian.append(array([0.64029296,  0.60889143,  0.57763288, 0.63024278, 0.58693004, 0.58188393, 0.55471561, 0.23177235]))  # seed 2
-euclidian.append(array([0.64408124,  0.63354017,  0.63970257, 0.64234367, 0.60324327, 0.60345698, 0.51513683, 0.21613778]))  # seed 3
+euclidian.append(array([ 0.84731472,  0.81952398,  0.82177568,  0.75546491,  0.59660132]))  # seed 1
+euclidian.append(array([ 0.85382129,  0.81674277,  0.82841133,  0.80067718,  0.59660132]))  # seed 2
+euclidian.append(array([ 0.83291696,  0.86264855,  0.8321376 ,  0.7820089 ,  0.59660132]))  # seed 3
 
 cosinestd = array(cosine).std(0)
 correlationstd = array(correlation).std(0)
@@ -51,10 +48,10 @@ euclidianstd = array(euclidian).std(0)
 
 std = [cosinestd, correlationstd, euclidianstd, arbitrarystd]
 
-cosine = array(cosine).mean(0)
-correlation = array(correlation).mean(0)
-arbitrary = array(arbitrary).mean(0)
-euclidian = array(euclidian).mean(0)
+cosine = array(cosine).max(0)
+correlation = array(correlation).max(0)
+arbitrary = array(arbitrary).max(0)
+euclidian = array(euclidian).max(0)
 
 mean = [cosine, correlation, euclidian, arbitrary]
 
@@ -64,9 +61,9 @@ create_table(mean, std, states, descs)
 plt.xlabel("Number of Hidden States")
 plt.ylabel("Accuracy")
 
-lineopt, = plt.plot(states, cosine, "g-", label="Cosine")
+#lineopt, = plt.plot(states, cosine, "g-", label="Cosine")
 
-linesopt, = plt.plot(states, correlation, "r-", label="Correlation")
+#linesopt, = plt.plot(states, correlation, "r-", label="Correlation")
 
 linesopt, = plt.plot(states, arbitrary, "b--", label="Arbitrary")
 
