@@ -12,6 +12,7 @@ from pystruct.learners import NSlackSSVM, LatentSSVM
 from Util.data_parser import load_data
 from Models.GraphLDCRF import GraphLDCRF
 from Tests.measures import divide_hidden_states_arbitrary
+
 __author__ = 'Manoel Ribeiro'
 # ----------------- I/O ----------------- #
 
@@ -38,6 +39,7 @@ def load_all_folds(path, data, label, train, test, name, fold, folds):
 
 memory = {}
 
+
 def test_case(x, y, x_t, y_t, states):
     latent_pbl = GraphLDCRF(n_states_per_label=states, inference_method='dai')
     base_ssvm = NSlackSSVM(latent_pbl, C=1, tol=.01, inactive_threshold=1e-3, batch_size=10, verbose=0, n_jobs=1)
@@ -49,10 +51,9 @@ def test_case(x, y, x_t, y_t, states):
     return test
 
 
-def eval_data_set(states):
-
-    garbage1, garbage2, x, y = FOLDs["TRAIN"]
-    garbage1, garbage2, x_t, y_t = FOLDs["TEST"]
+def eval_data_set(states, foldtrain, foldtest):
+    garbage1, garbage2, x, y = foldtrain
+    garbage1, garbage2, x_t, y_t = foldtest
 
     if memory.has_key(tuple(states)):
         result = memory[tuple(states)]
@@ -90,7 +91,7 @@ def adjust(ind, init, n_labels):
 
     while sum(ind) > init:
         next = random.randrange(0, n_labels)
-        while(next <= 1):
+        while (next <= 1):
             next = random.randrange(0, n_labels)
         ind[next] -= 1
 
@@ -102,27 +103,16 @@ def adjust(ind, init, n_labels):
 
 
 def funky_crossover(ind1, ind2):
-
-    initsum = numpy.array(ind1).sum()
     init = sum(ind1)
     n_labels = len(ind1)
-    size = len(ind1) / 2
-    strip_end = 615
-    while strip_end != 6:
-        strip_start = random.randrange(0, size + 1)
-        strip_end = strip_start + 3
 
-    print(strip_start, strip_end)
-    ind1new = ind1[:strip_start] + ind2[strip_start:strip_end] + ind1[strip_end:]
-    ind2new = ind2[:strip_start] + ind1[strip_start:strip_end] + ind2[strip_end:]
-    print(ind1[:strip_start] + ind2[strip_start:strip_end] + ind1[strip_end:])
-    ind1new = adjust(ind1new, init, n_labels)
-    ind2new = adjust(ind2new, init, n_labels)
+    ind1, ind2 = tools.cxTwoPoint(ind1, ind2)
 
-    if numpy.array(ind1new).sum() != initsum or numpy.array(ind2new).sum() != initsum:
-        print "ERROR"
-        quit()
-    return ind1new, ind2new
+    # print(ind1[:strip_start] + ind2[strip_start:strip_end] + ind1[strip_end:])
+    ind1 = adjust(ind1, init, n_labels)
+    ind2 = adjust(ind2, init, n_labels)
+
+    return ind1, ind2
 
 
 def funky_mutation(ind1):
@@ -158,10 +148,10 @@ def setup(init, t_size, n_labels):
 
     toolbox.register("select", tools.selTournament, tournsize=t_size)
 
-    pool = multiprocessing.Pool(processes=15)
-    toolbox.register("map", map)
+    pool = multiprocessing.Pool(processes=10)
+    toolbox.register("map", pool.map)
 
-    toolbox.register("evaluate", eval_data_set)
+    toolbox.register("evaluate", eval_data_set, foldtrain=FOLDs["TRAIN"], foldtest=FOLDs["TEST"])
 
     # creates stats
     stats = tools.Statistics(key=lambda a: a.fitness.values)
@@ -200,7 +190,6 @@ def main(n_labels, folds, path, data, label, train, test, name, fold, init, p_si
     # evaluate the entire population
     fitnesses = toolbox.map(toolbox.evaluate, pop)
 
-
     hall_of_fame_all = []
 
     for ind, fit in zip(pop, fitnesses):
@@ -229,11 +218,14 @@ def main(n_labels, folds, path, data, label, train, test, name, fold, init, p_si
         for child1, child2 in zip(offspring[::2], offspring[1::2]):
             if random.random() < CXPB:
                 toolbox.mate(child1, child2)
+                del child1.fitness.values
+                del child2.fitness.values
 
         # Apply mutation on the offspring
         for mutant in offspring:
             if random.random() < MUTPB:
                 toolbox.mutate(mutant)
+                del mutant.fitness.values
 
         offspring = tools.selBest(offspring + hall_of_fame, len(pop))
 
@@ -257,8 +249,10 @@ def main(n_labels, folds, path, data, label, train, test, name, fold, init, p_si
         record = stats.compile(pop)
         logbook.record(gen=g, **record)
 
-    arbitrary = divide_hidden_states_arbitrary(init,n_labels)
+    arbitrary = divide_hidden_states_arbitrary(init, n_labels)
 
-    arbitrary_acc = eval_data_set(arbitrary)
+    best = tools.selBest(pop, 1)
+    arbitrary_acc, ours_acc = eval_data_set(arbitrary, FOLDs["TRAIN"], FOLDs["VALIDATION"]), \
+                              eval_data_set(best[0], FOLDs["TRAIN"], FOLDs["VALIDATION"])
 
-    return zip(pop, fitnesses), logbook.stream, hall_of_fame_all, arbitrary_acc
+    return zip(pop, fitnesses), logbook.stream, hall_of_fame_all, (arbitrary_acc, ours_acc)
