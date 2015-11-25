@@ -2,6 +2,7 @@ import random
 import functools
 import numpy
 import multiprocessing
+
 # Deap Imports
 from deap import base
 from deap import creator
@@ -37,7 +38,6 @@ def load_all_folds(path, data, label, train, test, name, fold, folds):
 
 # ----------------- Fitness ----------------- #
 
-memory = {}
 
 
 def test_case(x, y, x_t, y_t, states):
@@ -55,11 +55,7 @@ def eval_data_set(states, foldtrain, foldtest):
     garbage1, garbage2, x, y = foldtrain
     garbage1, garbage2, x_t, y_t = foldtest
 
-    if memory.has_key(tuple(states)):
-        result = memory[tuple(states)]
-    else:
-        result = test_case(x, y, x_t, y_t, states)
-        memory[tuple(states)] = result
+    result = test_case(x, y, x_t, y_t, states)
 
     return result,
 
@@ -196,13 +192,13 @@ def main(n_labels, folds, path, data, label, train, test, name, fold, init, p_si
 
     for g in range(NGEN):
 
-        print pop
+        #print pop
         print g, "/", NGEN, "len:", len(pop[:])
 
         # Select the next generation individuals
         offspring = toolbox.select(pop, len(pop[:]))
 
-        hall_of_fame = tools.selBest(offspring, elite_size)
+        hall_of_fame = map(toolbox.clone, tools.selBest(offspring, elite_size))
 
         for i in hall_of_fame:
             hall_of_fame_all.append((g, i, i.fitness.values))
@@ -235,13 +231,12 @@ def main(n_labels, folds, path, data, label, train, test, name, fold, init, p_si
 
         # Evaluate the individuals with an invalid fitness
         invalid_ind = [ind for ind in offspring if not ind.fitness.valid]
-        fitnesses = map(toolbox.evaluate, invalid_ind)
+        fitnesses = toolbox.map(toolbox.evaluate, invalid_ind)
         for ind, fit in zip(invalid_ind, fitnesses):
             ind.fitness.values = fit
 
-
         # The population is entirely replaced by the offspring + the hall of fame
-        pop[:] = tools.selBest(offspring, p_size) + hall_of_fame
+        pop[:] = offspring #tools.selBest(offspring, p_size) + hall_of_fame
 
         record = stats.compile(pop)
         logbook.record(gen=g, **record)

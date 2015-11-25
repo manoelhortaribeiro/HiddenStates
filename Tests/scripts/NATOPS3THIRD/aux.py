@@ -2,10 +2,10 @@ import datetime
 
 def NATOPS3fold():
     n_labels = 6
-    folds = [1, 2, 3, 4, 5]
-    path = "/home/bruno.teixeira/distance6/hidden_states/Dataset/Data/NATOPS3Fold/Third"
-    data = "data"
-    label = "seqLabels"
+    folds = [1, 2, 3]
+    path = "/home/bruno.teixeira/distance6/hidden_states/Dataset/Data/NATOPS3FoldTHIRD/"
+    data = "3data"
+    label = "3seqLabels"
     train = "Train"
     test = "Test"
     name = "NATOPS"
