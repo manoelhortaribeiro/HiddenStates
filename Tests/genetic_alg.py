@@ -2,6 +2,7 @@ import random
 import functools
 import numpy
 import multiprocessing
+from multiprocessing.pool import ThreadPool
 
 # Deap Imports
 from deap import base
@@ -39,7 +40,6 @@ def load_all_folds(path, data, label, train, test, name, fold, folds):
 # ----------------- Fitness ----------------- #
 
 
-
 def test_case(x, y, x_t, y_t, states):
     latent_pbl = GraphLDCRF(n_states_per_label=states, inference_method='dai')
     base_ssvm = NSlackSSVM(latent_pbl, C=1, tol=.01, inactive_threshold=1e-3, batch_size=10, verbose=0, n_jobs=1)
@@ -50,15 +50,41 @@ def test_case(x, y, x_t, y_t, states):
 
     return test
 
+memory = {}
+
 
 def eval_data_set(states, foldtrain, foldtest):
     garbage1, garbage2, x, y = foldtrain
     garbage1, garbage2, x_t, y_t = foldtest
+    sample = 3
+    total = 0
 
-    result = test_case(x, y, x_t, y_t, states)
+    if memory.has_key(tuple(states)):
+        result = memory[tuple(states)]
+    else:
+        for i in range(sample):
+            result = test_case(x, y, x_t, y_t, states)
+            total += result
+
+        result = total/float(sample)
+        memory[tuple(states)] = result
 
     return result,
 
+
+def eval_eval_set(states, foldtrain, foldtest):
+    garbage1, garbage2, x, y = foldtrain
+    garbage1, garbage2, x_t, y_t = foldtest
+    sample = 3
+    total = 0
+
+    for i in range(sample):
+        result = test_case(x, y, x_t, y_t, states)
+        total += result
+
+    result = total/float(sample)
+
+    return result,
 
 # ----------------- Helpers ----------------- #
 
@@ -143,7 +169,7 @@ def setup(init, t_size, n_labels):
 
     toolbox.register("select", tools.selTournament, tournsize=t_size)
 
-    pool = multiprocessing.Pool(processes=10)
+    pool = ThreadPool(processes=10)
     toolbox.register("map", pool.map)
 
     toolbox.register("evaluate", eval_data_set, foldtrain=FOLDs["TRAIN"], foldtest=FOLDs["TEST"])
@@ -181,9 +207,8 @@ def main(n_labels, folds, path, data, label, train, test, name, fold, init, p_si
 
     pop = toolbox.population(n=p_size)
 
-
     # evaluate the entire population
-    fitnesses = toolbox.map(toolbox.evaluate, pop)
+    fitnesses = toolbox.map(toolbox.evaluate, pop, )
 
     hall_of_fame_all = []
 
@@ -192,23 +217,28 @@ def main(n_labels, folds, path, data, label, train, test, name, fold, init, p_si
 
     for g in range(NGEN):
 
-        #print pop
+        print "------------------------------------"
         print g, "/", NGEN, "len:", len(pop[:])
+        #print memory
+        #for i in pop:
+        #    print "[",i, i.fitness.values,"] ",
+        #print
+        print pop
 
         # Select the next generation individuals
-        offspring = toolbox.select(pop, len(pop[:]))
+        hall_of_fame = map(toolbox.clone, tools.selBest(pop, elite_size))
 
-        hall_of_fame = map(toolbox.clone, tools.selBest(offspring, elite_size))
+        offspring = toolbox.select(pop, len(pop[:]))
 
         for i in hall_of_fame:
             hall_of_fame_all.append((g, i, i.fitness.values))
-            print i, i.fitness.values
+            print ">>>", i, i.fitness.values
 
         if g is NGEN - 1:
             break
 
         # Clone the selected individuals
-        offspring = toolbox.map(toolbox.clone, offspring)
+        offspring = map(toolbox.clone, offspring)
 
         # Apply crossover on the offspring
         for child1, child2 in zip(offspring[::2], offspring[1::2]):
@@ -222,29 +252,27 @@ def main(n_labels, folds, path, data, label, train, test, name, fold, init, p_si
 
         offspring = tools.selBest(offspring + hall_of_fame, len(pop))
 
-        # Delete all fitness values
-        for i in offspring:
-            del i.fitness.values
-
-        for i in hall_of_fame:
-            del i.fitness.values
-
-        # Evaluate the individuals with an invalid fitness
-        invalid_ind = [ind for ind in offspring if not ind.fitness.valid]
-        fitnesses = toolbox.map(toolbox.evaluate, invalid_ind)
-        for ind, fit in zip(invalid_ind, fitnesses):
+        # Evaluate the individuals
+        fitnesses = toolbox.map(toolbox.evaluate, offspring)
+        for ind, fit in zip(offspring, fitnesses):
             ind.fitness.values = fit
 
         # The population is entirely replaced by the offspring + the hall of fame
-        pop[:] = offspring #tools.selBest(offspring, p_size) + hall_of_fame
+        pop[:] = offspring
 
         record = stats.compile(pop)
         logbook.record(gen=g, **record)
 
     arbitrary = divide_hidden_states_arbitrary(init, n_labels)
+    best = tools.selBest(pop, 8)
 
-    best = tools.selBest(pop, 1)
-    arbitrary_acc, ours_acc = eval_data_set(arbitrary, FOLDs["TRAIN"], FOLDs["VALIDATION"]), \
-                              eval_data_set(best[0], FOLDs["TRAIN"], FOLDs["VALIDATION"])
+    best.append(arbitrary)
 
-    return zip(pop, fitnesses), logbook.stream, hall_of_fame_all, (arbitrary_acc, ours_acc)
+    toolbox.register("evaluatefinal", eval_data_set, foldtrain=FOLDs["TRAIN"], foldtest=FOLDs["VALIDATION"])
+
+    results = toolbox.map(toolbox.evaluatefinal, best)
+
+    final = zip(best, results)
+    print "FINAL (last is arbitrary):", final
+
+    return zip(pop, fitnesses), logbook.stream, hall_of_fame_all, final

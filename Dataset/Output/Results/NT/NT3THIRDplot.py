@@ -43,10 +43,10 @@ euclidianstd = array(euclidian).std(0)
 
 std = [cosinestd, correlationstd, euclidianstd, arbitrarystd]
 
-cosine = array(cosine).mean(0)
-correlation = array(correlation).mean(0)
-arbitrary = array(arbitrary).mean(0)
-euclidian = array(euclidian).mean(0)
+cosine = array(cosine).max(0)
+correlation = array(correlation).max(0)
+arbitrary = array(arbitrary).max(0)
+euclidian = array(euclidian).max(0)
 
 mean = [cosine, correlation, euclidian, arbitrary]
 
@@ -56,9 +56,9 @@ create_table(mean, std, states, descs)
 plt.xlabel("Number of Hidden States")
 plt.ylabel("Accuracy")
 
-#lineopt, = plt.plot(states, cosine, "g-", label="Cosine")
+lineopt, = plt.plot(states, cosine, "g-", label="Cosine")
 
-#linesopt, = plt.plot(states, correlation, "r-", label="Correlation")
+linesopt, = plt.plot(states, correlation, "r-", label="Correlation")
 
 linesopt, = plt.plot(states, arbitrary, "b--", label="Arbitrary")
 

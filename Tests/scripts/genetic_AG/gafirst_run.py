@@ -8,12 +8,11 @@ def run_it(seed, description):
 
     data_path, n_labels, folds, path, data, label, train, test, name, fold, date, project_folder, out = aux.armgesture()
 
-
-    init = 36
+    init = 30
     p_size = 20
     CXPB = 0.6
     MUTPB = 0.6
-    NGEN = 20
+    NGEN = 100
     t_size = 2
     svm = 5
     elite_size = 1

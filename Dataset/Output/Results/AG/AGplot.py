@@ -5,10 +5,8 @@ from numpy import array
 
 SPINE_COLOR = 'gray'
 
-import latexif
 import pprint
 
-latexif.latexify()
 
 states = [6, 10, 14, 18, 22, 26, 30, 35, 40, 45, 50]
 
@@ -50,10 +48,10 @@ euclidian.append(array([0.90588912, 0.91793681, 0.93142436, 0.93690183, 0.947421
                         0.94408173, 0.94494681, 0.95071651, 0.94694151, 0.95186995, 0.95147378]))  # seed 1
 
 cosinestd = array(cosine).std(0)
-cosine = array(cosine).mean(0)
-correlation = array(correlation).mean(0)
-arbitrary = array(arbitrary).mean(0)
-euclidian = array(euclidian).mean(0)
+cosine = array(cosine).max(0)
+correlation = array(correlation).max(0)
+arbitrary = array(arbitrary).max(0)
+euclidian = array(euclidian).max(0)
 
 print euclidian - arbitrary
 plt.xlabel("Number of Hidden States")
