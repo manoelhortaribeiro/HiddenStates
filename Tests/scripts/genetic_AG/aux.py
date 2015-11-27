@@ -3,7 +3,7 @@ import datetime
 def armgesture():
     n_labels = 6
     folds = [1, 2, 3]
-    path = "/home/bruno.teixeira/distance7/hidden_states/Dataset/Data/ArmGestureContinuous3FoldHALF/"
+    path = "/home/bruno.teixeira/distance8/hidden_states/Dataset/Data/ArmGestureContinuous3FoldHALF/"
     data = "data"
     label = "seqLabels"
     train = "Train"
@@ -11,7 +11,7 @@ def armgesture():
     name = "ArmGestureContinuous"
     fold = "FoldHALF"
     date = datetime.datetime.utcnow().strftime("%d_%m_%y-%H:%M")
-    project_folder = "/home/bruno.teixeira/distance7/"
+    project_folder = "/home/bruno.teixeira/distance8/"
     out = "hidden_states/Dataset/Output/Results/"
     datapath = path + "/ArmGestureDiscrete.mat"
 
