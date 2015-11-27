@@ -73,10 +73,10 @@ euclidianstd = array(euclidian).std(0)
 
 std = [cosinestd, correlationstd, euclidianstd, arbitrarystd]
 
-cosine = array(cosine).max(0)
-correlation = array(correlation).max(0)
-arbitrary = array(arbitrary).max(0)
-euclidian = array(euclidian).max(0)
+cosine = array(cosine).mean(0)
+correlation = array(correlation).mean(0)
+arbitrary = array(arbitrary).mean(0)
+euclidian = array(euclidian).mean(0)
 
 mean = [cosine, correlation, euclidian, arbitrary]
 

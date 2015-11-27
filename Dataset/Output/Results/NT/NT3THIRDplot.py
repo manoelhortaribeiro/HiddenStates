@@ -16,23 +16,18 @@ arbitrary.append(array([ 0.8381184 ,  0.84599226,  0.81534056,  0.7664829 ,  0.5
 
 correlation = []
 
-correlation.append(array([ 0.6426352,  0.66004447,  0.61641077, 0.59676031,
-                           0.57951379, 0.58017263, 0.53591397, 0.20717255]))  # seed 1
-correlation.append(array([0.62811314,  0.62318541,  0.61577255, 0.62711334,
-                          0.57247285, 0.57627877, 0.50048226, 0.21036323]))  # seed 2
-correlation.append(array([ 0.65141778,  0.65471109,  0.64607639, 0.60904804,
-                           0.63052835, 0.5996046, 0.50108224, 0.22196802]))  # seed 3
+correlation.append(array([ 0.82549562,  0.83930018,  0.83700096,  0.75741658,  0.59615377]))  # seed 1
+correlation.append(array([ 0.8499284 ,  0.82099401,  0.779156  ,  0.772531  ,  0.59615377]))  # seed 2
+correlation.append(array([ 0.83903114,  0.82924404,  0.83761767,  0.73075162,  0.59660132]))  # seed 2
+
 
 cosine = []
 
-cosine.append(array([0.61334114, 0.66566177, 0.62399199, 0.57394243,
-                     0.58155323, 0.57474409, 0.5442654, 0.20390654]))  # seed 1
+cosine.append(array([ 0.83841491,  0.84591811,  0.8118789 ,  0.74920038,  0.59660132]))  # seed 1
 
-cosine.append(array([0.64247373, 0.63467661, 0.61577255, 0.59734093,
-                     0.56855122, 0.52730152, 0.54708501, 0.21476108]))  # seed 2
+cosine.append(array([ 0.82915562,  0.81643854,  0.80826614,  0.76391832,  0.59660132]))  # seed 2
 
-cosine.append(array([0.6302896, 0.64150081, 0.65056799, 0.61053246,
-                     0.58108265, 0.6164102, 0.48720989, 0.21179819]))  # seed 3
+cosine.append(array([ 0.81893405,  0.84412979,  0.84383416,  0.7836016 ,  0.59660132]))  # seed 3
 
 euclidian = []
 
@@ -48,10 +43,10 @@ euclidianstd = array(euclidian).std(0)
 
 std = [cosinestd, correlationstd, euclidianstd, arbitrarystd]
 
-cosine = array(cosine).max(0)
-correlation = array(correlation).max(0)
-arbitrary = array(arbitrary).max(0)
-euclidian = array(euclidian).max(0)
+cosine = array(cosine).mean(0)
+correlation = array(correlation).mean(0)
+arbitrary = array(arbitrary).mean(0)
+euclidian = array(euclidian).mean(0)
 
 mean = [cosine, correlation, euclidian, arbitrary]
 
