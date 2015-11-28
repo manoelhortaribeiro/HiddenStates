@@ -4,12 +4,12 @@ import datetime
 def armgesturethreefold():
     n_labels = 6
     folds = [1, 2, 3]
-    path = "/home/bruno.teixeira/validation/hidden_states/Dataset/Data/ArmGestureContinuous3FoldTHIRD/"
+    path = "/home/bruno.teixeira/validation/hidden_states/Dataset/Data/ArmGestureDiscreteTHIRD/"
     data = "data"
     label = "seqLabels"
     train = "Train"
     test = "Test"
-    name = "ArmGestureContinuous"
+    name = "ArmGestureDiscrete"
     fold = "FoldTHIRD"
     date = datetime.datetime.utcnow().strftime("%d_%m_%y-%H:%M")
     project_folder = "/home/bruno.teixeira/validation/"
