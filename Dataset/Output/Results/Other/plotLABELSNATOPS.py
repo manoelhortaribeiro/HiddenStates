@@ -7,7 +7,7 @@ import latexif
 
 
 def get_labels_features():
-    data = sio.loadmat("/home/manoel/Projects/hidden_states_entropy/Dataset/Data/NATOPS/NATOPS6.mat")
+    data = sio.loadmat("/home/manoel/Projects/hidden_states_entropy/Dataset/Data/NATOPS/NATOPSTHIRD.mat")
 
     label_hash = {}
     normalized_hash = {}

@@ -1,9 +1,5 @@
 import numpy as np
 from pystruct.models import GraphCRF, LatentGraphCRF
-from sklearn.cluster import KMeans
-from scipy import sparse
-
-__author__ = 'Manoel Ribeiro'
 
 
 class GraphLDCRF(LatentGraphCRF):
