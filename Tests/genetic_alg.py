@@ -56,7 +56,7 @@ memory = {}
 def eval_data_set(states, foldtrain, foldtest):
     garbage1, garbage2, x, y = foldtrain
     garbage1, garbage2, x_t, y_t = foldtest
-    sample = 3
+    sample = 2
     total = 0
 
     if memory.has_key(tuple(states)):
@@ -208,7 +208,7 @@ def main(n_labels, folds, path, data, label, train, test, name, fold, init, p_si
     pop = toolbox.population(n=p_size)
 
     # evaluate the entire population
-    fitnesses = toolbox.map(toolbox.evaluate, pop, )
+    fitnesses = toolbox.map(toolbox.evaluate, pop)
 
     hall_of_fame_all = []
 
@@ -219,10 +219,10 @@ def main(n_labels, folds, path, data, label, train, test, name, fold, init, p_si
 
         print "------------------------------------"
         print g, "/", NGEN, "len:", len(pop[:])
-        #print memory
-        #for i in pop:
+        # print memory
+        # for i in pop:
         #    print "[",i, i.fitness.values,"] ",
-        #print
+        # print
         print pop
 
         # Select the next generation individuals

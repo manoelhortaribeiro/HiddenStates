@@ -4,13 +4,13 @@ import datetime
 def armgesture():
     n_labels = 6
     folds = [1, 2, 3]
-    path = "/home/bruno.teixeira/distance8/hidden_states/Dataset/Data/ArmGestureContinuous3FoldHALF/"
+    path = "/home/bruno.teixeira/ga/hidden_states/Dataset/Data/ArmGestureDiscreteTHIRD/"
     data = "data"
     label = "seqLabels"
     train = "Train"
     test = "Test"
-    name = "ArmGestureContinuous"
-    fold = "FoldHALF"
+    name = "ArmGestureDiscrete"
+    fold = "FoldTHIRD"
     date = datetime.datetime.utcnow().strftime("%d_%m_%y-%H:%M")
     project_folder = "/home/bruno.teixeira/distance8/"
     out = "hidden_states/Dataset/Output/Results/"
@@ -22,13 +22,13 @@ def armgesture():
 def armgesture2():
     n_labels = 6
     folds = [1, 2, 3]
-    path = "/home/manoel/Projects/hidden_states_entropy/Dataset/Data/ArmGestureContinuous3FoldHALF/"
+    path = "/home/manoel/Projects/hidden_states_entropy/Dataset/Data/ArmGestureDiscreteTHIRD/"
     data = "data"
     label = "seqLabels"
     train = "Train"
     test = "Test"
-    name = "ArmGestureContinuous"
-    fold = "FoldHALF"
+    name = "ArmGestureDiscrete"
+    fold = "FoldTHIRD"
     date = datetime.datetime.utcnow().strftime("%d_%m_%y-%H:%M")
     project_folder = "/home/manoel/Projects/"
     out = "hidden_states_entropy/Dataset/Output/Results/"
