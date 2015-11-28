@@ -169,7 +169,7 @@ def setup(init, t_size, n_labels):
 
     toolbox.register("select", tools.selTournament, tournsize=t_size)
 
-    pool = ThreadPool(processes=10)
+    pool = ThreadPool(processes=20)
     toolbox.register("map", pool.map)
 
     toolbox.register("evaluate", eval_data_set, foldtrain=FOLDs["TRAIN"], foldtest=FOLDs["TEST"])
