@@ -1,7 +1,7 @@
 import datetime
 
 
-def armgesturethreefold():
+def armgesturethreefold2():
     n_labels = 6
     folds = [1, 2, 3]
     path = "/home/manoel/Projects/hidden_states_entropy/Dataset/Data/ArmGesture/Discrete1/"
@@ -18,7 +18,7 @@ def armgesturethreefold():
 
     return datapath, n_labels, folds, path, data, label, train, test, name, fold, date, project_folder, out
 
-def armgesturethreefold2():
+def armgesturethreefold():
     n_labels = 6
     folds = [1, 2, 3]
     path = "/home/bruno.teixeira/val_discrete/hidden_states/Dataset/Data/ArmGesture/Discrete1/"
