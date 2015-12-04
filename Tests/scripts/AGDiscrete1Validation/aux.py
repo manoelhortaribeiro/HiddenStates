@@ -21,7 +21,7 @@ def armgesturethreefold2():
 def armgesturethreefold():
     n_labels = 6
     folds = [1, 2, 3]
-    path = "/home/bruno.teixeira/val_discrete/hidden_states/Dataset/Data/ArmGesture/Discrete1/"
+    path = "/home/bruno.teixeira/val_continuous/hidden_states/Dataset/Data/ArmGesture/Discrete1/"
     data = "data"
     label = "seqLabels"
     train = "Train"
@@ -29,9 +29,9 @@ def armgesturethreefold():
     name = "ArmGestureDiscrete"
     fold = "Fold1"
     date = datetime.datetime.utcnow().strftime("%d_%m_%y-%H:%M")
-    project_folder = "/home/bruno.teixeira/val_discrete/"
+    project_folder = "/home/bruno.teixeira/val_continuous/"
     out = "hidden_states/Dataset/Output/Results/"
-    datapath = "/home/bruno.teixeira/val_discrete/hidden_states/Dataset/Data/ArmGesture/Discrete3/" + "ArmGestureDiscrete3.mat"
+    datapath = "/home/bruno.teixeira/val_continuous/hidden_states/Dataset/Data/ArmGesture/Discrete3/" + "ArmGestureDiscrete3.mat"
 
     return datapath, n_labels, folds, path, data, label, train, test, name, fold, date, project_folder, out
 
