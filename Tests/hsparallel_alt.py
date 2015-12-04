@@ -154,9 +154,9 @@ def eval_data_set(tests, n_labels, folds, path, data, label, train, test, name, 
         dtr = path + data + train + name + fold + str(i) + ".csv"
         sqtr = path + label + train + name + fold + str(i) + ".csv"
 
-        opt_test, opt_train, sopt_test, sopt_train = fold_results(tests, n_labels, dtr, sqtr, dte,
-                                                                  sqte, kind, subopt, opt, svmiter,
-                                                                  seed, n_jobs, measure, datapath)
+        opt_test, opt_train, sopt_test, sopt_train = 0,0,0,0 #fold_results(tests, n_labels, dtr, sqtr, dte,
+                                                             #     sqte, kind, subopt, opt, svmiter,
+                                                             #     seed, n_jobs, measure, datapath)
 
         opt_tests.append(opt_test)
         opt_trains.append(opt_train)

@@ -1,40 +1,40 @@
 import datetime
 
 
-def NATOPS3fold2():
+def armgesturethreefold2():
     n_labels = 6
     folds = [1, 2, 3]
-    path = "/home/manoel/Projects/hidden_states_entropy/Dataset/Data/NATOPS/Discrete1/"
+    path = "/home/manoel/Projects/hidden_states_entropy/Dataset/Data/ArmGesture/Continuous1/"
     data = "data"
     label = "seqLabels"
     train = "Train"
     test = "Test"
-    name = "NATOPSDiscrete"
+    name = "ArmGestureContinuous"
     fold = "Fold1"
     date = datetime.datetime.utcnow().strftime("%d_%m_%y-%H:%M")
     project_folder = "/home/manoel/Projects/"
     out = "hidden_states_entropy/Dataset/Output/Results/"
-    datapath = "/home/manoel/Projects/hidden_states_entropy/Dataset/Data/NATOPS/Discrete3/" + "NATOPSDiscrete3.mat"
+    datapath = "/home/manoel/Projects/hidden_states_entropy/Dataset/Data/ArmGesture/Continuous3/" + "ArmGestureDiscrete3.mat"
 
     return datapath, n_labels, folds, path, data, label, train, test, name, fold, date, project_folder, out
 
-
-def NATOPS3fold():
+def armgesturethreefold():
     n_labels = 6
     folds = [1, 2, 3]
-    path = "/home/bruno.teixeira/val_discrete/hidden_states/Dataset/Data/NATOPS/Discrete1/"
+    path = "/home/bruno.teixeira/val_discrete/hidden_states/Dataset/Data/ArmGesture/Continuous1/"
     data = "data"
     label = "seqLabels"
     train = "Train"
     test = "Test"
-    name = "NATOPSDiscrete"
+    name = "ArmGestureContinuous"
     fold = "Fold1"
     date = datetime.datetime.utcnow().strftime("%d_%m_%y-%H:%M")
     project_folder = "/home/bruno.teixeira/val_discrete/"
     out = "hidden_states/Dataset/Output/Results/"
-    datapath = "/home/bruno.teixeira/val_discrete/hidden_states/Dataset/Data/NATOPS/Discrete3/" + "NATOPSDiscrete3.mat"
+    datapath = "/home/bruno.teixeira/val_discrete/hidden_states/Dataset/Data/ArmGesture/Continuous3/" + "ArmGestureDiscrete3.mat"
 
     return datapath, n_labels, folds, path, data, label, train, test, name, fold, date, project_folder, out
+
 
 
 def write_file(project_folder, out, description, date, svmiter, tests, opt_tests_avg_std,
