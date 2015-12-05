@@ -1,6 +1,7 @@
 import datetime
 
 
+<<<<<<< Updated upstream:Tests/scripts/NATOPSDiscrete1Validation/aux.py
 def NATOPS3fold2():
     n_labels = 6
     folds = [1, 2, 3]
@@ -25,6 +26,33 @@ def NATOPS3fold():
     path = "/home/bruno.teixeira/val_discrete/hidden_states/Dataset/Data/NATOPS/Discrete1/"
     data = "data"
     label = "seqLabels"
+=======
+def NATOPS3fold():
+    n_labels = 6
+    folds = [1, 2, 3]
+    path = "/Users/manoelribeiro/hidden_states/Dataset/Data/NATOPS3FoldTHIRD/"
+    data = "3data"
+    label = "3seqLabels"
+    train = "Train"
+    test = "Test"
+    name = "NATOPS"
+    fold = "FoldTHIRD"
+    date = datetime.datetime.utcnow().strftime("%d_%m_%y-%H:%M")
+    project_folder = "/Users/manoelribeiro/"
+    out = "hidden_states/Dataset/Output/Results/"
+    datapath = path + "/NATOPS6.mat"
+
+    return datapath, n_labels, folds, path, data, label, train, test, name, fold, date, project_folder, out
+
+
+
+def NATOPS3fold2():
+    n_labels = 6
+    folds = [1, 2, 3]
+    path = "/home/bruno.teixeira/distance6/hidden_states/Dataset/Data/NATOPS3FoldTHIRD/"
+    data = "3data"
+    label = "3seqLabels"
+>>>>>>> Stashed changes:Tests/scripts/NATOPS3THIRD/aux.py
     train = "Train"
     test = "Test"
     name = "NATOPSDiscrete"
