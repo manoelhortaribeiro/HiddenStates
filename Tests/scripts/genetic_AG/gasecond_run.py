@@ -17,12 +17,12 @@ def run_it(seed, description):
 
     tests, logbook, best, arbitrary = ga.main(n_labels, folds, init=init, p_size=p_size, CXPB=CXPB,
                                               MUTPB=MUTPB, NGEN=NGEN, t_size=t_size, seed=seed,
-                                              elite_size=elite_size, rd=False)
+                                              elite_size=elite_size, rd=True)
 
     aux.write_file(out, description, date, tests, logbook, best, svm, arbitrary)
 
 
-desc = "init_36_psize_20_CXPB_6_MUTPB_6_NGEN_20_tsize_2_elite_1"
+desc = "RANDOM"
 run_it(seed=1, description="GA1" + desc)
 run_it(seed=2, description="GA2" + desc)
 run_it(seed=3, description="GA3" + desc)

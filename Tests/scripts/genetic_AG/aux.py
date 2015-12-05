@@ -1,46 +1,38 @@
 import datetime
 
-
 def armgesture():
     n_labels = 6
-    folds = [1, 2, 3]
-    path = "/home/bruno.teixeira/ga/hidden_states/Dataset/Data/ArmGestureDiscreteTHIRD/"
-    data = "data"
-    label = "seqLabels"
-    train = "Train"
-    test = "Test"
-    name = "ArmGestureDiscrete"
-    fold = "FoldTHIRD"
-    date = datetime.datetime.utcnow().strftime("%d_%m_%y-%H:%M")
-    project_folder = "/home/bruno.teixeira/distance8/"
-    out = "hidden_states/Dataset/Output/Results/"
-    datapath = path + "/ArmGestureDiscrete.mat"
+    path = "/home/bruno.teixeira/ga2/hidden_states/Dataset/Data/ArmGesture/GA_Discrete"
+    folds = {}
+    folds["Validation"] = ( path + "/Validation/dataValidationTest.csv", path + "/Validation/seqLabelsValidationTest.csv",
+                           path + "/Validation/dataValidationTrain.csv", path + "/Validation/seqLabelsValidationTrain.csv")
+    folds["Test"] = ( path + "/Test/dataTestTest.csv", path + "/Test/seqLabelsTestTest.csv",
+                      path + "/Test/dataTestTrain.csv", path + "/Test/seqLabelsTestTrain.csv")
 
-    return datapath, n_labels, folds, path, data, label, train, test, name, fold, date, project_folder, out
+    date = datetime.datetime.utcnow().strftime("%d_%m_%y-%H:%M")
+    out = "/home/bruno.teixeira/ga2/hidden_states/Dataset/Output/Results/"
+    return n_labels, folds, date, out
+
 
 
 def armgesture2():
     n_labels = 6
-    folds = [1, 2, 3]
-    path = "/home/manoel/Projects/hidden_states_entropy/Dataset/Data/ArmGestureDiscreteTHIRD/"
-    data = "data"
-    label = "seqLabels"
-    train = "Train"
-    test = "Test"
-    name = "ArmGestureDiscrete"
-    fold = "FoldTHIRD"
+    path = "/home/manoel/Projects/hidden_states_entropy/Dataset/Data/ArmGesture/GA_Discrete"
+    folds = {}
+    folds["Validation"] = ( path + "/Validation/dataValidationTest.csv", path + "/Validation/seqLabelsValidationTest.csv",
+                           path + "/Validation/dataValidationTrain.csv", path + "/Validation/seqLabelsValidationTrain.csv")
+    folds["Test"] = ( path + "/Test/dataTestTest.csv", path + "/Test/seqLabelsTestTest.csv",
+                      path + "/Test/dataTestTrain.csv", path + "/Test/seqLabelsTestTrain.csv")
+
     date = datetime.datetime.utcnow().strftime("%d_%m_%y-%H:%M")
-    project_folder = "/home/manoel/Projects/"
-    out = "hidden_states_entropy/Dataset/Output/Results/"
-    datapath = path + "/ArmGestureDiscrete.mat"
+    out = "/home/manoel/Projects/hidden_states_entropy/Dataset/Output/Results/"
 
-    return datapath, n_labels, folds, path, data, label, train, test, name, fold, date, project_folder, out
+    return n_labels, folds, date, out
 
 
+def write_file(out, description, date, tests, logbook, best, svmiter, arbitrary):
 
-def write_file(project_folder, out, description, date, tests, logbook, best, svmiter, arbitrary):
-
-    f = open(project_folder + out + description + date, "a")
+    f = open(out + description + date, "a")
 
     f.write(logbook)
     f.write("\nNumber of latent iterations in the SSVM: " + str(svmiter))
