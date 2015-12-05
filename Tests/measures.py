@@ -32,8 +32,6 @@ def normalize_samples(data_path):
 
     biggest_len = 0
 
-
-    # this
     for idx, label_samples in label_hash.items():
         for sample in label_samples:
 
