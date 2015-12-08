@@ -10,7 +10,7 @@ def run_it(seed, description):
     p_size = 20
     CXPB = 0.6
     MUTPB = 0.6
-    NGEN = 100
+    NGEN = 10
     t_size = 2
     svm = 5
     elite_size = 1
@@ -23,8 +23,8 @@ def run_it(seed, description):
 
 
 desc = "RANDOM"
-run_it(seed=1, description="GA1" + desc)
+run_it(seed=2, description="GA1" + desc)
 run_it(seed=2, description="GA2" + desc)
-run_it(seed=3, description="GA3" + desc)
-run_it(seed=4, description="GA4" + desc)
+#run_it(seed=3, description="GA3" + desc)
+#run_it(seed=4, description="GA4" + desc)
 

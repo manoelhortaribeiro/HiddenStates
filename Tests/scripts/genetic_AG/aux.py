@@ -1,28 +1,30 @@
 import datetime
 
+
 def armgesture():
     n_labels = 6
     path = "/home/bruno.teixeira/ga2/hidden_states/Dataset/Data/ArmGesture/GA_Discrete"
     folds = {}
-    folds["Validation"] = ( path + "/Validation/dataValidationTest.csv", path + "/Validation/seqLabelsValidationTest.csv",
-                           path + "/Validation/dataValidationTrain.csv", path + "/Validation/seqLabelsValidationTrain.csv")
-    folds["Test"] = ( path + "/Test/dataTestTest.csv", path + "/Test/seqLabelsTestTest.csv",
-                      path + "/Test/dataTestTrain.csv", path + "/Test/seqLabelsTestTrain.csv")
+    folds["Validation"] = (
+        path + "/Validation/dataValidationTest.csv", path + "/Validation/seqLabelsValidationTest.csv",
+        path + "/Validation/dataValidationTrain.csv", path + "/Validation/seqLabelsValidationTrain.csv")
+    folds["Test"] = (path + "/Test/dataTestTest.csv", path + "/Test/seqLabelsTestTest.csv",
+                     path + "/Test/dataTestTrain.csv", path + "/Test/seqLabelsTestTrain.csv")
 
     date = datetime.datetime.utcnow().strftime("%d_%m_%y-%H:%M")
     out = "/home/bruno.teixeira/ga2/hidden_states/Dataset/Output/Results/"
     return n_labels, folds, date, out
 
 
-
 def armgesture2():
     n_labels = 6
     path = "/home/manoel/Projects/hidden_states_entropy/Dataset/Data/ArmGesture/GA_Discrete"
     folds = {}
-    folds["Validation"] = ( path + "/Validation/dataValidationTest.csv", path + "/Validation/seqLabelsValidationTest.csv",
-                           path + "/Validation/dataValidationTrain.csv", path + "/Validation/seqLabelsValidationTrain.csv")
-    folds["Test"] = ( path + "/Test/dataTestTest.csv", path + "/Test/seqLabelsTestTest.csv",
-                      path + "/Test/dataTestTrain.csv", path + "/Test/seqLabelsTestTrain.csv")
+    folds["Validation"] = (
+        path + "/Validation/dataValidationTest.csv", path + "/Validation/seqLabelsValidationTest.csv",
+        path + "/Validation/dataValidationTrain.csv", path + "/Validation/seqLabelsValidationTrain.csv")
+    folds["Test"] = (path + "/Test/dataTestTest.csv", path + "/Test/seqLabelsTestTest.csv",
+                     path + "/Test/dataTestTrain.csv", path + "/Test/seqLabelsTestTrain.csv")
 
     date = datetime.datetime.utcnow().strftime("%d_%m_%y-%H:%M")
     out = "/home/manoel/Projects/hidden_states_entropy/Dataset/Output/Results/"
@@ -31,7 +33,6 @@ def armgesture2():
 
 
 def write_file(out, description, date, tests, logbook, best, svmiter, arbitrary):
-
     f = open(out + description + date, "a")
 
     f.write(logbook)
@@ -48,4 +49,3 @@ def write_file(out, description, date, tests, logbook, best, svmiter, arbitrary)
     f.write("\nVALIDATION\nARBITRARY, OURS: ")
     f.write(str(arbitrary))
     f.close()
-

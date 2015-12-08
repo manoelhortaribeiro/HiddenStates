@@ -26,13 +26,17 @@ def load_all_folds(folds):
         x, y, x_t, y_t = load_data(folds["Validation"][2], folds["Validation"][3],
                                    folds["Validation"][0], folds["Validation"][1])
         FOLDs["Validation"] = (x, y, x_t, y_t)
+        print len(x), len(y), len(x_t), len(y_t)
+
         x, y, x_t, y_t = load_data(folds["Test"][2], folds["Test"][3],
                                    folds["Test"][0], folds["Test"][1])
+        print len(x), len(y), len(x_t), len(y_t)
         FOLDs["Test"] = (x, y, x_t, y_t)
 
 # ----------------- Fitness ----------------- #
 
 memory = {}
+
 
 def test_case(x, y, x_t, y_t, states):
     latent_pbl = GraphLDCRF(n_states_per_label=states, inference_method='dai')
@@ -58,6 +62,20 @@ def eval_data_set(states, fold, sample):
 
         result = total/float(sample)
         memory[tuple(states)] = result
+
+    return result,
+
+
+def eval_data_set_test(states, fold, sample):
+    x, y, x_t, y_t = fold
+
+    total = 0
+
+    for i in range(sample):
+        result = test_case(x, y, x_t, y_t, states)
+        total += result
+
+    result = total/float(sample)
 
     return result,
 
@@ -187,19 +205,19 @@ def main(n_labels, folds, init, p_size, CXPB, MUTPB, NGEN, t_size, seed, elite_s
 
     hall_of_fame_all = []
 
+    print zip(pop, fitnesses)
+
+
     for g in range(NGEN):
 
         hall_of_fame = map(toolbox.clone, tools.selBest(pop, elite_size))
 
-        offspring = toolbox.select(pop, len(pop[:]))
+        offspring = map(toolbox.clone, pop)
 
         for i in hall_of_fame:
             hall_of_fame_all.append((g, i, i.fitness.values))
-            print ">>>", i, i.fitness.values
 
         if rd is False:
-            offspring = map(toolbox.clone, offspring)
-
             # Apply crossover on the offspring
             for child1, child2 in zip(offspring[::2], offspring[1::2]):
                 if random.random() < CXPB:
@@ -210,17 +228,21 @@ def main(n_labels, folds, init, p_size, CXPB, MUTPB, NGEN, t_size, seed, elite_s
                 if random.random() < MUTPB:
                     toolbox.mutate(mutant)
 
-            # Evaluate the individuals
-            fitnesses = toolbox.map(toolbox.evalval, offspring)
-            for ind, fit in zip(offspring, fitnesses):
-                ind.fitness.values = fit
-
         if rd is True:
-            pop = toolbox.population(n=p_size)
+            offspring = toolbox.population(n=p_size)
+
+        # Evaluate the individuals
+        fitnesses = toolbox.map(toolbox.evalval, offspring)
+        for ind, fit in zip(offspring, fitnesses):
+            ind.fitness.values = fit
 
         # The population is entirely replaced by the offspring + the hall of fame
-        offspring = tools.selBest(offspring + hall_of_fame, len(pop))
-        pop[:] = offspring
+        for i in hall_of_fame:
+            if i not in offspring:
+                offspring.append(i)
+                offspring = tools.selBest(offspring, len(pop))
+
+        pop = map(toolbox.clone, offspring)
 
         record = stats.compile(pop)
         logbook.record(gen=g, **record)
@@ -229,7 +251,7 @@ def main(n_labels, folds, init, p_size, CXPB, MUTPB, NGEN, t_size, seed, elite_s
     best = tools.selBest(pop, 5)
     best.append(arbitrary)
 
-    toolbox.register("evaltest", eval_data_set, fold=FOLDs["Test"], sample=3)
+    toolbox.register("evaltest", eval_data_set_test, fold=FOLDs["Test"], sample=3)
 
     results = toolbox.map(toolbox.evaltest, best)
 
