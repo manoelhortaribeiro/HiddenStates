@@ -205,8 +205,6 @@ def main(n_labels, folds, init, p_size, CXPB, MUTPB, NGEN, t_size, seed, elite_s
 
     hall_of_fame_all = []
 
-    print zip(pop, fitnesses)
-
 
     for g in range(NGEN):
 
@@ -215,6 +213,7 @@ def main(n_labels, folds, init, p_size, CXPB, MUTPB, NGEN, t_size, seed, elite_s
         offspring = map(toolbox.clone, pop)
 
         for i in hall_of_fame:
+            print g,"/",NGEN," ",i, i.fitness.values
             hall_of_fame_all.append((g, i, i.fitness.values))
 
         if rd is False:
