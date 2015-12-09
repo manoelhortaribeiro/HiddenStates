@@ -6,7 +6,7 @@ __author__ = 'Manoel Ribeiro'
 
 def run_it(seed, description):
     n_labels, folds, date, out = aux.armgesture()
-    init = 30
+    init = 6
     p_size = 20
     CXPB = 0.6
     MUTPB = 0.6
