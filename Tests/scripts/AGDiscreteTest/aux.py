@@ -1,7 +1,7 @@
 import datetime
 
 
-def armgesture():
+def armgesture2():
     n_labels = 6
     path = "/home/manoel/Projects/hidden_states_entropy/Dataset/Data/ArmGesture/Discrete"
 
