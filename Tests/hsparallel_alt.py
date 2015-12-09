@@ -12,6 +12,47 @@ import scipy.spatial.distance as distance
 __author__ = 'Manoel Ribeiro'
 
 
+def do_test(nber_states, labels, type, datapath, samples, folds, seed):
+
+    if type is "cosine":
+        measure = calculate_dist(distance.cosine, datapath)
+
+    if type is "correlation":
+        measure = calculate_dist(distance.correlation, datapath)
+
+    if type is "sqeuclidian":
+        measure = calculate_dist(distance.sqeuclidean, datapath)
+
+    x, y, x_t, y_t = load_data(folds[0], folds[1], folds[2], folds[3])
+
+    if type is "arbitrary":
+        states = divide_hidden_states_arbitrary(nber_states, labels)
+
+    else:
+        states = divide_hidden_states_measure_c(nber_states, labels, measure, 1, y)
+
+    np.random.seed(seed)
+    test = {}
+    train = {}
+
+    for i in range(samples):
+        latent_pbl = GraphLDCRF(n_states_per_label=states, inference_method='dai')
+        base_ssvm = NSlackSSVM(latent_pbl, C=1, tol=.01, inactive_threshold=1e-3,
+                               batch_size=10, verbose=0, n_jobs=1)
+        latent_svm = LatentSSVM(base_ssvm=base_ssvm, latent_iter=5)
+        latent_svm.fit(x, y)
+
+        print "------- TEST STATES -------"
+        print("Train: {:2.6f}".format(latent_svm.score(x, y)))
+        print("Test: {:2.6f}".format(latent_svm.score(x_t, y_t)))
+
+        test[i] = latent_svm.score(x_t, y_t)
+        train[i] = latent_svm.score(x, y)
+
+    return test, train
+
+
+
 # does the work for one of the hidden states distributions
 def test_case(number_states, s_ent, labels, x, y, x_t, y_t, kind, subopt, opt, svmiter, seed):
 
@@ -88,8 +129,6 @@ def fold_results(tests, labels, datatrain, seqtrain, datatest, seqtest, kind,
     # remove activity from data
     # X_t, Y_t = remove_activity_data(X_t, Y_t, 9)
 
-    if measure is "sampen":
-        s_ent = sample_entropy(X, Y)
 
     if measure is "cosine":
         s_ent = calculate_dist(distance.cosine, datapath)
