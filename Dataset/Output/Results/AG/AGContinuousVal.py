@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 from numpy import array
 from Util.latexif import latexify, create_table
 
-# latexify()
+latexify()
 
 states = [48, 42, 36, 24, 12, 6]
 
@@ -78,4 +78,4 @@ ax = plt.gca()
 ax.grid(True)
 plt.legend(loc=4)
 
-plt.show()
+plt.savefig("/home/manoel/Projects/hidden_states_entropy/Dataset/Output/Results/imgs/AGVALCONT.pdf")
