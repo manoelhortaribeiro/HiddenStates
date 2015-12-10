@@ -17,9 +17,12 @@ arbitrary.append(array([0.80505995, 0.81701895, 0.77076798, 0.78276289, 0.784736
 
 correlation = list()
 
-correlation.append(array([0]))  # seed 3
-correlation.append(array([0]))  # seed 2
-correlation.append(array([0]))  # seed 1
+correlation.append(array([ 0.80340522,  0.7729258 ,  0.76390636,  0.79828037,  0.75844634,
+        0.69614102,  0.47326872]))  # seed 3
+correlation.append(array([ 0.78603606,  0.80390206,  0.75186528,  0.76516174,  0.72764183,
+        0.67928336,  0.47326872]))  # seed 2
+correlation.append(array([ 0.7816605 ,  0.77150006,  0.78530981,  0.76783939,  0.78272532,
+        0.66002067,  0.47326872]))  # seed 1
 
 cosine = list()
 
@@ -62,7 +65,7 @@ plt.ylabel("Accuracy")
 
 lineopt, = plt.plot(states, cosine, "g-", label="Cosine")
 
-# linesopt, = plt.plot(states, correlation, "r-", label="Correlation")
+linesopt, = plt.plot(states, correlation, "r-", label="Correlation")
 
 linesopt, = plt.plot(states, arbitrary, "b--", label="Arbitrary")
 

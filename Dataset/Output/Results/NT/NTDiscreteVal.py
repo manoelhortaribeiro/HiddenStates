@@ -21,6 +21,8 @@ correlation.append(array([0.78710584, 0.80727254, 0.83906588, 0.8177947, 0.82564
                           0.72664919, 0.55464859]))  # seed 3
 correlation.append(array([0.81811584, 0.79101972, 0.81287027, 0.80043625, 0.78742552,
                           0.75407143, 0.55464859]))  # seed 2
+correlation.append(array([ 0.83196876,  0.84291296,  0.80337008,  0.83173374,  0.81616657,
+                        0.73561171,  0.55411578]))  # seed 2
 
 cosine = list()
 
@@ -63,7 +65,7 @@ plt.ylabel("Accuracy")
 
 lineopt, = plt.plot(states, cosine, "g-", label="Cosine")
 
-# linesopt, = plt.plot(states, correlation, "r-", label="Correlation")
+linesopt, = plt.plot(states, correlation, "r-", label="Correlation")
 
 linesopt, = plt.plot(states, arbitrary, "b--", label="Arbitrary")
 
