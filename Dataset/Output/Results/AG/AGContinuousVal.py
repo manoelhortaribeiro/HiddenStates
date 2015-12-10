@@ -42,10 +42,10 @@ euclidian.append(array([0.91030584, 0.91455235, 0.92455899, 0.91824794, 0.912707
 euclidian.append(array([0.92568743, 0.913981, 0.91341179, 0.93381426, 0.90889707,
                         0.90290714]))  # seed 1
 
-cosinestd = array(cosine).mean(0)
-correlationstd = array(correlation).mean(0)
-arbitrarystd = array(arbitrary).mean(0)
-euclidianstd = array(euclidian).mean(0)
+cosinestd = array(cosine).std(0)
+correlationstd = array(correlation).std(0)
+arbitrarystd = array(arbitrary).std(0)
+euclidianstd = array(euclidian).std(0)
 
 std = [cosinestd, correlationstd, euclidianstd, arbitrarystd]
 
