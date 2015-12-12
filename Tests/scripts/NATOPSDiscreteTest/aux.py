@@ -1,7 +1,7 @@
 import datetime
 
 
-def armgesture2():
+def armgesture():
     n_labels = 6
     path = "/home/manoel/Projects/hidden_states_entropy/Dataset/Data/NATOPS/Discrete"
 
@@ -14,7 +14,7 @@ def armgesture2():
 
     return n_labels, folds, date, out, datapath
 
-def armgesture():
+def armgesture2():
     n_labels = 6
     path = "/home/bruno.teixeira/nttest/hidden_states/Dataset/Data/NATOPS/Discrete"
 
