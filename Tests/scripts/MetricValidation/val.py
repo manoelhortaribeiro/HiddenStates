@@ -11,13 +11,13 @@ import functools
 import random
 
 
-def load(number_folds=3):
+def load(vdtr, vdte, vstr, vste, tdtr, tdte, tstr, tste, number_folds=3):
     path = os.environ['PYTHONPATH'].split(os.pathsep)[0]
 
-    val_datatrain = path + "/Dataset/Data/ArmGesture/Continuous1/dataTrainArmGestureContinuousFold1"
-    val_datatest = path + "/Dataset/Data/ArmGesture/Continuous1/dataTestArmGestureContinuousFold1"
-    val_seqtrain = path + "/Dataset/Data/ArmGesture/Continuous1/seqLabelsTrainArmGestureContinuousFold1"
-    val_seqtest = path + "/Dataset/Data/ArmGesture/Continuous1/seqLabelsTestArmGestureContinuousFold1"
+    val_datatrain = path + "/Dataset/Data/" + vdtr
+    val_datatest = path + "/Dataset/Data/" + vdte
+    val_seqtrain = path + "/Dataset/Data/" + vstr
+    val_seqtest = path + "/Dataset/Data/" + vste
 
     x = [0] * number_folds
     x_t = [0] * number_folds
@@ -30,10 +30,10 @@ def load(number_folds=3):
                                                val_datatest + str(i + 1) + ".csv",
                                                val_seqtest + str(i + 1) + ".csv")
 
-    tst_datatrain = path + "/Dataset/Data/ArmGesture/Continuous/dataTrain.csv"
-    tst_datatest = path + "/Dataset/Data/ArmGesture/Continuous/dataTest.csv"
-    tst_seqtrain = path + "/Dataset/Data/ArmGesture/Continuous/seqLabelsTrain.csv"
-    tst_seqtest = path + "/Dataset/Data/ArmGesture/Continuous/seqLabelsTest.csv"
+    tst_datatrain = path + "/Dataset/Data/" + tdtr
+    tst_datatest = path + "/Dataset/Data/" + tdte
+    tst_seqtrain = path + "/Dataset/Data/" + tstr
+    tst_seqtest = path + "/Dataset/Data/" + tste
 
     t_x, t_y, t_x_t, t_y_t = load_data(tst_datatrain, tst_seqtrain, tst_datatest, tst_seqtest)
 
@@ -140,18 +140,18 @@ def arbitrary(x, y, x_t, y_t, add=1, rangeof=6, numberseeds=3):
 
         states.append(tmp)
 
-        #print states
+        # print states
         for i in range(numberseeds):
             test += np.array(process_pool.map(func, states))
 
         test = (test / numberseeds).tolist()
-        #print "TEST =", test
+        # print "TEST =", test
 
         old_winner = previous.index(max(previous))
         winner = test.index(max(test))
 
         if previous[old_winner] >= test[winner]:
-        #    print "ENDING!"
+            #    print "ENDING!"
             break
 
         init = list(states[0])
@@ -161,6 +161,3 @@ def arbitrary(x, y, x_t, y_t, add=1, rangeof=6, numberseeds=3):
         previous = list(test)
 
     return init, max(previous)
-
-
-
