@@ -3,8 +3,9 @@ import functools
 
 from pystruct.learners import NSlackSSVM, LatentSSVM
 
+
 # Internal Imports
-from Util.data_parser import load_data, remove_activity_data
+from Util.data_parser import load_data
 from Models.GraphLDCRF import GraphLDCRF
 from measures import *
 import scipy.spatial.distance as distance
@@ -13,7 +14,6 @@ __author__ = 'Manoel Ribeiro'
 
 
 def do_test(nber_states, labels, type, datapath, samples, folds, seed):
-
     if type is "cosine":
         measure = calculate_dist(distance.cosine, datapath)
 
@@ -52,10 +52,8 @@ def do_test(nber_states, labels, type, datapath, samples, folds, seed):
     return test, train
 
 
-
 # does the work for one of the hidden states distributions
 def test_case(number_states, s_ent, labels, x, y, x_t, y_t, kind, subopt, opt, svmiter, seed):
-
     # Gets the different states divisions, notice that the parameter kind, given as input
     # can create a cap, where no label may receive more than k% of the available hidden states
     optimal_states = divide_hidden_states_measure_c(number_states, labels, s_ent, kind, y)
@@ -116,19 +114,11 @@ def test_case(number_states, s_ent, labels, x, y, x_t, y_t, kind, subopt, opt, s
 # does the work for one fold
 def fold_results(tests, labels, datatrain, seqtrain, datatest, seqtest, kind,
                  subopt, opt, svmiter, seed, n_jobs, measure, datapath):
-
     print "Loading data..."
 
     X, Y, X_t, Y_t = load_data(datatrain, seqtrain, datatest, seqtest)
 
     print "Data loaded!"
-
-    # print "Removing data..."
-    # remove activity from data
-    # X, Y = remove_activity_data(X, Y, 9)
-    # remove activity from data
-    # X_t, Y_t = remove_activity_data(X_t, Y_t, 9)
-
 
     if measure is "cosine":
         s_ent = calculate_dist(distance.cosine, datapath)
@@ -159,7 +149,6 @@ def fold_results(tests, labels, datatrain, seqtrain, datatest, seqtest, kind,
     t = p.map(evaluate, tests)
 
     for i in t:
-
         opt_tests.append(i[0])
         opt_trains.append(i[1])
 
@@ -172,8 +161,6 @@ def fold_results(tests, labels, datatrain, seqtrain, datatest, seqtest, kind,
 # does all the folds in a data-set
 def eval_data_set(tests, n_labels, folds, path, data, label, train, test, name, fold, datapath,
                   kind=1, subopt=True, opt=True, svmiter=10, seed=1, n_jobs=4, measure="sampen"):
-
-
     opt_tests = []
     opt_trains = []
 
@@ -182,7 +169,6 @@ def eval_data_set(tests, n_labels, folds, path, data, label, train, test, name, 
 
     # evaluates one fold at a time
     for i in folds:
-
         print "FOLD:", i
 
         # test
@@ -193,9 +179,9 @@ def eval_data_set(tests, n_labels, folds, path, data, label, train, test, name, 
         dtr = path + data + train + name + fold + str(i) + ".csv"
         sqtr = path + label + train + name + fold + str(i) + ".csv"
 
-        opt_test, opt_train, sopt_test, sopt_train = 0,0,0,0 #fold_results(tests, n_labels, dtr, sqtr, dte,
-                                                             #     sqte, kind, subopt, opt, svmiter,
-                                                             #     seed, n_jobs, measure, datapath)
+        opt_test, opt_train, sopt_test, sopt_train = 0, 0, 0, 0  # fold_results(tests, n_labels, dtr, sqtr, dte,
+        #     sqte, kind, subopt, opt, svmiter,
+        #     seed, n_jobs, measure, datapath)
 
         opt_tests.append(opt_test)
         opt_trains.append(opt_train)
@@ -221,4 +207,3 @@ def eval_data_set(tests, n_labels, folds, path, data, label, train, test, name, 
     sopt_trains_avg_std = (sopt_trains.mean(0), sopt_trains.std(0))
 
     return opt_tests_avg_std, opt_trains_avg_std, sopt_tests_avg_std, sopt_trains_avg_std
-

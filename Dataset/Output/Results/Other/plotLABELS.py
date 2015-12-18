@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 import latexif
 
 def get_labels_features():
-    data = sio.loadmat("/home/manoel/Projects/hidden_states_entropy/Dataset/Data/ArmGestureContinuous/ArmGestureDiscrete.mat")
+    data = sio.loadmat("/home/manoel/Projects/hidden_states_entropy/Dataset/Data/ArmGesture/Discrete3/ArmGestureDiscrete3.mat")
 
     label_hash = {}
     normalized_hash = {}

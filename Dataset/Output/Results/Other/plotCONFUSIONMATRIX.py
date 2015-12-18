@@ -9,10 +9,10 @@ import matplotlib.pyplot as plt
 from Util.data_parser import load_data
 from Models.GraphLDCRF import GraphLDCRF
 
-datatrain = "/home/manoel/Projects/hidden_states_entropy/Dataset/Data/ArmGestureContinuous/dataTrainArmGestureContinuousFold1.csv"
-datatest = "/home/manoel/Projects/hidden_states_entropy/Dataset/Data/ArmGestureContinuous/dataTestArmGestureContinuousFold1.csv"
-seqtrain = "/home/manoel/Projects/hidden_states_entropy/Dataset/Data/ArmGestureContinuous/seqLabelsTrainArmGestureContinuousFold1.csv"
-seqtest = "/home/manoel/Projects/hidden_states_entropy/Dataset/Data/ArmGestureContinuous/seqLabelsTestArmGestureContinuousFold1.csv"
+datatrain = "/home/manoel/Projects/hidden_states_entropy/Dataset/Data/ArmGesture/Discrete1/dataTrainArmGestureDiscreteFold11.csv"
+datatest = "/home/manoel/Projects/hidden_states_entropy/Dataset/Data/ArmGesture/Discrete1/dataTestArmGestureDiscreteFold11.csv"
+seqtrain = "/home/manoel/Projects/hidden_states_entropy/Dataset/Data/ArmGesture/Discrete1/seqLabelsTrainArmGestureDiscreteFold11.csv"
+seqtest = "/home/manoel/Projects/hidden_states_entropy/Dataset/Data/ArmGesture/Discrete1/seqLabelsTestArmGestureDiscreteFold11.csv"
 
 x, y, x_t, y_t = load_data(datatrain, seqtrain, datatest, seqtest)
 
@@ -98,4 +98,6 @@ for i, cas in enumerate(cm):
 plt.colorbar()
 plt.ylabel('True label')
 plt.xlabel('Predicted label')
+
+
 plt.savefig("/home/manoel/Projects/hidden_states_entropy/Dataset/Output/Results/imgs/ConfusionMatrix_3x2_3x1.pdf")
