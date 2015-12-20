@@ -41,6 +41,7 @@ def load(vdtr, vdte, vstr, vste, tdtr, tdte, tstr, tste, number_folds=3):
 
 
 def evaluate(states, x, y, x_t, y_t):
+
     number_folds = len(x)
 
     test = 0
@@ -80,55 +81,70 @@ def test(greedy_states, arbitrary_states, x, y, x_t, y_t, numberseeds=3):
     return test_arb, test_gre
 
 
-def greedy(x, y, x_t, y_t, add=1, rangeof=6, numberseeds=3):
+def greedy(x, y, x_t, y_t, add=1, rangeof=6, number_seeds=3):
     previous = [0] * rangeof
     init = [1, 1, 1, 1, 1, 1]
+    best = [[],0,0] # states, accuracy, iterations without update
+    without_upd = 3
 
-    while True:
+    for iter in range(21):
         random.seed(1)
         np.random.seed(1)
 
-        process_pool = multiprocessing.Pool(4)
+        process_pool = multiprocessing.Pool(36)
         func = functools.partial(evaluate, x=x, y=y, x_t=x_t, y_t=y_t)
 
-        test = np.zeros(rangeof)
+        test = np.zeros(rangeof*rangeof + rangeof)
         states = []
 
-        for i in range(rangeof):
+        for a in range(rangeof):
+
             tmp = list(init)
-            tmp[i] += add
+            tmp[a] += add
             states.append(tmp)
 
-        for i in range(numberseeds):
+            for b in range(rangeof):
+                tmp = list(init)
+                tmp[a] += add
+                tmp[b] += add
+                states.append(tmp)
+
+        for i in range(number_seeds):
             test += np.array(process_pool.map(func, states))
 
-        test = (test / numberseeds).tolist()
+        test = (test / number_seeds).tolist()
         # print "TEST =", test
 
         old_winner = previous.index(max(previous))
         winner = test.index(max(test))
 
-        if previous[old_winner] >= test[winner]:
-            #   print "ENDING!"
-            break
+        init = list(states[winner])
 
-        init[winner] += add
+        if test[winner] > best[1]:
+            best[0] = list(init)
+            best[1] = test[winner]
+            best[2] = 0
+        else:
+            best[2] += 1
 
-        print init, previous[old_winner], test[winner]
+        print init, previous[old_winner], test[winner], "best: ", best[0], best[1]
 
         previous = list(test)
 
-    return init, max(previous)
+        if best[2] >= without_upd:
+            break
+
+    return best[0], best[1]
 
 
-def arbitrary(x, y, x_t, y_t, add=1, rangeof=6, numberseeds=3):
+def arbitrary(x, y, x_t, y_t, add=1, rangeof=6, number_seeds=3):
     previous = [0] * rangeof
     init = [1, 1, 1, 1, 1, 1]
+    best = [[],0,0] # states, accuracy, iterations without update
+
     np.random.seed(1)
 
-    while True:
-
-        process_pool = multiprocessing.Pool(6)
+    for iter in range(7):
         func = functools.partial(evaluate, x=x, y=y, x_t=x_t, y_t=y_t)
 
         test = np.zeros(rangeof)
@@ -141,20 +157,21 @@ def arbitrary(x, y, x_t, y_t, add=1, rangeof=6, numberseeds=3):
         states.append(tmp)
 
         # print states
-        for i in range(numberseeds):
-            test += np.array(process_pool.map(func, states))
+        for i in range(number_seeds):
+            test += np.array(map(func, states))
 
-        test = (test / numberseeds).tolist()
+        test = (test / number_seeds).tolist()
         # print "TEST =", test
 
         old_winner = previous.index(max(previous))
         winner = test.index(max(test))
 
-        if previous[old_winner] >= test[winner]:
-            #    print "ENDING!"
-            break
-
         init = list(states[0])
+
+        if test[winner] > best[1]:
+            best[0] = list(init)
+            best[1] = test[winner]
+            best[2] = 0
 
         print init, previous[old_winner], test[winner]
 

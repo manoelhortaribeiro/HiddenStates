@@ -20,7 +20,7 @@ print "GREEDY:"
 greedy_states, g_test = greedy(x, y, x_t, y_t, add=1, rangeof=6)
 
 print "ARBITRARY:"
-arbitrary_states, a_test = arbitrary(t_x, t_y, t_x_t, t_y_t, add=1, rangeof=6)
+arbitrary_states, a_test = 0, 0 # arbitrary(t_x, t_y, t_x_t, t_y_t, add=1, rangeof=6)
 
 r_arb, r_gre = test(greedy_states, arbitrary_states, x, y, x_t, y_t, numberseeds=3)
 
