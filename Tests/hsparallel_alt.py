@@ -1,8 +1,8 @@
 import multiprocessing
 import functools
 
+# PyStruct
 from pystruct.learners import NSlackSSVM, LatentSSVM
-
 
 # Internal Imports
 from Util.data_parser import load_data
@@ -13,19 +13,20 @@ import scipy.spatial.distance as distance
 __author__ = 'Manoel Ribeiro'
 
 
-def do_test(nber_states, labels, type, datapath, samples, folds, seed):
-    if type is "cosine":
+def do_test(nber_states, labels, type_of, datapath, samples, folds, seed):
+    if type_of is "cosine":
         measure = calculate_dist(distance.cosine, datapath)
 
-    if type is "correlation":
+    if type_of is "correlation":
         measure = calculate_dist(distance.correlation, datapath)
 
-    if type is "sqeuclidian":
+    if type_of is "sqeuclidian":
         measure = calculate_dist(distance.sqeuclidean, datapath)
 
-    x, y, x_t, y_t = load_data(folds[0], folds[1], folds[2], folds[3])
+    x, y, = load_data(folds[0], folds[1])
+    x_t, y_t = load_data(folds[2], folds[3])
 
-    if type is "arbitrary":
+    if type_of is "arbitrary":
         states = divide_hidden_states_arbitrary(nber_states, labels)
 
     else:
@@ -116,7 +117,8 @@ def fold_results(tests, labels, datatrain, seqtrain, datatest, seqtest, kind,
                  subopt, opt, svmiter, seed, n_jobs, measure, datapath):
     print "Loading data..."
 
-    X, Y, X_t, Y_t = load_data(datatrain, seqtrain, datatest, seqtest)
+    X, Y = load_data(datatrain, seqtrain)
+    X_t, Y_t = load_data(datatest, seqtest)
 
     print "Data loaded!"
 
@@ -160,12 +162,11 @@ def fold_results(tests, labels, datatrain, seqtrain, datatest, seqtest, kind,
 
 # does all the folds in a data-set
 def eval_data_set(tests, n_labels, folds, path, data, label, train, test, name, fold, datapath,
-                  kind=1, subopt=True, opt=True, svmiter=10, seed=1, n_jobs=4, measure="sampen"):
-    opt_tests = []
-    opt_trains = []
+                  kind=1, subopt=True, opt=True, svmiter=10, seed=1, n_jobs=4, measure="sqeuclidian"):
 
-    sopt_tests = []
-    sopt_trains = []
+
+    opt_tests, opt_trains, sopt_tests, sopt_trains = [], [], [], []
+
 
     # evaluates one fold at a time
     for i in folds:
@@ -179,9 +180,9 @@ def eval_data_set(tests, n_labels, folds, path, data, label, train, test, name, 
         dtr = path + data + train + name + fold + str(i) + ".csv"
         sqtr = path + label + train + name + fold + str(i) + ".csv"
 
-        opt_test, opt_train, sopt_test, sopt_train = 0, 0, 0, 0  # fold_results(tests, n_labels, dtr, sqtr, dte,
-        #     sqte, kind, subopt, opt, svmiter,
-        #     seed, n_jobs, measure, datapath)
+        opt_test, opt_train, sopt_test, sopt_train = fold_results(tests, n_labels, dtr, sqtr, dte,
+             sqte, kind, subopt, opt, svmiter,
+             seed, n_jobs, measure, datapath)
 
         opt_tests.append(opt_test)
         opt_trains.append(opt_train)

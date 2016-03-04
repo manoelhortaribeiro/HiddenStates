@@ -5,10 +5,16 @@
       <w>cxpb</w>
       <w>datapath</w>
       <w>euclidian</w>
+      <w>latexify</w>
       <w>lenof</w>
       <w>linesopt</w>
+      <w>matplotlib</w>
       <w>sqeuclidian</w>
       <w>stds</w>
+      <w>subopt</w>
+      <w>svmiter</w>
+      <w>testindex</w>
+      <w>trainindex</w>
     </words>
   </dictionary>
 </component>
