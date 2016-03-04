@@ -18,7 +18,7 @@ def armgesture2():
 
 def armgesture():
     n_labels = 6
-    path = "/home/manoel/Projects/hidden_states_entropy/Dataset/Data/ArmGesture/GA_Discrete"
+    path = "../Dataset/Data/ArmGesture/GA_Discrete"
     folds = {}
     folds["Validation"] = (
         path + "/Validation/dataValidationTest.csv", path + "/Validation/seqLabelsValidationTest.csv",
