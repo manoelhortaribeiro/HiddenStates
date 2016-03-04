@@ -1,6 +1,20 @@
 import numpy as np
 from pystruct.models import GraphCRF, LatentGraphCRF
+from sklearn.cluster import KMeans
+from sklearn.decomposition import PCA
 
+
+def kmeans_init(data, data_grouping):
+    pca = PCA(n_components=2).fit(data)
+    estimator = KMeans(init=pca.components_, n_clusters=2, n_init=1)
+    estimator.fit(data)
+    labels = estimator.labels_
+    hidden_states = []
+    for group in data_grouping:
+        hidden_states.append(np.array(labels[:group]))
+        labels = labels[group:]
+
+    return hidden_states
 
 class GraphLDCRF(LatentGraphCRF):
     """LDCRF with latent states for variables.
@@ -29,7 +43,7 @@ class GraphLDCRF(LatentGraphCRF):
         Possible values are:
 
             - 'max-product' for max-product belief propagation.
-                Recommended for chains an trees. Loopy belief propagatin in case of a general graph.
+                Recommended for chains an trees. Loopy belief propagation in case of a general graph.
             - 'lp' for Linear Programming relaxation using cvxopt.
             - 'ad3' for AD3 dual decomposition.
             - 'qpbo' for QPBO + alpha expansion.
@@ -48,10 +62,17 @@ class GraphLDCRF(LatentGraphCRF):
         return H
 
     def init_latent(self, X, Y):
-        # treat all edges the same
-        edges = [[self._get_edges(x)] for x in X]
-        features = np.array([self._get_features(x) for x in X])
-        return self.random_init(X, Y)
+
+        data = []
+        data_grouping = []
+        for time_window in X:
+            data_grouping.append(len(time_window[0]))
+            for data_point in time_window[0]:
+                data.append(list(data_point))
+
+        hidden_states = kmeans_init(data, data_grouping)
+
+        return hidden_states
 
 
 

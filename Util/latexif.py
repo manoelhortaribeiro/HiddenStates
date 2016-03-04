@@ -1,12 +1,13 @@
-__author__ = 'manoel'
 from math import sqrt
-SPINE_COLOR = 'gray'
 import matplotlib
-import numpy as np
+SPINE_COLOR = 'gray'
+
+# copied from http://nipunbatra.github.io/2014/08/latexify/
+
+
 def latexify(fig_width=None, fig_height=None, columns=1):
     """Set up matplotlib's RC params for LaTeX plotting.
     Call this before plotting a figure.
-
     Parameters
     ----------
     fig_width : float, optional, inches
