@@ -1,4 +1,5 @@
 import numpy as np
+import random
 from pystruct.models import GraphCRF, LatentGraphCRF
 from sklearn.cluster import KMeans
 from sklearn.decomposition import PCA
@@ -15,6 +16,7 @@ def kmeans_init(data, data_grouping):
         labels = labels[group:]
 
     return hidden_states
+
 
 class GraphLDCRF(LatentGraphCRF):
     """LDCRF with latent states for variables.
@@ -62,7 +64,8 @@ class GraphLDCRF(LatentGraphCRF):
         return H
 
     def init_latent(self, X, Y):
-
+        np.random.seed(0)
+        random.seed(0)
         data = []
         data_grouping = []
         for time_window in X:

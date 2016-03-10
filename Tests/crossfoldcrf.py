@@ -80,7 +80,7 @@ def write_out(mat, results, number_folds):
 
 
 def test_states(i, states, x, y, x_t, y_t, dest):
-    latent_pbl = GraphLDCRF(n_states_per_label=states, inference_method='dai')
+    latent_pbl = GraphLDCRF(n_states_per_label=states, inference_method='max-product')
 
     base_ssvm = NSlackSSVM(latent_pbl, C=1, tol=.01, inactive_threshold=1e-3, batch_size=10, verbose=0, n_jobs=1)
     latent_svm = LatentSSVM(base_ssvm=base_ssvm, latent_iter=5)
@@ -109,7 +109,7 @@ def process_fold(i, X, Y, number_folds, number_states, dist, labels, mat):
     y = np.array(Y)[trainindex]
 
     # prop = [(0, 0.1702469489578651), (1, 0.82975305104215569)]
-    prop = calculate_dist(y, x, distance.cosine)
+    prop = calculate_dist(y, x, dist)
 
     optimal_states = divide_hidden_states_measure_c(number_states, labels, prop, 1, y)
     suboptimal_states = divide_hidden_states_arbitrary(number_states, labels)
