@@ -46,8 +46,9 @@ def plot_cm(latent_svm, y_t, x_t, dest, i):
 def write_out(mat, results, number_folds):
     dest = str(re.sub('[.]*/[a-zA-Z0-9_]*/', '', mat))
     dest = str(re.sub('/', '', dest))
+    dest = str(re.sub('.mat', '', dest))
 
-    f = open("../Output/Results/" + dest, "w")
+    f = open("../Output/Results/" + dest + '.txt', "a+")
 
     f.write('Dataset = ' + dest + ' Number Folds = ' + str(number_folds) + '\n')
 
@@ -75,14 +76,13 @@ def write_out(mat, results, number_folds):
         f.write('sopt -- Test: ' + str(avg_test_sopt) + '+-' + str(std_test_sopt) + '\n')
         f.write('     -- Train: ' + str(avg_train_sopt) + '+-' + str(std_train_sopt) + '\n')
 
-
     f.close()
 
 
 def test_states(i, states, x, y, x_t, y_t, dest):
-    latent_pbl = GraphLDCRF(n_states_per_label=states, inference_method='max-product')
+    latent_pbl = GraphLDCRF(n_states_per_label=states, inference_method='dai')
 
-    base_ssvm = NSlackSSVM(latent_pbl, C=1, tol=.01, inactive_threshold=1e-3, batch_size=10, verbose=0, n_jobs=1)
+    base_ssvm = NSlackSSVM(latent_pbl, C=1, tol=.01, inactive_threshold=1e-3, batch_size=10, verbose=1, n_jobs=1)
     latent_svm = LatentSSVM(base_ssvm=base_ssvm, latent_iter=5)
     latent_svm.fit(x, y)
 
@@ -108,7 +108,7 @@ def process_fold(i, X, Y, number_folds, number_states, dist, labels, mat):
     x = np.array(X)[trainindex]
     y = np.array(Y)[trainindex]
 
-    # prop = [(0, 0.1702469489578651), (1, 0.82975305104215569)]
+    #prop = [(0, 0.1702469489578651), (1, 0.82975305104215569)]
     prop = calculate_dist(y, x, dist)
 
     optimal_states = divide_hidden_states_measure_c(number_states, labels, prop, 1, y)
@@ -132,7 +132,7 @@ def cross_fold_ldcrf(mat, dist=distance.sqeuclidean, labels=2, number_folds=5, s
                                           mat=mat, dist=dist)
 
         p = multiprocessing.Pool(n_jobs)
-        results[number_states] = p.map(evaluate_fold, range(number_folds))
+        results[number_states] = map(evaluate_fold, range(number_folds))
 
-    write_out(mat, results, number_folds)
+        write_out(mat, results, number_folds)
     return results

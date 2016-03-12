@@ -5,7 +5,7 @@ from Tests.crossfoldcrf import cross_fold_ldcrf
 __author__ = 'Manoel Ribeiro'
 
 labels = 2
-number_folds = 10
+number_folds = 2
 states = [2, 4, 6, 8, 10, 12]
 n_jobs = 10
 
