@@ -82,7 +82,7 @@ def write_out(mat, results, number_folds):
 def test_states(i, states, x, y, x_t, y_t, dest):
     latent_pbl = GraphLDCRF(n_states_per_label=states, inference_method='dai')
 
-    base_ssvm = NSlackSSVM(latent_pbl, C=1, tol=.01, inactive_threshold=1e-3, batch_size=10, verbose=0, n_jobs=1)
+    base_ssvm = NSlackSSVM(latent_pbl, C=1, tol=.01, inactive_threshold=1e-3, batch_size=10, verbose=1, n_jobs=1)
     latent_svm = LatentSSVM(base_ssvm=base_ssvm, latent_iter=5)
     latent_svm.fit(x, y)
 
@@ -98,7 +98,6 @@ def test_states(i, states, x, y, x_t, y_t, dest):
 
 def process_fold(i, X, Y, number_folds, number_states, dist, labels, mat):
     dest = str(re.sub('[.]*/([a-zA-Z0-9_]*/)*', '', mat)[:-4]) + str(number_states)
-    print(i)
     testindex = list(range(i, len(X), number_folds))
     trainindex = list(set(range(len(X))) - set(testindex))
 
@@ -108,8 +107,9 @@ def process_fold(i, X, Y, number_folds, number_states, dist, labels, mat):
     x = np.array(X)[trainindex]
     y = np.array(Y)[trainindex]
 
-    #prop = [(0, 0.1702469489578651), (1, 0.82975305104215569)]
-    prop = calculate_dist(y, x, dist)
+
+    prop = [(0, 0.1702469489578651), (1, 0.82975305104215569)]
+    #prop = calculate_dist(y, x, dist)
     print "Distances calculated"
 
     optimal_states = divide_hidden_states_measure_c(number_states, labels, prop, 1, y)
@@ -133,7 +133,7 @@ def cross_fold_ldcrf(mat, dist=distance.sqeuclidean, labels=2, number_folds=5, s
                                           mat=mat, dist=dist)
 
         p = multiprocessing.Pool(n_jobs)
-        results[number_states] = p.map(evaluate_fold, range(number_folds))
+        results[number_states] = map(evaluate_fold, range(number_folds))
 
         write_out(mat, results, number_folds)
     return results

@@ -64,8 +64,7 @@ class GraphLDCRF(LatentGraphCRF):
         return H
 
     def init_latent(self, X, Y):
-        np.random.seed(0)
-        random.seed(0)
+
         data = []
         data_grouping = []
         for time_window in X:
