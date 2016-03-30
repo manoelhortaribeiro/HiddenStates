@@ -48,6 +48,8 @@ def write_out(mat, results, number_folds):
     dest = str(re.sub('/', '', dest))
     dest = str(re.sub('.mat', '', dest))
 
+    print "../Output/Results/" + dest + '.txt'
+
     f = open("../Output/Results/" + dest + '.txt', "a+")
 
     f.write('Dataset = ' + dest + ' Number Folds = ' + str(number_folds) + '\n')
@@ -78,12 +80,15 @@ def write_out(mat, results, number_folds):
 
     f.close()
 
+# ------ Functions ------
 
-def test_states(i, states, x, y, x_t, y_t, dest):
+
+def test_states(i, states, x, y, x_t, y_t, dest, jobs):
+
     latent_pbl = GraphLDCRF(n_states_per_label=states, inference_method='dai')
 
-    base_ssvm = NSlackSSVM(latent_pbl, C=1, tol=.01, inactive_threshold=1e-3, batch_size=10, verbose=1, n_jobs=1)
-    latent_svm = LatentSSVM(base_ssvm=base_ssvm, latent_iter=5)
+    base_ssvm = NSlackSSVM(latent_pbl, C=1, tol=.01, inactive_threshold=1e-3, batch_size=10, verbose=0, n_jobs=jobs)
+    latent_svm = LatentSSVM(base_ssvm=base_ssvm, latent_iter=3)
     latent_svm.fit(x, y)
 
     test = latent_svm.score(x_t, y_t)
@@ -96,7 +101,7 @@ def test_states(i, states, x, y, x_t, y_t, dest):
     return test, train
 
 
-def process_fold(i, X, Y, number_folds, number_states, dist, labels, mat):
+def process_fold(i, X, Y, number_folds, number_states, dist, labels, mat, n_jobs):
     dest = str(re.sub('[.]*/([a-zA-Z0-9_]*/)*', '', mat)[:-4]) + str(number_states)
     testindex = list(range(i, len(X), number_folds))
     trainindex = list(set(range(len(X))) - set(testindex))
@@ -107,16 +112,17 @@ def process_fold(i, X, Y, number_folds, number_states, dist, labels, mat):
     x = np.array(X)[trainindex]
     y = np.array(Y)[trainindex]
 
-
-    prop = [(0, 0.1702469489578651), (1, 0.82975305104215569)]
-    #prop = calculate_dist(y, x, dist)
+    #prop = [(0, 0.1702469489578651), (1, 0.82975305104215569)]
+    prop = calculate_dist(y, x, dist)
     print "Distances calculated"
+
+    print dest
 
     optimal_states = divide_hidden_states_measure_c(number_states, labels, prop, 1, y)
     suboptimal_states = divide_hidden_states_arbitrary(number_states, labels)
 
-    optimal_result = test_states(i, optimal_states, x, y, x_t, y_t, dest)
-    suboptimal_result = test_states(i, suboptimal_states, x, y, x_t, y_t, dest)
+    optimal_result = test_states(i, optimal_states, x, y, x_t, y_t, dest, jobs=n_jobs)
+    suboptimal_result = test_states(i, suboptimal_states, x, y, x_t, y_t, dest, jobs=n_jobs)
 
     return optimal_result, suboptimal_result
 
@@ -130,10 +136,10 @@ def cross_fold_ldcrf(mat, dist=distance.sqeuclidean, labels=2, number_folds=5, s
         results = {}
         evaluate_fold = functools.partial(process_fold, X=X, Y=Y, number_folds=number_folds,
                                           number_states=number_states, labels=labels,
-                                          mat=mat, dist=dist)
+                                          mat=mat, dist=dist, n_jobs=n_jobs)
 
         p = multiprocessing.Pool(n_jobs)
-        results[number_states] = map(evaluate_fold, range(number_folds))
+        results[number_states] = p.map(evaluate_fold, range(number_folds))
 
         write_out(mat, results, number_folds)
     return results
