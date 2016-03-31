@@ -10,7 +10,5 @@ states = [2, 4, 6, 8, 10]
 n_jobs = 5
 
 
-# -- Continuous
-
 cross_fold_ldcrf(mat='../Dataset/synthetic.mat', dist=distance.sqeuclidean,
-                 labels=labels, number_folds=number_folds, states=states, n_jobs=n_jobs)
+                 labels=labels, number_folds=number_folds, states=states, n_jobs=n_jobs, cut_data=0.3)

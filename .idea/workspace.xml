@@ -5,40 +5,28 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="11b785d9-9b3c-4f59-8a60-2971c3bd6b48" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Dataset/synthetic.mat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Tests/tests_syntetic.py" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Output/Confusion_Matrix/012_345c21.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Output/Confusion_Matrix/012_345d21.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Output/Confusion_Matrix/01_2345c101.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Output/Confusion_Matrix/01_2345c21.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Output/Confusion_Matrix/01_2345c41.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Output/Confusion_Matrix/01_2345c61.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Output/Confusion_Matrix/01_2345c81.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Output/Confusion_Matrix/01_2345d21.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Output/Confusion_Matrix/0_12345c101.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Output/Confusion_Matrix/0_12345c121.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Output/Confusion_Matrix/0_12345c21.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Output/Confusion_Matrix/0_12345c41.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Output/Confusion_Matrix/0_12345c61.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Output/Confusion_Matrix/0_12345c81.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Output/Confusion_Matrix/0_12345d21.png" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Output/Confusion_Matrix/012_345c101.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Output/Confusion_Matrix/012_345c121.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Output/Confusion_Matrix/012_345c141.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Output/Confusion_Matrix/012_345c41.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Output/Confusion_Matrix/012_345c61.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Output/Confusion_Matrix/012_345c81.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Output/Confusion_Matrix/01_2345c121.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Output/Confusion_Matrix/01_2345c141.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Output/Confusion_Matrix/01_2345d41.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Output/Confusion_Matrix/0_12345c141.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Output/Confusion_Matrix/0_12345d101.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Output/Confusion_Matrix/0_12345d121.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Output/Confusion_Matrix/0_12345d41.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Output/Confusion_Matrix/0_12345d61.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Output/Confusion_Matrix/0_12345d81.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Output/Results/ArmGesture012_345d.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Output/Results/ArmGesture01_2345d.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Output/Results/ArmGesture0_12345d.txt" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/Output/Results/ArmGesture0_12345c.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Output/Results/NATOPS0_12345c.txt" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Tests/test_ag.py" afterPath="$PROJECT_DIR$/Tests/tests_ag.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Dataset/ArmGesture/012_345c.mat" afterPath="$PROJECT_DIR$/Dataset/ArmGesture/012_345c.mat" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Dataset/NATOPS/012_345c.mat" afterPath="$PROJECT_DIR$/Dataset/NATOPS/012_345c.mat" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Dataset/ArmGesture/012_345d.mat" afterPath="$PROJECT_DIR$/Dataset/ArmGesture/012_345d.mat" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Dataset/NATOPS/012_345d.mat" afterPath="$PROJECT_DIR$/Dataset/NATOPS/012_345d.mat" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Dataset/ArmGesture/01_2345c.mat" afterPath="$PROJECT_DIR$/Dataset/ArmGesture/01_2345c.mat" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Dataset/NATOPS/01_2345c.mat" afterPath="$PROJECT_DIR$/Dataset/NATOPS/01_2345c.mat" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Dataset/ArmGesture/01_2345d.mat" afterPath="$PROJECT_DIR$/Dataset/ArmGesture/01_2345d.mat" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Dataset/NATOPS/01_2345d.mat" afterPath="$PROJECT_DIR$/Dataset/NATOPS/01_2345d.mat" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Dataset/ArmGesture/0_12345c.mat" afterPath="$PROJECT_DIR$/Dataset/ArmGesture/0_12345c.mat" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Dataset/NATOPS/0_12345c.mat" afterPath="$PROJECT_DIR$/Dataset/NATOPS/0_12345c.mat" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Dataset/ArmGesture/0_12345d.mat" afterPath="$PROJECT_DIR$/Dataset/ArmGesture/0_12345d.mat" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Dataset/NATOPS/0_12345d.mat" afterPath="$PROJECT_DIR$/Dataset/NATOPS/0_12345d.mat" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Tests/crossfoldcrf.py" afterPath="$PROJECT_DIR$/Tests/crossfoldcrf.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Tests/tests_nt.py" afterPath="$PROJECT_DIR$/Tests/tests_nt.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Tests/measures.py" afterPath="$PROJECT_DIR$/Tests/measures.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Tests/tests_syntetic.py" afterPath="$PROJECT_DIR$/Tests/tests_syntetic.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="hidden_states_entropy.iws" />
@@ -80,7 +68,7 @@
     <SUITE FILE_PATH="coverage/hidden_states_entropy$GraphLDCRF.coverage" NAME="GraphLDCRF Coverage Results" MODIFIED="1457048132555" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/../hidden_states_entropy/Models" />
     <SUITE FILE_PATH="coverage/hidden_states_entropy$test.coverage" NAME="test Coverage Results" MODIFIED="1449754526079" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/../hidden_states_entropy/Tests/scripts/AGContinuousTest" />
     <SUITE FILE_PATH="coverage/hidden_states_entropy$AGContinuousVal.coverage" NAME="AGContinuousVal Coverage Results" MODIFIED="1449748992254" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/../hidden_states_entropy/Dataset/Output/Results/AG" />
-    <SUITE FILE_PATH="coverage/hidden_states$tests_syntetic.coverage" NAME="tests_syntetic Coverage Results" MODIFIED="1459300375644" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Tests" />
+    <SUITE FILE_PATH="coverage/hidden_states$tests_syntetic.coverage" NAME="tests_syntetic Coverage Results" MODIFIED="1459450968406" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Tests" />
     <SUITE FILE_PATH="coverage/hidden_states_entropy$AG3plot.coverage" NAME="AG3plot Coverage Results" MODIFIED="1448594342770" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/../hidden_states_entropy/Dataset/Output/Results/AG" />
     <SUITE FILE_PATH="coverage/hidden_states$tests_nt2.coverage" NAME="tests_nt2 Coverage Results" MODIFIED="1459252715897" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Tests" />
     <SUITE FILE_PATH="coverage/hidden_states_entropy$c30test23a.coverage" NAME="c30test23a Coverage Results" MODIFIED="1449234747347" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/../hidden_states_entropy/Tests/scripts/AGDiscrete1Validation" />
@@ -93,7 +81,7 @@
     <SUITE FILE_PATH="coverage/hidden_states_entropy$validation1.coverage" NAME="validation1 Coverage Results" MODIFIED="1457037986790" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/../hidden_states_entropy/Tests/scripts/WaveDistance/AGContinuous1Validation" />
     <SUITE FILE_PATH="coverage/hidden_states_entropy$val_nt_cont.coverage" NAME="val_nt_cont Coverage Results" MODIFIED="1450445357604" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/../hidden_states_entropy/Tests/scripts/MetricValidation" />
     <SUITE FILE_PATH="coverage/hidden_states_entropy$val.coverage" NAME="val Coverage Results" MODIFIED="1450622568509" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/../hidden_states_entropy/Tests/scripts/MetricValidation" />
-    <SUITE FILE_PATH="coverage/hidden_states$test_ag__1_.coverage" NAME="test_ag (1) Coverage Results" MODIFIED="1459188722838" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Tests" />
+    <SUITE FILE_PATH="coverage/hidden_states$test_ag__1_.coverage" NAME="test_ag (1) Coverage Results" MODIFIED="1459458114762" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Tests" />
     <SUITE FILE_PATH="coverage/hidden_states_entropy$test__3_.coverage" NAME="test (3) Coverage Results" MODIFIED="1449833281094" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/../hidden_states_entropy/Tests/scripts/NATOPSDiscreteTest" />
     <SUITE FILE_PATH="coverage/hidden_states_entropy$c25testa20.coverage" NAME="c25testa20 Coverage Results" MODIFIED="1446939503660" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/../hidden_states_entropy/Tests/scripts/entropy" />
     <SUITE FILE_PATH="coverage/hidden_states_entropy$AGplot__1_.coverage" NAME="AGplot (1) Coverage Results" MODIFIED="1447077714485" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/../hidden_states_entropy/Dataset/Output/Results/OLD" />
@@ -110,41 +98,21 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="ArmGesture01_2345c.txt" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Output/Results/ArmGesture01_2345c.txt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="41" column="9" selection-start-line="41" selection-start-column="9" selection-end-line="41" selection-end-column="9" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ArmGesture012_345c.txt" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Output/Results/ArmGesture012_345c.txt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="30" column="40" selection-start-line="30" selection-start-column="40" selection-end-line="30" selection-end-column="40" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="measures.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Tests/measures.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="94" column="61" selection-start-line="94" selection-start-column="60" selection-end-line="94" selection-end-column="61" />
+            <state vertical-scroll-proportion="45.129032">
+              <caret line="53" column="0" selection-start-line="53" selection-start-column="0" selection-end-line="53" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ArmGesture0_12345c.txt" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Output/Results/ArmGesture0_12345c.txt">
+      <file leaf-file-name="__init__.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Tests/__init__.py">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="32" column="28" selection-start-line="14" selection-start-column="16" selection-end-line="14" selection-end-column="28" />
+              <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -154,10 +122,20 @@
         <entry file="file://$PROJECT_DIR$/Tests/crossfoldcrf.py">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="137" column="49" selection-start-line="137" selection-start-column="49" selection-end-line="137" selection-end-column="49" />
+              <caret line="48" column="40" selection-start-line="48" selection-start-column="40" selection-end-line="48" selection-end-column="40" />
               <folding>
-                <element signature="e#0#22#0" expanded="true" />
+                <element signature="e#0#52#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ArmGesture01_2345d.txt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Output/Results/ArmGesture01_2345d.txt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -166,19 +144,7 @@
         <entry file="file://$PROJECT_DIR$/Tests/tests_ag.py">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="9" column="10" selection-start-line="9" selection-start-column="10" selection-end-line="9" selection-end-column="10" />
-              <folding>
-                <element signature="e#0#41#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="tests_syntetic.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/Tests/tests_syntetic.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.30967742">
-              <caret line="16" column="0" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
+              <caret line="23" column="13" selection-start-line="23" selection-start-column="13" selection-end-line="23" selection-end-column="13" />
               <folding>
                 <element signature="e#0#41#0" expanded="true" />
               </folding>
@@ -191,6 +157,18 @@
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
               <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="15" selection-end-column="88" />
+              <folding>
+                <element signature="e#0#41#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="tests_syntetic.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Tests/tests_syntetic.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.4">
+              <caret line="14" column="0" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
               <folding>
                 <element signature="e#0#41#0" expanded="true" />
               </folding>
@@ -250,7 +228,6 @@
         <option value="$USER_HOME$/Dropbox/Projects/hidden_states/Output/Results/Other/plotLABELS.py" />
         <option value="$PROJECT_DIR$/../hidden_states_entropy/Tests/__init__.py" />
         <option value="$PROJECT_DIR$/Output/Results/ArmGesture0_12345c.mat" />
-        <option value="$PROJECT_DIR$/Tests/measures.py" />
         <option value="$PROJECT_DIR$/Output/Results/ArmGesture012_345d.txt" />
         <option value="$PROJECT_DIR$/Models/GraphLDCRF.py" />
         <option value="$PROJECT_DIR$/Tests/legacy/asd" />
@@ -264,8 +241,9 @@
         <option value="$PROJECT_DIR$/Output/Results/NATOPS0_12345c.txt" />
         <option value="$PROJECT_DIR$/Tests/crossfoldcrf2.py" />
         <option value="$PROJECT_DIR$/Output/Results/ArmGesture0_12345d.txt" />
-        <option value="$PROJECT_DIR$/Tests/crossfoldcrf.py" />
         <option value="$PROJECT_DIR$/Tests/tests_ag.py" />
+        <option value="$PROJECT_DIR$/Tests/measures.py" />
+        <option value="$PROJECT_DIR$/Tests/crossfoldcrf.py" />
         <option value="$PROJECT_DIR$/Tests/tests_syntetic.py" />
       </list>
     </option>
@@ -306,13 +284,16 @@
     </navigator>
     <panes>
       <pane id="Scope" />
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
             <PATH_ELEMENT>
               <option name="myItemId" value="hidden_states" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="External Libraries" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
@@ -419,6 +400,7 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -446,7 +428,7 @@
       <recent name="$USER_HOME$/Dropbox/Projects/hidden_states/Tests/scripts/legacy" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.tests_syntetic">
+  <component name="RunManager" selected="Python.test_ag (1)">
     <configuration default="false" name="test_ag (1)" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -734,11 +716,11 @@
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Python.tests_syntetic" />
-        <item index="1" class="java.lang.String" itemvalue="Python.tests_nt2" />
-        <item index="2" class="java.lang.String" itemvalue="Python.tests_ag2" />
-        <item index="3" class="java.lang.String" itemvalue="Python.tests_nt" />
-        <item index="4" class="java.lang.String" itemvalue="Python.test_ag (1)" />
+        <item index="0" class="java.lang.String" itemvalue="Python.test_ag (1)" />
+        <item index="1" class="java.lang.String" itemvalue="Python.tests_syntetic" />
+        <item index="2" class="java.lang.String" itemvalue="Python.tests_nt2" />
+        <item index="3" class="java.lang.String" itemvalue="Python.tests_ag2" />
+        <item index="4" class="java.lang.String" itemvalue="Python.tests_nt" />
       </list>
     </recent_temporary>
   </component>
@@ -752,12 +734,6 @@
       <created>1446766459773</created>
       <option name="number" value="Default" />
       <updated>1446766459773</updated>
-    </task>
-    <task id="LOCAL-00008" summary="created NATOPS tests">
-      <created>1447182258469</created>
-      <option name="number" value="00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1447182258469</updated>
     </task>
     <task id="LOCAL-00009" summary="created NATOPS tests">
       <created>1447182449635</created>
@@ -1047,7 +1023,13 @@
       <option name="project" value="LOCAL" />
       <updated>1458826348464</updated>
     </task>
-    <option name="localTasksCounter" value="57" />
+    <task id="LOCAL-00057" summary="adds synthetic data">
+      <created>1459300425997</created>
+      <option name="number" value="00057" />
+      <option name="project" value="LOCAL" />
+      <updated>1459300425997</updated>
+    </task>
+    <option name="localTasksCounter" value="58" />
     <servers />
   </component>
   <component name="TodoView">
@@ -1063,14 +1045,14 @@
     <frame x="0" y="-4" width="1920" height="1084" extended-state="6" />
     <editor active="false" />
     <layout>
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.27534685" sideWeight="0.742268" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.28175026" sideWeight="0.742268" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.328125" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.23645833" sideWeight="0.50747067" order="12" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.31979167" sideWeight="0.48292422" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32708332" sideWeight="0.4967983" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3125" sideWeight="0.49252936" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3125" sideWeight="0.49252936" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24919957" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.34895834" sideWeight="0.49359658" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4669157" sideWeight="0.25773194" order="2" side_tool="true" content_ui="tabs" />
@@ -1110,7 +1092,8 @@
     <MESSAGE value="makes easier scripts, changes dataset representation" />
     <MESSAGE value="Fixes data_parser.py" />
     <MESSAGE value="Fixes bug in script" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixes bug in script" />
+    <MESSAGE value="adds synthetic data" />
+    <option name="LAST_COMMIT_MESSAGE" value="adds synthetic data" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1120,11 +1103,6 @@
           <line>17</line>
           <option name="timeStamp" value="52" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="python-line">
-          <url>file://$PROJECT_DIR$/Tests/measures.py</url>
-          <line>59</line>
-          <option name="timeStamp" value="88" />
-        </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
         <breakpoint type="python-exception">
@@ -1133,11 +1111,59 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="95" />
+      <option name="time" value="97" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/Tests/measures.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="94" column="61" selection-start-line="94" selection-start-column="60" selection-end-line="94" selection-end-column="61" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Tests/crossfoldcrf.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="137" column="49" selection-start-line="137" selection-start-column="49" selection-end-line="137" selection-end-column="49" />
+          <folding>
+            <element signature="e#0#52#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Tests/tests_ag.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="9" column="10" selection-start-line="9" selection-start-column="10" selection-end-line="9" selection-end-column="10" />
+          <folding>
+            <element signature="e#0#41#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Tests/tests_syntetic.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#41#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Tests/tests_nt.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="15" selection-end-column="88" />
+          <folding>
+            <element signature="e#0#41#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Models/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1170,13 +1196,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/.local/lib/python2.7/site-packages/pystruct/learners/n_slack_ssvm.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="311" column="78" selection-start-line="311" selection-start-column="78" selection-end-line="311" selection-end-column="78" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/.local/lib/python2.7/site-packages/sklearn/externals/joblib/parallel.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.33233532">
@@ -1188,13 +1207,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/.local/lib/python2.7/site-packages/pystruct/learners/latent_structured_svm.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.1527988">
-          <caret line="82" column="0" selection-start-line="82" selection-start-column="0" selection-end-line="82" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -1230,13 +1242,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="149" column="0" selection-start-line="149" selection-start-column="0" selection-end-line="150" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Tests/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -1311,43 +1316,43 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Output/Results/legacy/ag3f_7i1CORRELATIONsc3_t6-4803_03_16-18:43">
-      <provider editor-type-id="com.intellij.database.editor.CsvTableFileEditorProvider">
-        <state />
-      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Output/Results/legacy/ag3f_7i1EUCLIDIANsc3_t6-4803_03_16-18:43">
       <provider editor-type-id="com.intellij.database.editor.CsvTableFileEditorProvider">
         <state />
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Output/Results/legacy/ag3f_7i1EUCLIDIANsc3_t6-4803_03_16-18:43">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
+      </provider>
+      <provider editor-type-id="com.intellij.database.editor.CsvTableFileEditorProvider">
+        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Output/Results/legacy/ag3f_7i1COSINEsc3_t6-4803_03_16-19:45">
-      <provider editor-type-id="com.intellij.database.editor.CsvTableFileEditorProvider">
-        <state />
-      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
+      </provider>
+      <provider editor-type-id="com.intellij.database.editor.CsvTableFileEditorProvider">
+        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Output/Results/legacy/ag3f_7i1COSINEsc3_t6-4803_03_16-18:43">
-      <provider editor-type-id="com.intellij.database.editor.CsvTableFileEditorProvider">
-        <state />
-      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
+      </provider>
+      <provider editor-type-id="com.intellij.database.editor.CsvTableFileEditorProvider">
+        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Util/data_parser.py">
@@ -1398,35 +1403,37 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Output/Results/ArmGesture0_12345c.txt">
+    <entry file="file://$PROJECT_DIR$/Tests/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="32" column="28" selection-start-line="14" selection-start-column="16" selection-end-line="14" selection-end-column="28" />
+          <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Output/Results/ArmGesture01_2345d.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Tests/measures.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="94" column="61" selection-start-line="94" selection-start-column="60" selection-end-line="94" selection-end-column="61" />
+        <state vertical-scroll-proportion="45.129032">
+          <caret line="53" column="0" selection-start-line="53" selection-start-column="0" selection-end-line="53" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Output/Results/ArmGesture01_2345c.txt">
+    <entry file="file://$PROJECT_DIR$/Tests/tests_ag.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="41" column="9" selection-start-line="41" selection-start-column="9" selection-end-line="41" selection-end-column="9" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Output/Results/ArmGesture012_345c.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="30" column="40" selection-start-line="30" selection-start-column="40" selection-end-line="30" selection-end-column="40" />
-          <folding />
+          <caret line="23" column="13" selection-start-line="23" selection-start-column="13" selection-end-line="23" selection-end-column="13" />
+          <folding>
+            <element signature="e#0#41#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1440,30 +1447,28 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Tests/tests_ag.py">
+    <entry file="file://$PROJECT_DIR$/Tests/crossfoldcrf.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="9" column="10" selection-start-line="9" selection-start-column="10" selection-end-line="9" selection-end-column="10" />
+          <caret line="48" column="40" selection-start-line="48" selection-start-column="40" selection-end-line="48" selection-end-column="40" />
           <folding>
-            <element signature="e#0#41#0" expanded="true" />
+            <element signature="e#0#52#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Tests/crossfoldcrf.py">
+    <entry file="file://$PROJECT_DIR$/Output/Results/ArmGesture0_12345d.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="137" column="49" selection-start-line="137" selection-start-column="49" selection-end-line="137" selection-end-column="49" />
-          <folding>
-            <element signature="e#0#22#0" expanded="true" />
-          </folding>
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Tests/tests_syntetic.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.30967742">
-          <caret line="16" column="0" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.4">
+          <caret line="14" column="0" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
           <folding>
             <element signature="e#0#41#0" expanded="true" />
           </folding>

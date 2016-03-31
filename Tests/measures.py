@@ -58,7 +58,6 @@ def calculate_dist(y, x, dist):
     num_feat = len(x[0][0][0])
 
     for label in label_hash.keys():
-        print str(label+1) + "/" + str(2)
         label_dist[label] = 0
         for feature in range(num_feat):
             feature_dist = 0
@@ -72,7 +71,6 @@ def calculate_dist(y, x, dist):
 
             label_dist[label] += feature_dist
 
-    print("check")
     for key in label_dist.keys():
 
         label_dist[key] /= total_dist

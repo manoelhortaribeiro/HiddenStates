@@ -1,46 +1,12 @@
+from pystruct.learners import NSlackSSVM, LatentSSVM
+from Models.GraphLDCRF import GraphLDCRF
+from Util.data_parser import load_data
+from measures import *
 import multiprocessing
 import functools
 import re
 
-from sklearn.metrics import confusion_matrix
-import matplotlib.pyplot as plt
-
-# PyStruct
-from pystruct.learners import NSlackSSVM, LatentSSVM
-
-# Internal Imports
-from Util.data_parser import load_data
-from Models.GraphLDCRF import GraphLDCRF
-from measures import *
-import scipy.spatial.distance as distance
-
-
 # ------ IO -------
-
-def plot_cm(latent_svm, y_t, x_t, dest, i):
-    Y_ts = []
-    for Y_ti in y_t:
-        Y_ts.append(Y_ti.tolist())
-
-    Y_p = latent_svm.predict(x_t)
-    Y_ps = []
-    for Y_pi in Y_p:
-        Y_ps.append(Y_pi.tolist())
-
-    cm = confusion_matrix(sum(Y_ts, []), sum(Y_ps, []))
-    # Show confusion matrix in a separate window
-    plt.matshow(cm, cmap=plt.get_cmap('Greys'))
-
-    plt.title('Confusion matrix')
-    for i, cas in enumerate(cm):
-        for j, c in enumerate(cas):
-            if c > 0:
-                plt.text(j - .2, i + .2, c, fontsize=12, bbox=dict(facecolor='white', alpha=0.5))
-
-    plt.colorbar()
-    plt.ylabel('True label')
-    plt.xlabel('Predicted label')
-    plt.savefig('../Output/Confusion_Matrix/' + dest + str(i) + '.png')
 
 
 def write_out(mat, results, number_folds):
@@ -67,11 +33,11 @@ def write_out(mat, results, number_folds):
             test_sopt.append(i[1][0])
             train_sopt.append(i[1][1])
 
-        avg_test_opt, avg_train_opt = np.array(test_opt).mean(),  np.array(train_opt).mean()
-        avg_test_sopt, avg_train_sopt = np.array(test_sopt).mean(),  np.array(train_sopt).mean()
+        avg_test_opt, avg_train_opt = np.array(test_opt).mean(), np.array(train_opt).mean()
+        avg_test_sopt, avg_train_sopt = np.array(test_sopt).mean(), np.array(train_sopt).mean()
 
-        std_test_opt, std_train_opt = np.array(test_opt).std(),  np.array(train_opt).std()
-        std_test_sopt, std_train_sopt = np.array(test_sopt).std(),  np.array(train_sopt).std()
+        std_test_opt, std_train_opt = np.array(test_opt).std(), np.array(train_opt).std()
+        std_test_sopt, std_train_sopt = np.array(test_sopt).std(), np.array(train_sopt).std()
 
         f.write('opti -- Test: ' + str(avg_test_opt) + '+-' + str(std_test_opt) + '\n')
         f.write('     -- Train: ' + str(avg_train_opt) + '+-' + str(std_train_opt) + '\n')
@@ -80,12 +46,13 @@ def write_out(mat, results, number_folds):
 
     f.close()
 
+    return (avg_test_opt, avg_test_sopt)
+
 # ------ Functions ------
 
 
-def test_states(i, states, x, y, x_t, y_t, dest, jobs):
-
-    latent_pbl = GraphLDCRF(n_states_per_label=states, inference_method='dai')
+def test_states(states, x, y, x_t, y_t, jobs):
+    latent_pbl = GraphLDCRF(n_states_per_label=states, inference_method='qpbo')
 
     base_ssvm = NSlackSSVM(latent_pbl, C=1, tol=.01, inactive_threshold=1e-3, batch_size=10, verbose=0, n_jobs=jobs)
     latent_svm = LatentSSVM(base_ssvm=base_ssvm, latent_iter=3)
@@ -94,52 +61,80 @@ def test_states(i, states, x, y, x_t, y_t, dest, jobs):
     test = latent_svm.score(x_t, y_t)
     train = latent_svm.score(x, y)
 
-    plot_cm(latent_svm, y_t, x_t, dest, i)
-
     print states, 'Test:', test, 'Train:', train
-
     return test, train
 
 
-def process_fold(i, X, Y, number_folds, number_states, dist, labels, mat, n_jobs):
-    dest = str(re.sub('[.]*/([a-zA-Z0-9_]*/)*', '', mat)[:-4]) + str(number_states)
-    testindex = list(range(i, len(X), number_folds))
-    trainindex = list(set(range(len(X))) - set(testindex))
+def process_fold(i, x_all, y_all, number_folds, number_states, dist, labels, n_jobs):
+    testindex = list(range(i, len(x_all), number_folds))
+    trainindex = list(set(range(len(x_all))) - set(testindex))
 
-    x_t = np.array(X)[testindex]
-    y_t = np.array(Y)[testindex]
+    x_t, y_t = np.array(x_all)[testindex], np.array(y_all)[testindex]
+    x, y = np.array(x_all)[trainindex], np.array(y_all)[trainindex]
 
-    x = np.array(X)[trainindex]
-    y = np.array(Y)[trainindex]
-
-    #prop = [(0, 0.1702469489578651), (1, 0.82975305104215569)]
     prop = calculate_dist(y, x, dist)
     print "Distances calculated"
-
-    print dest
 
     optimal_states = divide_hidden_states_measure_c(number_states, labels, prop, 1, y)
     suboptimal_states = divide_hidden_states_arbitrary(number_states, labels)
 
-    optimal_result = test_states(i, optimal_states, x, y, x_t, y_t, dest, jobs=n_jobs)
-    suboptimal_result = test_states(i, suboptimal_states, x, y, x_t, y_t, dest, jobs=n_jobs)
+    optimal_result = test_states(optimal_states, x, y, x_t, y_t, jobs=n_jobs)
+    suboptimal_result = test_states(suboptimal_states, x, y, x_t, y_t, jobs=n_jobs)
 
     return optimal_result, suboptimal_result
 
 
-def cross_fold_ldcrf(mat, dist=distance.sqeuclidean, labels=2, number_folds=5, states=[5], n_jobs=5):
-    results = {}
+# ---- Main stuff ------
+
+
+def validation(mat, x, y, dist, labels, number_folds, states, n_jobs):
+    our_results, normal_results = dict(), dict()
 
     for number_states in states:
-        print(mat)
-        X, Y = load_data(mat)
-        results = {}
-        evaluate_fold = functools.partial(process_fold, X=X, Y=Y, number_folds=number_folds,
+        results = dict()
+        evaluate_fold = functools.partial(process_fold, X=x, Y=y, number_folds=number_folds,
                                           number_states=number_states, labels=labels,
-                                          mat=mat, dist=dist, n_jobs=n_jobs)
+                                          dist=dist, n_jobs=1)
 
         p = multiprocessing.Pool(n_jobs)
         results[number_states] = p.map(evaluate_fold, range(number_folds))
+        tmp = write_out(mat, results, number_folds)
+        our_results[number_states] = tmp[0]
+        normal_results[number_states] = tmp[1]
 
-        write_out(mat, results, number_folds)
-    return results
+    # Finds best values
+    our_states = max(our_results, key=lambda i: our_results[i])
+    normal_states = max(normal_results, key=lambda i: normal_results[i])
+
+    return our_states, normal_states
+
+
+def test(mat, our_states, normal_states, x, y, x_t, y_t, labels, dist, n_jobs):
+    prop = calculate_dist(y, x, dist)
+    print "Distances calculated"
+
+    optimal_states = divide_hidden_states_measure_c(our_states, labels, prop, 1, y)
+    suboptimal_states = divide_hidden_states_arbitrary(normal_states, labels)
+
+    optimal_result = test_states(optimal_states, x, y, x_t, y_t, jobs=n_jobs)
+    suboptimal_result = test_states(suboptimal_states, x, y, x_t, y_t, jobs=n_jobs)
+
+    results = dict()
+    results["our" + str(our_states) + "normal" + str(normal_states)] = [(optimal_result, suboptimal_result)]
+    write_out(mat, results, 0)
+
+
+def cross_fold_ldcrf(mat, dist, labels, number_folds, states, n_jobs, cut_data=1):
+
+    # Loads and split data
+    x, y = load_data(mat)
+    x, y = x[:cut_data*len(x)], y[:cut_data*len(y)]  # Possibly cuts data
+
+    x_validation, y_validation = x[:2 * len(x) / 3], y[:2 * len(y) / 3]
+    x_test, y_test = x[:len(x) / 3], y[:len(y) / 3]
+
+    # Does the validation
+    our_states, normal_states = validation(mat, x_validation, y_validation, dist=dist, labels=labels,
+                                           number_folds=number_folds, states=states, n_jobs=n_jobs)
+    # Does the test
+    test(mat, our_states, normal_states, x_validation, y_validation, x_test, y_test, labels, dist, n_jobs)
