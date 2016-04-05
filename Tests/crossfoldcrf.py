@@ -54,7 +54,7 @@ def write_out(mat, results, number_folds, c=1):
 
 def test_states(states, x, y, x_t, y_t, jobs):
 
-    latent_pbl = GraphLDCRF(n_states_per_label=states, inference_method='ad3')
+    latent_pbl = GraphLDCRF(n_states_per_label=states, inference_method='qpbo')
 
     base_ssvm = NSlackSSVM(latent_pbl, C=1, tol=.01, inactive_threshold=1e-3, batch_size=10, verbose=0, n_jobs=jobs)
     latent_svm = LatentSSVM(base_ssvm=base_ssvm, latent_iter=3)
@@ -99,7 +99,7 @@ def validation(mat, x, y, dist, labels, number_folds, states, n_jobs, c):
                                           dist=dist, n_jobs=1, c=c)
 
         p = multiprocessing.Pool(n_jobs)
-        results[number_states] = map(evaluate_fold, range(number_folds))
+        results[number_states] = p.map(evaluate_fold, range(number_folds))
         tmp = write_out(mat, results, number_folds, c)
         our_results[number_states] = tmp[0]
         normal_results[number_states] = tmp[1]
