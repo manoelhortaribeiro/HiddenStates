@@ -4,12 +4,39 @@
     <bookmark url="file://$PROJECT_DIR$/Tests/legacy/MetricValidation/val.py" line="135" mnemonic="3" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="11b785d9-9b3c-4f59-8a60-2971c3bd6b48" name="Default" comment="changes inference to ad3, adds c modifier">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Tests/tests_agTc1.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Tests/tests_agTc25.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Tests/tests_ntTc1.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Tests/tests_ntTc25.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Tests/crossfoldcrf.py" afterPath="$PROJECT_DIR$/Tests/crossfoldcrf.py" />
+    <list default="true" id="11b785d9-9b3c-4f59-8a60-2971c3bd6b48" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Dataset/ArmGesture/12_0345c.mat" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Dataset/NATOPS/12_0345c.mat" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Dataset/ArmGesture/12_0345d.mat" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Dataset/NATOPS/12_0345d.mat" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Dataset/ArmGesture/23_2345c.mat" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Dataset/NATOPS/23_2345c.mat" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Dataset/ArmGesture/23_2345d.mat" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Dataset/NATOPS/23_2345d.mat" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Dataset/ArmGesture/34_2345c.mat" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Dataset/NATOPS/34_2345c.mat" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Dataset/ArmGesture/34_2345d.mat" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Dataset/NATOPS/34_2345d.mat" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Dataset/ArmGesture/45_0123c.mat" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Dataset/NATOPS/45_0123c.mat" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Dataset/ArmGesture/45_0123d.mat" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Dataset/NATOPS/45_0123d.mat" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Dataset/ArmGesture/012_345c.mat" afterPath="$PROJECT_DIR$/Dataset/ArmGesture/012_345c.mat" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Dataset/NATOPS/012_345c.mat" afterPath="$PROJECT_DIR$/Dataset/NATOPS/012_345c.mat" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Dataset/ArmGesture/012_345d.mat" afterPath="$PROJECT_DIR$/Dataset/ArmGesture/012_345d.mat" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Dataset/NATOPS/012_345d.mat" afterPath="$PROJECT_DIR$/Dataset/NATOPS/012_345d.mat" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Dataset/ArmGesture/01_2345c.mat" afterPath="$PROJECT_DIR$/Dataset/ArmGesture/01_2345c.mat" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Dataset/NATOPS/01_2345c.mat" afterPath="$PROJECT_DIR$/Dataset/NATOPS/01_2345c.mat" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Dataset/ArmGesture/01_2345d.mat" afterPath="$PROJECT_DIR$/Dataset/ArmGesture/01_2345d.mat" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Dataset/NATOPS/01_2345d.mat" afterPath="$PROJECT_DIR$/Dataset/NATOPS/01_2345d.mat" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Dataset/ArmGesture/0_12345c.mat" afterPath="$PROJECT_DIR$/Dataset/ArmGesture/0_12345c.mat" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Dataset/NATOPS/0_12345c.mat" afterPath="$PROJECT_DIR$/Dataset/NATOPS/0_12345c.mat" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Dataset/ArmGesture/0_12345d.mat" afterPath="$PROJECT_DIR$/Dataset/ArmGesture/0_12345d.mat" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Dataset/NATOPS/0_12345d.mat" afterPath="$PROJECT_DIR$/Dataset/NATOPS/0_12345d.mat" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Tests/tests_agc1.py" afterPath="$PROJECT_DIR$/Tests/tests_agc1.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Tests/tests_agc25.py" afterPath="$PROJECT_DIR$/Tests/tests_agc25.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Tests/tests_nt.py" afterPath="$PROJECT_DIR$/Tests/tests_nt.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Tests/tests_ntc25.py" afterPath="$PROJECT_DIR$/Tests/tests_ntc25.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="hidden_states_entropy.iws" />
@@ -86,7 +113,7 @@
         <entry file="file://$PROJECT_DIR$/Tests/tests_agc25.py">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
+              <caret line="11" column="0" selection-start-line="11" selection-start-column="0" selection-end-line="39" selection-end-column="6" />
               <folding>
                 <element signature="e#0#41#0" expanded="true" />
               </folding>
@@ -98,7 +125,7 @@
         <entry file="file://$PROJECT_DIR$/Tests/tests_agc1.py">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="8" column="33" selection-start-line="8" selection-start-column="33" selection-end-line="8" selection-end-column="33" />
+              <caret line="11" column="0" selection-start-line="11" selection-start-column="0" selection-end-line="39" selection-end-column="6" />
               <folding>
                 <element signature="e#0#41#0" expanded="true" />
               </folding>
@@ -110,19 +137,7 @@
         <entry file="file://$PROJECT_DIR$/Tests/tests_agTc1.py">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
-              <folding>
-                <element signature="e#0#41#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="tests_agTc25.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Tests/tests_agTc25.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="12" column="15" selection-start-line="12" selection-start-column="15" selection-end-line="12" selection-end-column="15" />
+              <caret line="16" column="0" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
               <folding>
                 <element signature="e#0#41#0" expanded="true" />
               </folding>
@@ -154,10 +169,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="crossfoldcrf.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="crossfoldcrf.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Tests/crossfoldcrf.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.32903227">
+            <state vertical-scroll-proportion="0.0">
               <caret line="70" column="31" selection-start-line="70" selection-start-column="31" selection-end-line="70" selection-end-column="31" />
               <folding>
                 <element signature="e#0#52#0" expanded="true" />
@@ -171,7 +186,14 @@
         <entry file="file://$PROJECT_DIR$/Tests/tests_ntc25.py">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="15" selection-end-column="96" />
+              <caret line="14" column="95" selection-start-line="14" selection-start-column="95" selection-end-line="14" selection-end-column="95" />
+              <caret line="17" column="95" selection-start-line="17" selection-start-column="95" selection-end-line="17" selection-end-column="95" />
+              <caret line="20" column="95" selection-start-line="20" selection-start-column="95" selection-end-line="20" selection-end-column="95" />
+              <caret line="23" column="95" selection-start-line="23" selection-start-column="95" selection-end-line="23" selection-end-column="95" />
+              <caret line="28" column="95" selection-start-line="28" selection-start-column="95" selection-end-line="28" selection-end-column="95" />
+              <caret line="31" column="95" selection-start-line="31" selection-start-column="95" selection-end-line="31" selection-end-column="95" />
+              <caret line="34" column="95" selection-start-line="34" selection-start-column="95" selection-end-line="34" selection-end-column="95" />
+              <caret line="37" column="95" selection-start-line="37" selection-start-column="95" selection-end-line="37" selection-end-column="95" />
               <folding>
                 <element signature="e#0#41#0" expanded="true" />
               </folding>
@@ -179,11 +201,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="tests_nt.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="tests_nt.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Tests/tests_nt.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="13" column="0" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.5225806">
+              <caret line="27" column="37" selection-start-line="27" selection-start-column="37" selection-end-line="27" selection-end-column="37" />
               <folding>
                 <element signature="e#0#41#0" expanded="true" />
               </folding>
@@ -209,7 +231,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/../hidden_states_entropy/Tests/scripts/genetic_NT/gasecond_run.py" />
         <option value="$PROJECT_DIR$/../hidden_states_entropy/Tests/scripts/genetic_NT/gafirst_run.py" />
         <option value="$PROJECT_DIR$/../hidden_states_entropy/Tests/scripts/genetic_NT/aux.py" />
         <option value="$PROJECT_DIR$/../hidden_states_entropy/Dataset/Output/Results/Other/plotCONFUSIONMATRIX.py" />
@@ -251,15 +272,16 @@
         <option value="$PROJECT_DIR$/Tests/tests_syntetic.py" />
         <option value="$PROJECT_DIR$/Output/Results/ArmGesture0_12345d.txt" />
         <option value="$PROJECT_DIR$/Tests/tests_ag.py" />
-        <option value="$PROJECT_DIR$/Tests/tests_agc1.py" />
-        <option value="$PROJECT_DIR$/Tests/tests_ntc25.py" />
-        <option value="$PROJECT_DIR$/Tests/tests_nt.py" />
         <option value="$PROJECT_DIR$/Tests/legacy/tests_agTc1.py" />
         <option value="$PROJECT_DIR$/Tests/tests_agTc1.py" />
         <option value="$PROJECT_DIR$/Tests/tests_agTc25.py" />
         <option value="$PROJECT_DIR$/Tests/tests_ntTc1.py" />
         <option value="$PROJECT_DIR$/Tests/tests_ntTc25.py" />
         <option value="$PROJECT_DIR$/Tests/crossfoldcrf.py" />
+        <option value="$PROJECT_DIR$/Tests/tests_agc1.py" />
+        <option value="$PROJECT_DIR$/Tests/tests_agc25.py" />
+        <option value="$PROJECT_DIR$/Tests/tests_ntc25.py" />
+        <option value="$PROJECT_DIR$/Tests/tests_nt.py" />
       </list>
     </option>
   </component>
@@ -271,10 +293,9 @@
     <order />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="1920" />
-    <option name="y" value="24" />
+    <option name="y" value="-4" />
     <option name="width" value="1920" />
-    <option name="height" value="1056" />
+    <option name="height" value="1084" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -299,7 +320,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -310,28 +330,6 @@
             <PATH_ELEMENT>
               <option name="myItemId" value="External Libraries" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="&lt; Python 2.7.6 (/usr/bin/python2.7) &gt;" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="hidden_states" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="External Libraries" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="&lt; Python 2.7.6 (/usr/bin/python2.7) &gt;" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="dist-packages" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
@@ -418,45 +416,10 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="hidden_states" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="hidden_states" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Dataset" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="NATOPS" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="hidden_states" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="hidden_states" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Dataset" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ArmGesture" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
         </subPane>
       </pane>
       <pane id="Scratches" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -486,10 +449,10 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/Dataset" />
-      <recent name="$PROJECT_DIR$/Tests" />
       <recent name="$PROJECT_DIR$/Dataset/NATOPS" />
       <recent name="$PROJECT_DIR$/Dataset/ArmGesture" />
+      <recent name="$PROJECT_DIR$/Dataset" />
+      <recent name="$PROJECT_DIR$/Tests" />
       <recent name="$PROJECT_DIR$/../hidden_states_entropy/Dataset/Data/NATOPS" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
@@ -807,12 +770,6 @@
       <option name="number" value="Default" />
       <updated>1446766459773</updated>
     </task>
-    <task id="LOCAL-00011" summary="created NATOPS tests">
-      <created>1447377623662</created>
-      <option name="number" value="00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1447377623662</updated>
-    </task>
     <task id="LOCAL-00012" summary="created NATOPS tests">
       <created>1447469525537</created>
       <option name="number" value="00012" />
@@ -1101,7 +1058,13 @@
       <option name="project" value="LOCAL" />
       <updated>1459531514886</updated>
     </task>
-    <option name="localTasksCounter" value="60" />
+    <task id="LOCAL-00060" summary="qpbo, adds full dataset tests">
+      <created>1459817210329</created>
+      <option name="number" value="00060" />
+      <option name="project" value="LOCAL" />
+      <updated>1459817210330</updated>
+    </task>
+    <option name="localTasksCounter" value="61" />
     <servers />
   </component>
   <component name="TodoView">
@@ -1114,30 +1077,30 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="1920" y="24" width="1920" height="1056" extended-state="6" />
-    <editor active="true" />
+    <frame x="0" y="-4" width="1920" height="1084" extended-state="6" />
+    <editor active="false" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.29082176" sideWeight="0.742268" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3089648" sideWeight="0.742268" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.328125" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.23645833" sideWeight="0.50747067" order="12" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.31979167" sideWeight="0.48292422" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32708332" sideWeight="0.4967983" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.26354167" sideWeight="0.49252936" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24919957" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.34895834" sideWeight="0.49359658" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4669157" sideWeight="0.25773194" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.42395833" sideWeight="0.49573106" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.26354167" sideWeight="0.49252936" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Thumbnails" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32939914" sideWeight="0.49786553" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.29895833" sideWeight="0.49573106" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.42395833" sideWeight="0.49573106" order="5" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -1166,7 +1129,8 @@
     <MESSAGE value="Fixes bug in script" />
     <MESSAGE value="adds synthetic data" />
     <MESSAGE value="changes inference to ad3, adds c modifier" />
-    <option name="LAST_COMMIT_MESSAGE" value="changes inference to ad3, adds c modifier" />
+    <MESSAGE value="qpbo, adds full dataset tests" />
+    <option name="LAST_COMMIT_MESSAGE" value="qpbo, adds full dataset tests" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1194,34 +1158,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/Tests/measures.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="94" column="61" selection-start-line="94" selection-start-column="60" selection-end-line="94" selection-end-column="61" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Tests/crossfoldcrf.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="137" column="49" selection-start-line="137" selection-start-column="49" selection-end-line="137" selection-end-column="49" />
-          <folding>
-            <element signature="e#0#52#0" expanded="true" />
-            <element signature="e#292#1835#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Tests/tests_agc25.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="9" column="10" selection-start-line="9" selection-start-column="10" selection-end-line="9" selection-end-column="10" />
-          <folding>
-            <element signature="e#0#41#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Tests/tests_syntetic.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1437,20 +1373,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Dataset/ArmGesture/012_345c.mat">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Dataset/NATOPS/012_345c.mat">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Output/Confusion_Matrix/0_12345c81.png">
       <provider selected="true" editor-type-id="images">
         <state />
@@ -1506,60 +1428,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Tests/tests_agc1.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="8" column="33" selection-start-line="8" selection-start-column="33" selection-end-line="8" selection-end-column="33" />
-          <folding>
-            <element signature="e#0#41#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Tests/tests_agc25.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#41#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Tests/tests_nt.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="13" column="0" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#41#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Tests/tests_agTc1.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#41#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Tests/tests_agTc25.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="12" column="15" selection-start-line="12" selection-start-column="15" selection-end-line="12" selection-end-column="15" />
-          <folding>
-            <element signature="e#0#41#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Tests/tests_ntc25.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="15" selection-end-column="96" />
           <folding>
             <element signature="e#0#41#0" expanded="true" />
           </folding>
@@ -1588,11 +1460,84 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Tests/crossfoldcrf.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.32903227">
+        <state vertical-scroll-proportion="0.0">
           <caret line="70" column="31" selection-start-line="70" selection-start-column="31" selection-end-line="70" selection-end-column="31" />
           <folding>
             <element signature="e#0#52#0" expanded="true" />
             <element signature="e#292#1835#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Tests/tests_agTc1.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="16" column="0" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#41#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Dataset/ArmGesture/012_345c.mat">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Dataset/NATOPS/012_345c.mat">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Tests/tests_agc25.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="11" column="0" selection-start-line="11" selection-start-column="0" selection-end-line="39" selection-end-column="6" />
+          <folding>
+            <element signature="e#0#41#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Tests/tests_agc1.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="11" column="0" selection-start-line="11" selection-start-column="0" selection-end-line="39" selection-end-column="6" />
+          <folding>
+            <element signature="e#0#41#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Tests/tests_ntc25.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="14" column="95" selection-start-line="14" selection-start-column="95" selection-end-line="14" selection-end-column="95" />
+          <caret line="17" column="95" selection-start-line="17" selection-start-column="95" selection-end-line="17" selection-end-column="95" />
+          <caret line="20" column="95" selection-start-line="20" selection-start-column="95" selection-end-line="20" selection-end-column="95" />
+          <caret line="23" column="95" selection-start-line="23" selection-start-column="95" selection-end-line="23" selection-end-column="95" />
+          <caret line="28" column="95" selection-start-line="28" selection-start-column="95" selection-end-line="28" selection-end-column="95" />
+          <caret line="31" column="95" selection-start-line="31" selection-start-column="95" selection-end-line="31" selection-end-column="95" />
+          <caret line="34" column="95" selection-start-line="34" selection-start-column="95" selection-end-line="34" selection-end-column="95" />
+          <caret line="37" column="95" selection-start-line="37" selection-start-column="95" selection-end-line="37" selection-end-column="95" />
+          <folding>
+            <element signature="e#0#41#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Tests/tests_nt.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.5225806">
+          <caret line="27" column="37" selection-start-line="27" selection-start-column="37" selection-end-line="27" selection-end-column="37" />
+          <folding>
+            <element signature="e#0#41#0" expanded="true" />
           </folding>
         </state>
       </provider>
