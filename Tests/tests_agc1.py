@@ -9,7 +9,6 @@ number_folds = 5
 states = [2, 4, 6, 8, 10, 12, 14]
 n_jobs = 5
 
-
 # -- Continuous
 
 cross_fold_ldcrf(mat='../Dataset/ArmGesture/12_0345c.mat', dist=distance.sqeuclidean,

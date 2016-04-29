@@ -1,6 +1,4 @@
 import numpy as np
-import scipy.io as sio
-import scipy.spatial.distance as distance
 import math
 
 __author__ = 'Manoel Ribeiro'
@@ -51,7 +49,6 @@ def normalize_samples(y, x):
 def calculate_dist(y, x, dist):
 
     label_hash = normalize_samples(y, x)
-
 
     label_dist = {}
     total_dist = 0

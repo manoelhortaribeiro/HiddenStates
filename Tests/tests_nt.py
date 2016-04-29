@@ -23,8 +23,6 @@ cross_fold_ldcrf(mat='../Dataset/NATOPS/34_0125c.mat', dist=distance.sqeuclidean
 cross_fold_ldcrf(mat='../Dataset/NATOPS/45_0123c.mat', dist=distance.sqeuclidean,
                  labels=labels, number_folds=number_folds, states=states, n_jobs=n_jobs, c=1)
 
-exit()
-
 # -- Discrete
 
 cross_fold_ldcrf(mat='../Dataset/NATOPS/12_0345d.mat', dist=distance.sqeuclidean,
@@ -38,8 +36,6 @@ cross_fold_ldcrf(mat='../Dataset/NATOPS/34_0125d.mat', dist=distance.sqeuclidean
 
 cross_fold_ldcrf(mat='../Dataset/NATOPS/45_0123d.mat', dist=distance.sqeuclidean,
                  labels=labels, number_folds=number_folds, states=states, n_jobs=n_jobs, c=1)
-
-exit()
 
 # -- Continuous
 
