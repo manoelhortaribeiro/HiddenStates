@@ -1,8 +1,9 @@
 import numpy as np
-import random
 from pystruct.models import GraphCRF, LatentGraphCRF
 from sklearn.cluster import KMeans
 from sklearn.decomposition import PCA
+
+__author__ = 'Manoel Ribeiro'
 
 
 def kmeans_init(data, data_grouping):

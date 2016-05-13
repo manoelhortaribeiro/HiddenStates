@@ -1,7 +1,0 @@
-Full random init, seed 1, jobs 4, svmiter 7
-Number of latent iterations in the SSVM: 7
-Number of states used in each test: [48, 42, 36, 24, 12, 6]
-Optimal-test (avg, std): (0.0, 0.0)
-Optimal-train (avg, std): (0.0, 0.0)
-Sub-Optimal-test (avg, std): (0.0, 0.0)
-Sub-Optimal-train (avg, std): (0.0, 0.0)

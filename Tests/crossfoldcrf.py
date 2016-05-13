@@ -1,16 +1,15 @@
-from pystruct.learners import NSlackSSVM, LatentSSVM
-from Models.GraphLDCRF import GraphLDCRF
-from Util.data_parser import load_data
-from measures import *
 import multiprocessing
 import functools
 import re
 import time
 
+from pystruct.learners import NSlackSSVM, LatentSSVM
+
+from Models.GraphLDCRF import GraphLDCRF
+from Util.data_parser import load_data
+from measures import *
+
 __author__ = 'Manoel Ribeiro'
-
-
-# ------ IO -------
 
 
 def write_out(mat, results, number_folds, c=1):
@@ -53,11 +52,10 @@ def write_out(mat, results, number_folds, c=1):
 
     return (avg_test_opt, avg_test_sopt)
 
+
 # ------ Functions ------
 
-
 def test_states(states, x, y, x_t, y_t, jobs):
-
     latent_pbl = GraphLDCRF(n_states_per_label=states, inference_method='qpbo')
 
     base_ssvm = NSlackSSVM(latent_pbl, C=1, tol=.01, inactive_threshold=1e-3, batch_size=10, verbose=0, n_jobs=jobs)
@@ -92,7 +90,6 @@ def process_fold(i, x_all, y_all, number_folds, number_states, dist, labels, n_j
 
 # ---- Main stuff ------
 
-
 def validation(mat, x, y, dist, labels, number_folds, states, n_jobs, c):
     our_results, normal_results = dict(), dict()
 
@@ -116,7 +113,6 @@ def validation(mat, x, y, dist, labels, number_folds, states, n_jobs, c):
 
 
 def test(mat, our_states, normal_states, x, y, x_t, y_t, labels, dist, n_jobs, c):
-
     prop = calculate_dist(y, x, dist)
     print "Distances calculated"
 
@@ -135,7 +131,7 @@ def test(mat, our_states, normal_states, x, y, x_t, y_t, labels, dist, n_jobs, c
 
 def cross_fold_ldcrf(mat, dist, labels, number_folds, states, n_jobs, c=1):
     x, y = load_data(mat)
-    results = {}
+    results = dict()
     results["final"] = []
 
     for i in range(number_folds):
