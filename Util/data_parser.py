@@ -14,7 +14,6 @@ def load_data(mat):
     seqs = [seq.tolist() for seq in seqs]
 
     # if Y > X, get X. if Y > X get Y
-
     for i in range(len(labels)):
 
         if len(seqs[i][0]) > len(labels[i][0]):
