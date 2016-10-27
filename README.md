@@ -1,6 +1,6 @@
 # Introduction
 
-This repo contains the datasets used for the experiments done in the paper:
+This repo contains the datasets and the experiments done in the paper:
 
 - *Complexity-Aware Assignment of Latent Values in Discriminative Models for Accurate Gesture Recognition*
 
