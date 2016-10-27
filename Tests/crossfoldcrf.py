@@ -1,13 +1,11 @@
-import multiprocessing
-import functools
-import re
-import time
-
 from pystruct.learners import NSlackSSVM, LatentSSVM
-
 from Models.GraphLDCRF import GraphLDCRF
 from Util.data_parser import load_data
 from measures import *
+import multiprocessing
+import functools
+import time
+import re
 
 __author__ = 'Manoel Ribeiro'
 

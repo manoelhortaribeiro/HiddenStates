@@ -5,6 +5,11 @@ __author__ = 'Manoel Ribeiro'
 
 
 def load_data(mat):
+    """
+    This function loads the data from the matlab matrix format and convert it to a numpy array format.
+    :param mat: Matlab matrix.
+    :return: Numpy array containing the data.
+    """
     mat = sio.loadmat(mat)
 
     labels = mat['labels'][0].tolist()

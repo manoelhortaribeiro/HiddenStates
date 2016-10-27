@@ -1,4 +1,3 @@
-
 import numpy as np
 from pystruct.models import GraphCRF, LatentGraphCRF
 from sklearn.cluster import KMeans
@@ -28,10 +27,6 @@ class GraphLDCRF(LatentGraphCRF):
         self.n_states_per_label = n_states_per_label
         GraphCRF.__init__(self, n_states=None, n_features=n_features,
                           inference_method=inference_method)
-
-    def random_init(self, X, Y):
-        H = [np.random.randint(self.n_states, size=y.shape) for y in Y]
-        return H
 
     def init_latent(self, X, Y):
 

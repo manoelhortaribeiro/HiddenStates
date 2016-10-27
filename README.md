@@ -4,7 +4,7 @@ This folder contains the datasets used for the experiments done in the paper:
 
 - *Complexity-Aware Assignment of Latent Values in Discriminative Models for Accurate Gesture Recognition*
 
-To be presented at:
+Presented at:
 
 - *2016 29th SIBGRAPI Conference on Graphics, Patterns and Images*
 

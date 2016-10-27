@@ -1,5 +1,4 @@
 import scipy.spatial.distance as distance
-
 from Tests.crossfoldcrf import cross_fold_ldcrf
 import functools
 

@@ -1,10 +1,9 @@
-import scipy.spatial.distance as distance
-from sklearn.metrics import confusion_matrix
-import matplotlib.pyplot as plt
 from pystruct.learners import NSlackSSVM, LatentSSVM
-
+from sklearn.metrics import confusion_matrix
+import scipy.spatial.distance as distance
 from Models.GraphLDCRF import GraphLDCRF
 from Util.data_parser import load_data
+import matplotlib.pyplot as plt
 from measures import *
 
 __author__ = 'Manoel Ribeiro'
