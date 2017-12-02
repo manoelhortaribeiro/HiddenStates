@@ -31,7 +31,7 @@ If you have any problems _pystruct_ gives more detailed [instructions][2], inclu
 
 # Datasets
 
-The `.\Dataset` folders contain two datasets, that can be found [here][1]:
+The `./Dataset` folders contain two datasets, that can be found [here][1]:
 
 * The NATOPS dataset
 > This dataset contains three pairs of body-hand gestures used when handling aircraft on the deck of an aircraft carrier. The observation features include automatically tracked 3D body postures and hand shapes. The body feature includes 3D joint velocities for left/right elbows and wrists, and represented as a 12D feature vector. The hand feature includes probability estimates of five predefined hand shapes - opened/closed palm, thumb up/down, and "no hand". The fifth shape, no hand, was dropped in the final representation, resulting in an 8D feature vector. The dataset was sampled at 20 FPS.
